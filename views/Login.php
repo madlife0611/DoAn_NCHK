@@ -24,7 +24,7 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
 
-      <form action="" method="POST">
+      <form action="index.php?controller=login&action=login" method="post">
         <div class="input-group mb-3">
           <input type="email" class="form-control" placeholder="Email">
           <div class="input-group-append">
@@ -57,41 +57,6 @@
           <!-- /.col -->
         </div>
       </form>
-      <?php
-		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-			// Lấy thông tin đăng nhập từ form HTML
-			$email = $_POST['email'];
-			$password = $_POST['password'];
-
-			try {
-				$dbh = new PDO("mysql:host=localhost;dbname=mvc_qlvattu","root","");
-
-				// Kiểm tra thông tin đăng nhập trong CSDL
-				$stmt = $dbh->prepare('SELECT * FROM accounts WHERE email = ? AND password = ?');
-				$stmt->execute([$email, $password]);
-
-				$user = $stmt->fetch();
-
-				if ($user) {
-					// Nếu thông tin đăng nhập chính xác, chuyển hướng đến trang dành cho người dùng hoặc quản trị viên
-					if ($user['isAdmin'] == 1) {
-						header('Location: admin/index.php');
-					} else {
-						header('Location: users/index.php');
-					}
-				} else {
-					// Nếu thông tin đăng nhập không chính xác, hiển thị thông báo lỗi
-					echo '<p style="color: red;">Email hoặc mật khẩu không chính xác</p>';
-				}
-
-				// Đóng kết nối CSDL
-				$dbh = null;
-			} catch (PDOException $e) {
-				// Hiển thị thông báo lỗi nếu có lỗi xảy ra
-				echo "Lỗi kết nối CSDL: " . $e->getMessage();
-			}
-		}
-	?>
     </div>
     <!-- /.login-card-body -->
   </div>

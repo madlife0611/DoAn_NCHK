@@ -4,7 +4,7 @@
 		//ham ket noi csdl, ket qua tra ve mot bien -> kieu bien nay la bien object
 		public static function getInstance(){
 
-			$db = new PDO("mysql:host=localhost;dbname=php_qlvattu","root","");
+			$db = new PDO("mysql:host=localhost;dbname=mvc_qlvattu","root","");
 
 			//lay du lieu theo kieu unicode
 			$db->exec("set names utf8");
