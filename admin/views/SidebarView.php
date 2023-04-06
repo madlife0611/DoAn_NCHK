@@ -1,8 +1,8 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
   <a href="index3.html" class="brand-link">
-    <img src="../assets/lte/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-    <span class="brand-text font-weight-light">AdminLTE 3</span>
+    <img src="../assets/image/logo-612x612.png" alt="BKAT Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <span class="brand-text font-weight-light">BKAT Admin</span>
   </a>
 
   <!-- Sidebar -->
@@ -43,7 +43,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="pages/gallery.html" class="nav-link">
+          <a href="index.php?controller=products" class="nav-link">
             <i class="nav-icon fas fa-boxes"></i>
             <p>
               Vật tư
@@ -71,6 +71,14 @@
             <i class="nav-icon far fa-clipboard"></i>
             <p>
               Yêu cầu sử dụng
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="index.php?controller=accounts" class="nav-link">
+            <i class="nav-icon fas fa-users"></i>
+            <p>
+              Nhân sự
             </p>
           </a>
         </li>

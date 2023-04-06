@@ -26,7 +26,7 @@
 
       <form action="" method="POST">
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email">
+          <input type="email" name="email" class="form-control" placeholder="Email">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -34,7 +34,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="password" name="password" class="form-control" placeholder="Password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -62,6 +62,8 @@
 			// Lấy thông tin đăng nhập từ form HTML
 			$email = $_POST['email'];
 			$password = $_POST['password'];
+
+      $password = md5($password);
 
 			try {
 				$dbh = new PDO("mysql:host=localhost;dbname=mvc_qlvattu","root","");
