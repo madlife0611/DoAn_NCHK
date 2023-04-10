@@ -1,43 +1,51 @@
 <?php 
 	trait AccountsModel{
-		// //lay ve danh sach cac ban ghi
-		// public function modelRead($recordPerPage){
-		// 	//lay bien page truyen tu url
-		// 	$page = isset($_GET["p"]) && $_GET["p"] > 0 ? ($_GET["p"] - 1) : 0;
-		// 	//lay tu ban ghi nao
-		// 	$from = $page * $recordPerPage;
-		// 	//---
-		// 	//lay bien ket noi csdl
-		// 	$db = Connection::getInstance();
-		// 	//thuc hien truy van
-		// 	$query = $db->query("select * from accounts order by matk desc limit $from,$recordPerPage");
-		// 	//tra ve nhieu ban ghi
-		// 	return $query->fetchAll();
-		// }
-		// //tinh tong cac ban ghi
-		// public function modelTotalRecord(){
-		// 	//lay bien ket noi csdl
-		// 	$db = Connection::getInstance();
-		// 	//thuc hien truy van
-		// 	$query = $db->query("select * from accounts");
-		// 	//tra ve so luong ban ghi
-		// 	return $query->rowCount();
-		// }
-		// //lay mot ban ghi tuong ung voi matk truyen vao
-		// public function modelGetRecord(){
-		// 	$matk = isset($_GET["matk"]) && $_GET["matk"] > 0 ? $_GET["matk"] : 0;
-		// 	//lay bien ket noi csdl
-		// 	$db = Connection::getInstance();
-		// 	//chuan bi truy van
-		// 	$query = $db->prepare("select * from accounts where matk=:var_matk");
-		// 	//thuc thi truy van, co truyen tham so vao cau lenh sql
-		// 	$query->execute(["var_matk"=>$matk]);
-		// 	//tra ve mot ban ghi
-		// 	return $query->fetch();
-		// }
+		//lay ve danh sach cac ban ghi
+		public function modelRead($recordPerPage){
+			//lay bien page truyen tu url
+			$page = isset($_GET["p"]) && $_GET["p"] > 0 ? ($_GET["p"] - 1) : 0;
+			//lay tu ban ghi nao
+			$from = $page * $recordPerPage;
+			//---
+			//lay bien ket noi csdl
+			$db = Connection::getInstance();
+			//thuc hien truy van
+			$query = $db->query("select * from accounts order by matk asc limit $from,$recordPerPage");
+			//tra ve nhieu ban ghi
+			return $query->fetchAll();
+		}
+		//tinh tong cac ban ghi
+		public function modelTotalRecord(){
+			//lay bien ket noi csdl
+			$db = Connection::getInstance();
+			//thuc hien truy van
+			$query = $db->query("select * from accounts");
+			//tra ve so luong ban ghi
+			return $query->rowCount();
+		}
+		//lay mot ban ghi tuong ung voi matk truyen vao
+		public function modelGetRecord(){
+			$matk = isset($_GET["matk"]) && $_GET["matk"] > 0 ? $_GET["matk"] : 0;
+			//lay bien ket noi csdl
+			$db = Connection::getInstance();
+			//chuan bi truy van
+			$query = $db->prepare("select * from accounts where matk=:var_matk");
+			//thuc thi truy van, co truyen tham so vao cau lenh sql
+			$query->execute(["var_matk"=>$matk]);
+			//tra ve mot ban ghi
+			return $query->fetch();
+		}
+		public function getDepartment($mapb){
+			//lay bien ket noi csdl
+			$db = Connection::getInstance();
+			//thuc hien truy van
+			$query = $db->query("select * from departments where mapb = $mapb");
+			//tra ve tat ca cac ban ghi lay duoc tu cau truy van
+			return $query->fetch();
+		}
 		// public function modelUpdate(){
 		// 	$matk = isset($_GET["matk"]) && $_GET["matk"] > 0 ? $_GET["matk"] : 0;
-		// 	$tentk = $_POST["tentk"];
+		// 	$hoten = $_POST["hoten"];
 		// 	$password = $_POST["password"];
 		// 	$email = $_POST["email"];
 		// 	$diachi = $_POST["diachi"];

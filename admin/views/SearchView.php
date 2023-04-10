@@ -40,28 +40,27 @@ $this->fileLayout = "Layout.php";
             </div>
             <div class="form-inline float-right">
               <div class="input-group" data-widget="sidebar-search">
-                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search"
-                  id="key">
+                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
                 <div class="input-group-append">
-                  <button class="btn btn-default" id="btnSearchForAdmin">
+                  <button class="btn btn-default">
                     <i class="fas fa-fw fa-search"></i>
                   </button>
                 </div>
               </div>
               <div class="sidebar-search-results">
-                <div class="list-group">
-                  <a href="#" class="list-group-item">
-                    <div class="search-title">
-                      <strong class="text-light"></strong>Không tìm thấy vật tư nào!
-                    </div>
-                    <ul>
-                      <li><a href="#">Sản phẩm 1</a></li>
-                      <li><a href="#">Sản phẩm 2</a></li>
-                      <li><a href="#">Sản phẩm 3</a></li>
-                    </ul>
+                <div class="list-group"><a href="#" class="list-group-item">
+                    <div class="search-title"><strong class="text-light"></strong>N<strong
+                        class="text-light"></strong>o<strong class="text-light"></strong> <strong
+                        class="text-light"></strong>e<strong class="text-light"></strong>l<strong
+                        class="text-light"></strong>e<strong class="text-light"></strong>m<strong
+                        class="text-light"></strong>e<strong class="text-light"></strong>n<strong
+                        class="text-light"></strong>t<strong class="text-light"></strong> <strong
+                        class="text-light"></strong>f<strong class="text-light"></strong>o<strong
+                        class="text-light"></strong>u<strong class="text-light"></strong>n<strong
+                        class="text-light"></strong>d<strong class="text-light"></strong>!<strong
+                        class="text-light"></strong></div>
                     <div class="search-path"></div>
-                  </a>
-                </div>
+                  </a></div>
               </div>
             </div>
           </div>
@@ -87,8 +86,7 @@ $this->fileLayout = "Layout.php";
                     <td>
                       <?php echo $rows->masp; ?>
                     </td>
-                    <td><img src="../assets/image/upload/products/<?php echo $rows->anhsp; ?>" alt="product-img"
-                        class="img-product"></td>
+                    <td><img src="../assets/image/upload/products/<?php echo $rows->anhsp; ?>" alt="product-img" class="img-product"></td>
                     <td>
                       <?php echo $rows->tensp; ?>
                     </td>
@@ -146,33 +144,3 @@ $this->fileLayout = "Layout.php";
     </div>
   </div>
 </section>
-<script type="text/javascript">
-  //tinh nang nay phai dung ket hop voi jquery -> phai load thu vien jquery
-  $(document).ready(function () {
-    //bat su kien click cua id=btnSearch
-    $("#btnSearchForAdmin").click(function () {
-      var key = $("#key").val();
-      //di chuyen den url tim kiem
-      location.href = "index.php?controller=search&action=name&key=" + key;
-    });
-    //---
-    $(".input-control").keyup(function () {
-      var strKey = $("#key").val();
-      if (strKey.trim() == "")
-        $(".sidebar-search-results").attr("style", "display:none");
-      else {
-        $(".sidebar-search-results").attr("style", "display:block");
-        //---
-        //su dung ajax de lay du lieu
-        $.get("index.php?controller=search&action=ajaxSearch&key=" + strKey, function (data) {
-          //clear cac the li ben trong the ul
-          $(".sidebar-search-results ul").empty();
-          //them du lieu vua lay duoc bang ajax vao the ul
-          $(".sidebar-search-results ul").append(data);
-        });
-        //---
-      }
-    });
-    //---
-  });
-</script>
