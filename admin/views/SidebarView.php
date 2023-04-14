@@ -51,7 +51,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="pages/gallery.html" class="nav-link">
+          <a href="index.php?controller=categories" class="nav-link">
             <i class="nav-icon fas fa-list-alt"></i>
             <p>
               Danh mục vật tư
@@ -59,7 +59,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="pages/gallery.html" class="nav-link">
+          <a href="index.php?controller=suppliers" class="nav-link">
             <i class="nav-icon fas fa-building"></i>
             <p>
               Nhà cung cấp
