@@ -63,11 +63,23 @@ $this->fileLayout = "Layout.php";
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <div class="text-right">
-                                    <a href="#" class="btn btn-sm btn-primary">
-                                        <i class="fas fa-user-cog"></i> Edit Profile
-                                    </a>
-                                </div>
+                           
+                                <a class="btn btn-primary btn-sm" href="#">
+                                    <i class="fas fa-eye">
+                                    </i>
+                                    View
+                                </a>
+                                <a class="btn btn-info btn-sm" href="index.php?controller=suppliers&action=update&mancc=<?php echo $rows->mancc; ?>">
+                                    <i class="fas fa-pencil-alt">
+                                    </i>
+                                    Edit
+                                </a>
+                                <a class="btn btn-danger btn-sm" href="index.php?controller=suppliers&action=delete&mancc=<?php echo $rows->mancc; ?>" onclick="return window.confirm('Bạn có chắc chắn muốn xóa nhà cung cấp này?');">
+                                    <i class="fas fa-trash">
+                                    </i>
+                                    Delete
+                                </a>
+                            
                             </div>
                         </div>
                     </div>

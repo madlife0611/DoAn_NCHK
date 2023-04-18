@@ -8,14 +8,14 @@
   <!-- Sidebar -->
   <div class="sidebar">
     <!-- Sidebar user panel (optional) -->
-    <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="../assets/lte/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+        <img src="../assets/image/upload/accounts/<?php echo $_SESSION["anhdaidien"]; ?>" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block">Alexander Pierce</a>
+        <a href="#" class="d-block"><?php echo $_SESSION["hoten"]; ?></a>
       </div>
-    </div> -->
+    </div>
 
     <!-- SidebarSearch Form -->
     <!-- <div class="form-inline">
@@ -79,6 +79,14 @@
             <i class="nav-icon fas fa-users"></i>
             <p>
               Nhân sự
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="index.php?controller=changelog" class="nav-link">
+            <i class="nav-icon fas fa-history"></i>
+            <p>
+              Lịch sử thay đổi
             </p>
           </a>
         </li>

@@ -46,7 +46,7 @@ $this->fileLayout = "Layout.php";
                                 <li class="list-group-item">Tổng vật tư đang được sử dụng: <span
                                         class="text-danger float-right">111</span></li>
                             </ul>
-                            <div class="card-body start-right">
+                            <div class="card-body">
                                 <a class="btn btn-primary btn-sm" href="#">
                                     <i class="fas fa-eye">
                                     </i>

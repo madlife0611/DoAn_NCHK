@@ -1,3 +1,48 @@
+<?php
+    session_start();
+		if (isset($_POST["email"]) && isset($_POST["password"])) {
+			// Lấy thông tin đăng nhập từ form HTML
+			$email = $_POST['email'];
+			$password = $_POST['password'];
+
+      $password = md5($password);
+
+			try {
+				$dbh = new PDO("mysql:host=localhost;dbname=mvc_qlvattu","root","");
+
+				// Kiểm tra thông tin đăng nhập trong CSDL
+				$stmt = $dbh->prepare('SELECT * FROM accounts WHERE email = ? AND password = ?');
+				$stmt->execute([$email, $password]);
+
+				$result = $stmt->fetch();
+          
+
+				if ($result) {
+					// Nếu thông tin đăng nhập chính xác, chuyển hướng đến trang dành cho người dùng hoặc quản trị viên
+					if ($result['isAdmin'] == 1) {
+            $_SESSION['matk'] = $result['matk'];
+            $_SESSION['email_tk'] = $result['email'];
+            $_SESSION['hoten'] = $result['hoten'];
+            $_SESSION['anhdaidien'] = $result['anhdaidien'];
+						header('Location: admin/index.php');
+					} else {
+            $_SESSION['matk'] = $result->matk;
+					  $_SESSION['email_tk'] = $result->email;
+						header('Location: users/index.php');
+					}
+				} else {
+					// Nếu thông tin đăng nhập không chính xác, hiển thị thông báo lỗi
+					echo '<p style="color: red;">Email hoặc mật khẩu không chính xác</p>';
+				}
+
+				// Đóng kết nối CSDL
+				$dbh = null;
+			} catch (PDOException $e) {
+				// Hiển thị thông báo lỗi nếu có lỗi xảy ra
+				echo "Lỗi kết nối CSDL: " . $e->getMessage();
+			}
+		}
+	?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,43 +102,7 @@
           <!-- /.col -->
         </div>
       </form>
-      <?php
-		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-			// Lấy thông tin đăng nhập từ form HTML
-			$email = $_POST['email'];
-			$password = $_POST['password'];
-
-      $password = md5($password);
-
-			try {
-				$dbh = new PDO("mysql:host=localhost;dbname=mvc_qlvattu","root","");
-
-				// Kiểm tra thông tin đăng nhập trong CSDL
-				$stmt = $dbh->prepare('SELECT * FROM accounts WHERE email = ? AND password = ?');
-				$stmt->execute([$email, $password]);
-
-				$user = $stmt->fetch();
-
-				if ($user) {
-					// Nếu thông tin đăng nhập chính xác, chuyển hướng đến trang dành cho người dùng hoặc quản trị viên
-					if ($user['isAdmin'] == 1) {
-						header('Location: admin/index.php');
-					} else {
-						header('Location: users/index.php');
-					}
-				} else {
-					// Nếu thông tin đăng nhập không chính xác, hiển thị thông báo lỗi
-					echo '<p style="color: red;">Email hoặc mật khẩu không chính xác</p>';
-				}
-
-				// Đóng kết nối CSDL
-				$dbh = null;
-			} catch (PDOException $e) {
-				// Hiển thị thông báo lỗi nếu có lỗi xảy ra
-				echo "Lỗi kết nối CSDL: " . $e->getMessage();
-			}
-		}
-	?>
+      
     </div>
     <!-- /.login-card-body -->
   </div>
