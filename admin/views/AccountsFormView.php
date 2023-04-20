@@ -29,7 +29,7 @@ $this->fileLayout = "Layout.php";
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form method="post" action="<?php echo $action; ?>">
+        <form method="post" action="<?php echo $action; ?>" enctype="multipart/form-data">
             <div class="card-body">
                 <div class="form-group">
                     <label for="tenncc">Họ tên</label>

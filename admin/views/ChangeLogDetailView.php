@@ -6,7 +6,8 @@ $this->fileLayout = "Layout.php";
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Lịch sử thay đổi</h1>
+            <button type="button" class="btn btn-default"><a href="index.php?controller=changelog">Trở lại <i
+                            class="fas fa-backward"></i></a></button>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">

@@ -6,7 +6,8 @@ $this->fileLayout = "Layout.php";
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1>Danh sách vật tư</h1>
+      <button type="button" class="btn btn-default"><a href="index.php?controller=products&action=create">Thêm vật tư mới <i
+              class="fas fa-plus"></i></a></button>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
@@ -32,8 +33,8 @@ $this->fileLayout = "Layout.php";
                   <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <div class="dropdown-menu" role="menu" style="">
-                <a class="dropdown-item" href="index.php?controller=products&order=idtang">Theo mã vật tư dần</a>
-                  <a class="dropdown-item" href="index.php?controller=products&order=idgiam">Theo mã vật tư dần</a>
+                  <a class="dropdown-item" href="index.php?controller=products&order=idtang">Theo mã vật tư tăng dần</a>
+                  <a class="dropdown-item" href="index.php?controller=products&order=idgiam">Theo mã vật giảm dần</a>
                   <a class="dropdown-item" href="index.php?controller=products&order=ngaynhapgan">Theo ngày nhập gần
                     dần</a>
                   <a class="dropdown-item" href="index.php?controller=products&order=ngaynhapxa">Theo ngày nhập xa nhất
@@ -42,10 +43,13 @@ $this->fileLayout = "Layout.php";
                     gian ngày bảo trì gần nhất</a>
                   <a class="dropdown-item" href="index.php?controller=products&order=thoigiandenhanbaotrigiam">Theo thời
                     gian ngày bảo trì xa nhất</a>
-                    <a class="dropdown-item" href="index.php?controller=products&order=trangthai_tudo">Trạng thái tự do</a>
-                    <a class="dropdown-item" href="index.php?controller=products&order=trangthai_dangsudung">Trạng thái đang sử dụng</a>
-                    <a class="dropdown-item" href="index.php?controller=products&order=trangthai_dangbaotri">Trạng thái đang bảo trì</a>
-                    <a class="dropdown-item" href="index.php?controller=products&order=trangthai_hong">Trạng thái hỏng</a>
+                  <a class="dropdown-item" href="index.php?controller=products&order=trangthai_tudo">Trạng thái tự
+                    do</a>
+                  <a class="dropdown-item" href="index.php?controller=products&order=trangthai_dangsudung">Trạng thái
+                    đang sử dụng</a>
+                  <a class="dropdown-item" href="index.php?controller=products&order=trangthai_dangbaotri">Trạng thái
+                    đang bảo trì</a>
+                  <a class="dropdown-item" href="index.php?controller=products&order=trangthai_hong">Trạng thái hỏng</a>
                 </div>
               </div>
             </div>
@@ -86,7 +90,6 @@ $this->fileLayout = "Layout.php";
                   <th>Ngày nhập</th>
                   <th>Ngày bảo trì</th>
                   <th>Trạng thái</th>
-                  <th>Control</th>
                 </tr>
               </thead>
               <tbody>
@@ -128,19 +131,17 @@ $this->fileLayout = "Layout.php";
                     </td>
                     <td class="text-right">
                       <a class="btn btn-primary btn-sm" href="#">
-                        <i class="fas fa-folder">
+                        <i class="fas fa-eye">
                         </i>
-                        View
                       </a>
-                      <a class="btn btn-info btn-sm" href="#">
+                      <a class="btn btn-info btn-sm" href="index.php?controller=products&action=update&masp=<?php echo $rows->masp; ?>">
                         <i class="fas fa-pencil-alt">
                         </i>
-                        Edit
                       </a>
-                      <a class="btn btn-danger btn-sm" href="#">
+                      <a class="btn btn-danger btn-sm" href="index.php?controller=products&action=delete&masp=<?php echo $rows->masp; ?>"
+                    onclick="return window.confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');">
                         <i class="fas fa-trash">
                         </i>
-                        Delete
                       </a>
                     </td>
                   </tr>

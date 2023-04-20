@@ -64,23 +64,13 @@ trait ProductsModel
 		//tra ve so luong ban ghi
 		return $query->rowCount();
 	}
-	//hien thi cac danh muc cap con
-	public function modelCategoriesSub($madm)
-	{
-		//lay bien ket noi csdl
-		$db = Connection::getInstance();
-		//thuc hien truy van
-		$query = $db->query("select * from categories where danhmuccha = $madm");
-		//tra ve tat ca cac ban ghi lay duoc tu cau truy van
-		return $query->fetchAll();
-	}
-	//hien thi cac danh muc cap 0
+	//hien thi cac danhsp muc cap 0
 	public function modelCategories()
 	{
 		//lay bien ket noi csdl
 		$db = Connection::getInstance();
 		//thuc hien truy van
-		$query = $db->query("select * from categories where danhmuccha = 0");
+		$query = $db->query("select * from categories");
 		//tra ve tat ca cac ban ghi lay duoc tu cau truy van
 		return $query->fetchAll();
 	}
@@ -104,12 +94,12 @@ trait ProductsModel
 		return $query->fetch();
 	}
 	//lay 1 ban ghi category
-	public function getCompany($macty)
+	public function getSupplier($mancc)
 	{
 		//lay bien ket noi csdl
 		$db = Connection::getInstance();
 		//thuc hien truy van
-		$query = $db->query("select * from companies where macty = $macty");
+		$query = $db->query("select * from suppliers where mancc = $mancc");
 		//tra ve tat ca cac ban ghi lay duoc tu cau truy van
 		return $query->fetch();
 	}
@@ -125,6 +115,193 @@ trait ProductsModel
 		$query->execute(["var_masp" => $masp]);
 		//tra ve mot ban ghi
 		return $query->fetch();
+	}
+	public function modelUpdate()
+	{
+		$masp = isset($_GET["masp"]) && $_GET["masp"] > 0 ? $_GET["masp"] : 0;
+		$tensp = $_POST["tensp"];
+		$mota = $_POST["mota"];
+		$soluong = $_POST["soluong"];
+		$gianhap = $_POST["gianhap"];
+		$ngaynhap = $_POST["ngaynhap"];
+		$hanbaotri = $_POST["hanbaotri"];
+		$madm = $_POST["madm"];
+		$mancc = $_POST["mancc"];
+		// trạng thái có 4 giá trị, nếu nhập ngoài giá trị này thì mặc định là trạng thái 0
+		$trangthai_arr = array(0, 1, 2, 3);
+		$trangthai = in_array($_POST["trangthai"], $trangthai_arr) ? $_POST["trangthai"] : 0;
+		$anhsp = isset($_FILES['anhsp']['name']) ? $_FILES['anhsp']['name'] : "";
+		//lay bien ket noi csdl
+		$db = Connection::getInstance();
+		// Lưu thông tin cũ
+		$query_change = $db->prepare("SELECT * FROM products WHERE masp = :var_masp");
+		$query_change->execute(["var_masp" => $masp]);
+		$dulieucu = $query_change->fetch();
+		//----------
+		//neu user upload anhsp thi thuc hien upload
+		$photo = "";
+		if ($_FILES['anhsp']['name'] != "") {
+			//---
+			//lay anhsp de xoa
+			$oldanhsp = $db->query("select anhsp from products where masp = $masp");
+			if ($oldanhsp->rowCount() > 0) {
+				$record = $oldanhsp->fetch();
+				//xoa anhsp
+				if ($record->anhsp != "" && file_exists("../assets/image/upload/products/" . $record->anhsp))
+					unlink("../assets/image/upload/products/" . $record->anhsp);
+			}
+			//---
+			$anhsp = $_FILES['anhsp']['name'];
+			move_uploaded_file($_FILES['anhsp']['tmp_name'], "../assets/image/upload/products/$anhsp");
+			$query = $db->prepare("update products set anhsp=:var_anhsp where masp=$masp");
+			$query->execute(['var_anhsp' => $anhsp]);
+		}
+		//chuan bi truy van
+		$query = $db->prepare("update products set 
+                            tensp = :var_tensp, 
+                            mota = :var_mota,
+                            soluong = :var_soluong,
+                            gianhap = :var_gianhap,
+                            ngaynhap = :var_ngaynhap,
+                            hanbaotri = :var_hanbaotri,
+                            trangthai = :var_trangthai,
+                            madm = :var_madm, 
+                            mancc = :var_mancc
+                            where masp = :var_masp");
+
+		//thuc thi truy van, co truyen tham so vao cau lenh sql
+		$query->execute([
+			"var_masp" => $masp,
+			"var_tensp" => $tensp,
+			"var_mota" => $mota,
+			"var_soluong" => $soluong,
+			"var_gianhap" => $gianhap,
+			"var_ngaynhap" => $ngaynhap,
+			"var_hanbaotri" => $hanbaotri,
+			"var_trangthai" => $trangthai,
+			"var_madm" => $madm,
+			"var_mancc" => $mancc,
+		]);
+		//---
+		// Lấy dữ liệu cập nhật vào bảng changelog
+		$tenbang = "products";
+		$dulieumoi = array(
+			"masp" => $masp,
+			"tensp" => $tensp,
+			"anhsp" => $anhsp,
+			"mota" => $mota,
+			"soluong" => $soluong,
+			"gianhap" => $gianhap,
+			"ngaynhap" => $ngaynhap,
+			"hanbaotri" => $hanbaotri,
+			"tansuatsudung" => null,
+			"solansudung" => null,
+			"trangthai" => $trangthai,
+			"madm" => $madm,
+			"mancc" => $mancc,
+		);
+		$matk_admin = $_SESSION["matk"];
+		$trangthaithaydoi = "update";
+		ChangeLog::saveChangelog($tenbang, $dulieucu, $dulieumoi, $matk_admin, $trangthaithaydoi);
+	}
+	public function modelCreate()
+	{
+		$tensp = $_POST["tensp"];
+		$mota = $_POST["mota"];
+		$soluong = $_POST["soluong"];
+		$gianhap = $_POST["gianhap"];
+		$ngaynhap = $_POST["ngaynhap"];
+		$hanbaotri = $_POST["hanbaotri"];
+		$madm = $_POST["madm"];
+		$mancc = $_POST["mancc"];
+		$solansudung = 0;
+		$tansuatsudung = 0;
+		// trạng thái có 4 giá trị, nếu nhập ngoài giá trị này thì mặc định là trạng thái 0
+		$trangthai_arr = array(0, 1, 2, 3);
+		$trangthai = in_array($_POST["trangthai"], $trangthai_arr) ? $_POST["trangthai"] : 0;
+
+		//lay bien ket noi csdl
+		$db = Connection::getInstance();
+		//neu user upload anhsp thi thuc hien upload
+		$anhsp = "";
+		if ($_FILES['anhsp']['name'] != "") {
+			$anhsp = $_FILES['anhsp']['name'];
+			move_uploaded_file($_FILES['anhsp']['tmp_name'], "../assets/image/upload/products/$anhsp");
+		}
+		//chuan bi truy van
+		$query = $db->prepare("INSERT INTO products SET 
+                            tensp = :tensp,
+							anhsp = :anhsp, 
+                            mota = :mota,
+                            soluong = :soluong,
+                            gianhap = :gianhap,
+                            ngaynhap = :ngaynhap,
+                            hanbaotri = :hanbaotri,
+							solansudung = :solansudung,
+							tansuatsudung = :tansuatsudung,
+                            trangthai = :trangthai,
+                            madm = :madm, 
+                            mancc = :mancc 
+                           ");
+
+		//thuc thi truy van, co truyen tham so vao cau lenh sql
+		$query->execute([
+			"tensp" => $tensp,
+			"anhsp" => $anhsp,
+			"mota" => $mota,
+			"soluong" => $soluong,
+			"gianhap" => $gianhap,
+			"ngaynhap" => $ngaynhap,
+			"hanbaotri" => $hanbaotri,
+			"solansudung" => $solansudung,
+			"tansuatsudung" => $tansuatsudung,
+			"trangthai" => $trangthai,
+			"madm" => $madm,
+			"mancc" => $mancc
+		]);
+		if (!$query) {
+			print_r($db->errorInfo());
+		}
+		// Ghi vào bảng changelog
+		$tenbang = "products";
+		$dulieucu = array();
+		$dulieumoi = array(
+			"tensp" => $tensp,
+			"anhsp" => $anhsp,
+			"mota" => $mota,
+			"soluong" => $soluong,
+			"gianhap" => $gianhap,
+			"ngaynhap" => $ngaynhap,
+			"hanbaotri" => $hanbaotri,
+			"solansudung" => $solansudung,
+			"tansuatsudung" => $tansuatsudung,
+			"trangthai" => $trangthai,
+			"madm" => $madm,
+			"mancc" => $mancc
+		);
+		$matk_admin = $_SESSION["matk"];
+		$trangthaithaydoi = "create";
+		ChangeLog::saveChangelog($tenbang, $dulieucu, $dulieumoi, $matk_admin, $trangthaithaydoi);
+	}
+	public function modelDelete()
+	{
+		$masp = isset($_GET["masp"]) && $_GET["masp"] > 0 ? $_GET["masp"] : 0;
+		//lay bien ket noi csdl
+		$db = Connection::getInstance();
+		//---
+		//lay anhsp de xoa
+		$oldanhsp = $db->query("select anhsp from products where masp=$masp");
+		if ($oldanhsp->rowCount() > 0) {
+			$record = $oldanhsp->fetch();
+			//xoa anhsp
+			if ($record->anhsp != "" && file_exists("../assets/image/upload/products/" . $record->anhsp))
+				unlink("../assets/image/upload/products/" . $record->anhsp);
+		}
+		//---
+		//chuan bi truy van
+		$query = $db->prepare("delete from products where masp=:var_masp");
+		//thuc thi truy van, co truyen tham so vao cau lenh sql
+		$query->execute(["var_masp" => $masp]);
 	}
 }
 ?>
