@@ -32,9 +32,20 @@ $this->fileLayout = "Layout.php";
                   <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <div class="dropdown-menu" role="menu" style="">
-                  <a class="dropdown-item" href="#">Theo ngày nhập gần dần</a>
-                  <a class="dropdown-item" href="#">Theo ngày nhập xa nhất dần</a>
-                  <a class="dropdown-item" href="#">Theo ngày bảo trì tăng dần</a>
+                <a class="dropdown-item" href="index.php?controller=products&order=idtang">Theo mã vật tư dần</a>
+                  <a class="dropdown-item" href="index.php?controller=products&order=idgiam">Theo mã vật tư dần</a>
+                  <a class="dropdown-item" href="index.php?controller=products&order=ngaynhapgan">Theo ngày nhập gần
+                    dần</a>
+                  <a class="dropdown-item" href="index.php?controller=products&order=ngaynhapxa">Theo ngày nhập xa nhất
+                    dần</a>
+                  <a class="dropdown-item" href="index.php?controller=products&order=thoigiandenhanbaotritang">Theo thời
+                    gian ngày bảo trì gần nhất</a>
+                  <a class="dropdown-item" href="index.php?controller=products&order=thoigiandenhanbaotrigiam">Theo thời
+                    gian ngày bảo trì xa nhất</a>
+                    <a class="dropdown-item" href="index.php?controller=products&order=trangthai_tudo">Trạng thái tự do</a>
+                    <a class="dropdown-item" href="index.php?controller=products&order=trangthai_dangsudung">Trạng thái đang sử dụng</a>
+                    <a class="dropdown-item" href="index.php?controller=products&order=trangthai_dangbaotri">Trạng thái đang bảo trì</a>
+                    <a class="dropdown-item" href="index.php?controller=products&order=trangthai_hong">Trạng thái hỏng</a>
                 </div>
               </div>
             </div>
@@ -51,10 +62,7 @@ $this->fileLayout = "Layout.php";
               <div class="sidebar-search-results">
                 <div class="list-group">
                   <a href="#" class="list-group-item">
-                    <div class="search-title">
-                      <strong class="text-light"></strong>Không tìm thấy vật tư nào!
-                    </div>
-                    <ul>
+                    <ul class="search-title">
                       <li><a href="#">Sản phẩm 1</a></li>
                       <li><a href="#">Sản phẩm 2</a></li>
                       <li><a href="#">Sản phẩm 3</a></li>
@@ -67,7 +75,7 @@ $this->fileLayout = "Layout.php";
           </div>
           <!-- /.card-header -->
           <div class="card-body table-responsive p-0" style="height: 500px;">
-            <table class="table table-head-fixed text-nowrap">
+            <table class="table table-head-fixed text-wrap">
               <thead>
                 <tr>
                   <th>#</th>
@@ -75,10 +83,10 @@ $this->fileLayout = "Layout.php";
                   <th>Tên</th>
                   <th>Mô tả</th>
                   <th>Số lượng</th>
-                  <th>Giá nhập</th>
                   <th>Ngày nhập</th>
+                  <th>Ngày bảo trì</th>
                   <th>Trạng thái</th>
-                  <th></th>
+                  <th>Control</th>
                 </tr>
               </thead>
               <tbody>
@@ -99,13 +107,24 @@ $this->fileLayout = "Layout.php";
                       <?php echo $rows->soluong; ?>
                     </td>
                     <td>
-                      <?php echo number_format($rows->gianhap, 0, '.', '.'); ?> vnđ
+                      <?php echo date("Y-m-d", strtotime($rows->ngaynhap)); ?>
                     </td>
                     <td>
-                      <?php echo $rows->ngaynhap; ?>
+                      <?php echo $rows->hanbaotri; ?>
                     </td>
                     <td>
-                      <?php echo $rows->trangthai; ?>
+                      <?php if (isset($rows->trangthai) && $rows->trangthai == 0): ?>
+                        Tự do
+                      <?php endif; ?>
+                      <?php if (isset($rows->trangthai) && $rows->trangthai == 1): ?>
+                        Đang được sử dụng
+                      <?php endif; ?>
+                      <?php if (isset($rows->trangthai) && $rows->trangthai == 2): ?>
+                        Đang bảo trì
+                      <?php endif; ?>
+                      <?php if (isset($rows->trangthai) && $rows->trangthai == 3): ?>
+                        Hỏng
+                      <?php endif; ?>
                     </td>
                     <td class="text-right">
                       <a class="btn btn-primary btn-sm" href="#">

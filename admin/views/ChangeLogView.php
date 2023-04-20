@@ -73,7 +73,7 @@ $this->fileLayout = "Layout.php";
                                     <th>Tên bảng</th>
                                     <th>Giờ cập nhật</th>
                                     <th>Ngày cập nhật</th>
-                                    <th>Email người cập nhật</th>
+                                    <th>Người cập nhật</th>
                                     <th>Trạng thái cập nhật</th>
                                     <th></th>
                                 </tr>
@@ -103,7 +103,7 @@ $this->fileLayout = "Layout.php";
                                             <?php echo $rows->trangthaithaydoi; ?>
                                         </td>
                                         <td class="text-right">
-                                            <a class="btn btn-primary btn-sm" href="#">
+                                            <a class="btn btn-primary btn-sm" href="index.php?controller=changelog&action=detail&macl=<?php echo $rows->macl; ?>">
                                                 <i class="fas fa-eye">
                                                 </i>
                                                 View
@@ -120,7 +120,7 @@ $this->fileLayout = "Layout.php";
                             <ul class="pagination justify-content-center m-0">
                                 <?php for ($i = 1; $i <= $numPage; $i++): ?>
                                     <li class="page-item"><a class="page-link"
-                                            href="index.php?controller=products&p=<?php echo $i; ?>"><?php echo $i; ?></a>
+                                            href="index.php?controller=changelog&p=<?php echo $i; ?>"><?php echo $i; ?></a>
                                     </li>
                                 <?php endfor; ?>
                             </ul>

@@ -15,40 +15,40 @@
 			//goi view, truyen du lieu ra view
 			$this->loadView("AccountsView.php",["data"=>$data,"numPage"=>$numPage]);
 		}
-		// public function update(){
-		// 	$matk = isset($_GET["matk"]) && $_GET["matk"] > 0 ? $_GET["matk"] : 0;
-		// 	//lay mot ban ghi
-		// 	$record = $this->modelGetRecord();
-		// 	//tao bien $action de biet duoc khi an nut submit thi trang se submit den dau
-		// 	$action = "index.php?controller=accounts&action=updatePost&matk=$matk";
-		// 	//goi view, truyen du lieu ra view
-		// 	$this->loadView("AccountsFormView.php",["record"=>$record,"action"=>$action]);
-		// }
-		// public function updatePost(){
-		// 	$matk = isset($_GET["matk"]) && $_GET["matk"] > 0 ? $_GET["matk"] : 0;
-		// 	//goi ham modelUpdate de update ban ghi
-		// 	$this->modelUpdate();
-		// 	//quay tro lai trang Accounts
-		// 	header("location:index.php?controller=accounts");
-		// }
-		// public function create(){
-		// 	//tao bien $action de biet duoc khi an nut submit thi trang se submit den dau
-		// 	$action = "index.php?controller=accounts&action=createPost";
-		// 	//goi view, truyen du lieu ra view
-		// 	$this->loadView("AccountsFormView.php",["action"=>$action]);
-		// }
-		// public function createPost(){
-		// 	//goi ham modelCreate de update ban ghi
-		// 	$this->modelCreate();
-		// 	//quay tro lai trang Accounts
-		// 	header("location:index.php?controller=accounts");
-		// }
-		// public function delete(){
-		// 	$matk = isset($_GET["matk"]) && $_GET["matk"] > 0 ? $_GET["matk"] : 0;
-		// 	//goi ham modelDelete
-		// 	$this->modelDelete();
-		// 	//quay tro lai trang Accounts
-		// 	header("location:index.php?controller=accounts");
-		// }
+		public function update(){
+			$matk = isset($_GET["matk"]) && $_GET["matk"] > 0 ? $_GET["matk"] : 0;
+			//lay mot ban ghi
+			$record = $this->modelGetRecord();
+			//tao bien $action de biet duoc khi an nut submit thi trang se submit den dau
+			$action = "index.php?controller=accounts&action=updatePost&matk=$matk";
+			//goi view, truyen du lieu ra view
+			$this->loadView("AccountsFormView.php",["record"=>$record,"action"=>$action]);
+		}
+		public function updatePost(){
+			$matk = isset($_GET["matk"]) && $_GET["matk"] > 0 ? $_GET["matk"] : 0;
+			//goi ham modelUpdate de update ban ghi
+			$this->modelUpdate();
+			//quay tro lai trang Accounts
+			header("location:index.php?controller=accounts");
+		}
+		public function create(){
+			//tao bien $action de biet duoc khi an nut submit thi trang se submit den dau
+			$action = "index.php?controller=accounts&action=createPost";
+			//goi view, truyen du lieu ra view
+			$this->loadView("AccountsFormView.php",["action"=>$action]);
+		}
+		public function createPost(){
+			//goi ham modelCreate de update ban ghi
+			$this->modelCreate();
+			//quay tro lai trang Accounts
+			header("location:index.php?controller=accounts");
+		}
+		public function delete(){
+			$matk = isset($_GET["matk"]) && $_GET["matk"] > 0 ? $_GET["matk"] : 0;
+			//goi ham modelDelete
+			$this->modelDelete();
+			//quay tro lai trang Accounts
+			header("location:index.php?controller=accounts");
+		}
 	}
  ?>

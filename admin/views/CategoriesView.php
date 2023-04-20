@@ -6,13 +6,13 @@ $this->fileLayout = "Layout.php";
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <button type="button" class="btn btn-default"><a href="#">Thêm vật tư mới <i
+                <button type="button" class="btn btn-default"><a href="index.php?controller=categories&action=create">Thêm vật tư mới <i
                             class="fas fa-plus"></i></a></button>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                    <li class="breadcrumb-item active">Nhân sự</li>
+                    <li class="breadcrumb-item active">Danh mục</li>
                 </ol>
             </div>
         </div>
@@ -52,12 +52,12 @@ $this->fileLayout = "Layout.php";
                                     </i>
                                     View
                                 </a>
-                                <a class="btn btn-info btn-sm" href="#">
+                                <a class="btn btn-info btn-sm" href="index.php?controller=categories&action=update&madm=<?php echo $rows->madm; ?>">
                                     <i class="fas fa-pencil-alt">
                                     </i>
                                     Edit
                                 </a>
-                                <a class="btn btn-danger btn-sm" href="#">
+                                <a class="btn btn-danger btn-sm" href="index.php?controller=categories&action=delete&madm=<?php echo $rows->madm; ?>" onclick="return window.confirm('Bạn có chắc chắn muốn xóa danh mục này?');">
                                     <i class="fas fa-trash">
                                     </i>
                                     Delete

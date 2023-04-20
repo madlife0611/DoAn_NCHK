@@ -23,7 +23,7 @@
             $_SESSION['matk'] = $result['matk'];
             $_SESSION['email_tk'] = $result['email'];
             $_SESSION['hoten'] = $result['hoten'];
-            $_SESSION['anhdaidien'] = $result['anhdaidien'];
+            $_SESSION['photo'] = $result['photo'];
 						header('Location: admin/index.php');
 					} else {
             $_SESSION['matk'] = $result->matk;

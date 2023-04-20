@@ -43,6 +43,14 @@
 			//tra ve tat ca cac ban ghi lay duoc tu cau truy van
 			return $query->fetch();
 		}
+		public function getDepartment($mapb){
+			//lay bien ket noi csdl
+			$db = Connection::getInstance();
+			//thuc hien truy van
+			$query = $db->query("select * from departments where mapb = $mapb");
+			//tra ve tat ca cac ban ghi lay duoc tu cau truy van
+			return $query->fetch();
+		}
 		
 	}
  ?>

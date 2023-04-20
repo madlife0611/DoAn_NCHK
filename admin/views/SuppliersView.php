@@ -6,7 +6,7 @@ $this->fileLayout = "Layout.php";
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <button type="button" class="btn btn-default"><a href="#">Thêm nhà cung cấp mới <i
+                <button type="button" class="btn btn-default"><a href="index.php?controller=suppliers&action=create">Thêm nhà cung cấp mới <i
                             class="fas fa-plus"></i></a></button>
             </div>
             <div class="col-sm-6">
