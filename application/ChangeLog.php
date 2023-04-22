@@ -8,6 +8,7 @@
 			$db->exec("set names utf8");
 			//lay ket qua tra ve theo kieu object
 			$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE,PDO::FETCH_OBJ);
+			date_default_timezone_set('Asia/Ho_Chi_Minh');
             $thoigian = date('Y-m-d H:i:s');
 			// Thực hiện truy vấn insert vào bảng changelog
 			$query_change = $db->prepare("INSERT INTO changelog (thoigian, tenbang, dulieucu, dulieumoi, matk, trangthaithaydoi) VALUES (:var_thoigian, :var_tenbang, :var_dulieucu, :var_dulieumoi, :var_matk, :var_trangthaithaydoi)");

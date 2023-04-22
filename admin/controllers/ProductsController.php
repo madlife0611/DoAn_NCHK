@@ -14,6 +14,18 @@
 
 			$this->loadView("ProductsView.php",["data"=>$data,"numPage"=>$numPage]);
 		}
+		public function detail(){
+			$masp = isset($_GET["masp"]) && $_GET["masp"] > 0 ? $_GET["masp"] : 0;
+			$record = $this->modelGetRecord($masp);	
+			//goi view, truyen du lieu ra view
+			$this->loadView("ProductDetailView.php",["record"=>$record,"masp"=>$masp]);
+		}
+		public function print_ProductsDetail(){
+			$masp = isset($_GET["masp"]) && $_GET["masp"] > 0 ? $_GET["masp"] : 0;
+			$record = $this->modelGetRecord($masp);	
+			//goi view, truyen du lieu ra view
+			$this->loadView("print-ProductDetail.php",["record"=>$record,"masp"=>$masp]);
+		}
 		public function update(){
 			$masp = isset($_GET["masp"]) && $_GET["masp"] > 0 ? $_GET["masp"] : 0;
 			//lay mot ban ghi

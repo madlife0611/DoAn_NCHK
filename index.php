@@ -15,16 +15,23 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     $stmt->execute([$email, $password]);
 
     $result = $stmt->fetch();
-    $_SESSION['matk'] = $result['matk'];
-    $_SESSION['email_tk'] = $result['email'];
-    $_SESSION['hoten'] = $result['hoten'];
-    $_SESSION['photo'] = $result['photo'];
+   
 
     if ($result) {
       // Nếu thông tin đăng nhập chính xác, chuyển hướng đến trang dành cho người dùng hoặc quản trị viên
       if ($result['isAdmin'] == 1) {
+        $_SESSION['matk_admin'] = $result['matk'];
+        $_SESSION['email_admin'] = $result['email'];
+        $_SESSION['hoten_admin'] = $result['hoten'];
+        $_SESSION['photo_admin'] = $result['photo'];
+        $_SESSION['mapb_admin'] = $result['mapb'];
         header('Location: admin/index.php');
       } else {
+        $_SESSION['matk'] = $result['matk'];
+        $_SESSION['email_tk'] = $result['email'];
+        $_SESSION['hoten'] = $result['hoten'];
+        $_SESSION['photo'] = $result['photo'];
+        $_SESSION['mapb'] = $result['mapb'];
         header('Location: users/index.php');
       }
     } else {

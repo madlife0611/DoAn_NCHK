@@ -53,7 +53,7 @@
 				'mota' => $mota,
 				'tendm' => $tendm
 			);
-			$matk_admin = $_SESSION["matk"];
+			$matk_admin = $_SESSION['matk_admin'];
 			$trangthaithaydoi = "update";
 			ChangeLog::saveChangelog($tenbang, $dulieucu, $dulieumoi, $matk_admin, $trangthaithaydoi);
 			//chuan bi truy van
@@ -79,7 +79,7 @@
 				'mota' => $mota,
 				'tendm' => $tendm,
 			);
-			$matk_admin = $_SESSION["matk"];
+			$matk_admin = $_SESSION['matk_admin'];
 			$trangthaithaydoi = "create";
 			ChangeLog::saveChangelog($tenbang, $dulieucu, $dulieumoi, $matk_admin, $trangthaithaydoi);
 		}
@@ -95,7 +95,7 @@
 			// Ghi vào bảng changelog
 			$tenbang = "categories";
 			$dulieumoi = array();
-			$matk_admin = $_SESSION["matk"];
+			$matk_admin = $_SESSION['matk_admin'];
 			$trangthaithaydoi = "delete";
 			ChangeLog::saveChangelog($tenbang, $dulieucu, $dulieumoi, $matk_admin, $trangthaithaydoi);
 			//chuan bi truy van

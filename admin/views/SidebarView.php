@@ -10,10 +10,10 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="../assets/image/upload/accounts/<?php echo $_SESSION["photo"]; ?>" class="img-circle elevation-2" alt="User Image">
+        <img src="../assets/image/upload/accounts/<?php echo $_SESSION["photo_admin"]; ?>" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block"><?php echo $_SESSION["hoten"]; ?></a>
+        <a href="#" class="d-block"><?php echo $_SESSION["hoten_admin"]; ?></a>
       </div>
     </div>
 
@@ -67,7 +67,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="pages/gallery.html" class="nav-link">
+          <a href="index.php?controller=requests" class="nav-link">
             <i class="nav-icon far fa-clipboard"></i>
             <p>
               Yêu cầu sử dụng

@@ -90,6 +90,7 @@ $this->fileLayout = "Layout.php";
                   <th>Ngày nhập</th>
                   <th>Ngày bảo trì</th>
                   <th>Trạng thái</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -130,7 +131,7 @@ $this->fileLayout = "Layout.php";
                       <?php endif; ?>
                     </td>
                     <td class="text-right">
-                      <a class="btn btn-primary btn-sm" href="#">
+                      <a class="btn btn-primary btn-sm" href="index.php?controller=products&action=detail&masp=<?php echo $rows->masp; ?>">
                         <i class="fas fa-eye">
                         </i>
                       </a>

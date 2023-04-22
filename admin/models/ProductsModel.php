@@ -130,6 +130,10 @@ trait ProductsModel
 		// trạng thái có 4 giá trị, nếu nhập ngoài giá trị này thì mặc định là trạng thái 0
 		$trangthai_arr = array(0, 1, 2, 3);
 		$trangthai = in_array($_POST["trangthai"], $trangthai_arr) ? $_POST["trangthai"] : 0;
+
+		$loaisp_arr = array(1, 2, 3);
+		$loaisp = in_array($_POST["loaisp"], $loaisp_arr) ? $_POST["loaisp"] : 0;
+
 		$anhsp = isset($_FILES['anhsp']['name']) ? $_FILES['anhsp']['name'] : "";
 		//lay bien ket noi csdl
 		$db = Connection::getInstance();
@@ -165,6 +169,7 @@ trait ProductsModel
                             ngaynhap = :var_ngaynhap,
                             hanbaotri = :var_hanbaotri,
                             trangthai = :var_trangthai,
+							loaisp = :var_loaisp,
                             madm = :var_madm, 
                             mancc = :var_mancc
                             where masp = :var_masp");
@@ -179,6 +184,7 @@ trait ProductsModel
 			"var_ngaynhap" => $ngaynhap,
 			"var_hanbaotri" => $hanbaotri,
 			"var_trangthai" => $trangthai,
+			"var_loaisp" => $loaisp,
 			"var_madm" => $madm,
 			"var_mancc" => $mancc,
 		]);
@@ -197,10 +203,11 @@ trait ProductsModel
 			"tansuatsudung" => null,
 			"solansudung" => null,
 			"trangthai" => $trangthai,
+			"loaisp" => $loaisp,
 			"madm" => $madm,
 			"mancc" => $mancc,
 		);
-		$matk_admin = $_SESSION["matk"];
+		$matk_admin = $_SESSION['matk_admin'];
 		$trangthaithaydoi = "update";
 		ChangeLog::saveChangelog($tenbang, $dulieucu, $dulieumoi, $matk_admin, $trangthaithaydoi);
 	}
@@ -219,6 +226,9 @@ trait ProductsModel
 		// trạng thái có 4 giá trị, nếu nhập ngoài giá trị này thì mặc định là trạng thái 0
 		$trangthai_arr = array(0, 1, 2, 3);
 		$trangthai = in_array($_POST["trangthai"], $trangthai_arr) ? $_POST["trangthai"] : 0;
+
+		$loaisp_arr = array(1, 2, 3);
+		$loaisp = in_array($_POST["loaisp"], $loaisp_arr) ? $_POST["loaisp"] : 0;
 
 		//lay bien ket noi csdl
 		$db = Connection::getInstance();
@@ -240,6 +250,7 @@ trait ProductsModel
 							solansudung = :solansudung,
 							tansuatsudung = :tansuatsudung,
                             trangthai = :trangthai,
+							loaisp = :loaisp,
                             madm = :madm, 
                             mancc = :mancc 
                            ");
@@ -256,6 +267,7 @@ trait ProductsModel
 			"solansudung" => $solansudung,
 			"tansuatsudung" => $tansuatsudung,
 			"trangthai" => $trangthai,
+			"loaisp" => $loaisp,
 			"madm" => $madm,
 			"mancc" => $mancc
 		]);
@@ -276,10 +288,11 @@ trait ProductsModel
 			"solansudung" => $solansudung,
 			"tansuatsudung" => $tansuatsudung,
 			"trangthai" => $trangthai,
+			"loaisp" => $loaisp,
 			"madm" => $madm,
 			"mancc" => $mancc
 		);
-		$matk_admin = $_SESSION["matk"];
+		$matk_admin = $_SESSION['matk_admin'];
 		$trangthaithaydoi = "create";
 		ChangeLog::saveChangelog($tenbang, $dulieucu, $dulieumoi, $matk_admin, $trangthaithaydoi);
 	}
@@ -289,6 +302,16 @@ trait ProductsModel
 		//lay bien ket noi csdl
 		$db = Connection::getInstance();
 		//---
+		// Lưu thông tin cũ
+		$query_change = $db->prepare("SELECT * FROM products WHERE masp = :var_masp");
+		$query_change->execute(["var_masp" => $masp]);
+		$dulieucu = $query_change->fetch();
+		// Ghi vào bảng changelog
+		$tenbang = "products";
+		$dulieumoi = array();
+		$matk_admin = $_SESSION['matk_admin'];
+		$trangthaithaydoi = "delete";
+		ChangeLog::saveChangelog($tenbang, $dulieucu, $dulieumoi, $matk_admin, $trangthaithaydoi);
 		//lay anhsp de xoa
 		$oldanhsp = $db->query("select anhsp from products where masp=$masp");
 		if ($oldanhsp->rowCount() > 0) {

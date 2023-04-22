@@ -147,11 +147,27 @@
 			//tra ve mot ban ghi
 			return $query->fetchAll();
 		}
+		public function modelGetAccount($request_id){
+			//lay bien ket noi csdl
+			$conn = Connection::getInstance();
+			//thuc hien truy van
+			$query = $conn->query("select * from accounts where matk=(select matk from requests where request_id = $request_id limit 0,1)");
+			//tra ve nhieu ban ghi
+			return $query->fetch();
+		}
 		public function modelGetProduct($masp){
 			//lay bien ket noi csdl
 			$conn = Connection::getInstance();
 			//thuc hien truy van
 			$query = $conn->query("select * from products where masp=$masp");
+			//tra ve nhieu ban ghi
+			return $query->fetch();
+		}
+		public function modelGetDepartment($mapb){
+			//lay bien ket noi csdl
+			$conn = Connection::getInstance();
+			//thuc hien truy van
+			$query = $conn->query("select * from departments where mapb=$mapb");
 			//tra ve nhieu ban ghi
 			return $query->fetch();
 		}
