@@ -1,7 +1,7 @@
 <?php
 //start session
 session_start();
-if (!isset($_SESSION['email_tk'])) {
+if (!isset($_SESSION['email_admin'])) {
    // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập
    header('Location: ../index.php');
    exit;
@@ -13,6 +13,7 @@ include "../application/Controller.php";
 //load file ChangeLog.php
 include "../application/ChangeLog.php";
 //---
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 //load dong mvc dua vao tham so controller truyen len url
 $controller = isset($_GET["controller"]) ? $_GET["controller"] : "Home";
 $action = isset($_GET["action"]) ? $_GET["action"] : "index";

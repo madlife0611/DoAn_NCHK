@@ -12,7 +12,8 @@ include "../application/Connection.php";
 include "../application/Controller.php";
 //load file ChangeLog.php
 include "../application/ChangeLog.php";
-//---
+//load múi giờ của Việt Nam
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 //load dong mvc dua vao tham so controller truyen len url
 $controller = isset($_GET["controller"]) ? $_GET["controller"] : "Home";
 $action = isset($_GET["action"]) ? $_GET["action"] : "index";

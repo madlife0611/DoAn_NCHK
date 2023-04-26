@@ -5,6 +5,11 @@ $this->fileLayout = "Layout.php";
 $account = $this->modelGetAccount($request_id);
 $account_admin = $this->modelGetAccountAdmin($request_id);
 ?>
+<?php
+$conn = Connection::getInstance();
+$query = $conn->query("select * from requests where request_id = $request_id");
+$rq = $query->fetch();
+?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
@@ -30,7 +35,14 @@ $account_admin = $this->modelGetAccountAdmin($request_id);
                 <div class="col-12">
                     <h4>
                         <i class="fas fa-globe"></i> BKAT, Inc.
-                        <small class="float-right">Date: <?php echo date("d/m/Y"); ?></small>
+                        <small class="float-right">Date:
+                            <?php
+                            if ($rq->trangthai == 1) {
+                                echo date("d-m-Y", strtotime($rq->ngayxacnhan));
+                            } else {
+                                echo date("d/m/Y");
+                            } ?>
+                        </small>
                     </h4>
                 </div>
                 <!-- /.col -->
@@ -63,12 +75,7 @@ $account_admin = $this->modelGetAccountAdmin($request_id);
                     </address>
                 </div>
 
-                <!-- /.col -->
-                <?php
-                $conn = Connection::getInstance();
-                $query = $conn->query("select * from requests where request_id = $request_id");
-                $rq = $query->fetch();
-                ?>
+
                 <div class="col-sm-4 invoice-col">
                     <?php if ($rq->trangthai == 1) : ?>
                         Người xác nhận
@@ -208,13 +215,12 @@ $account_admin = $this->modelGetAccountAdmin($request_id);
             <!-- this row will not appear when printing -->
             <div class="row no-print">
                 <div class="col-12">
-                    <a href="index.php?controller=requests&action=print_requestDetail&request_id=<?php echo $request_id; ?>" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
-                    <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
-                        Payment
-                    </button>
-                    <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                        <i class="fas fa-download"></i> Generate PDF
-                    </button>
+                    <?php if ($rq->trangthai == 1) : ?>
+                        <a href="index.php?controller=requests&action=print_requestDetail&request_id=<?php echo $request_id; ?>" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
+                    <?php endif; ?>
+                    <?php if ($rq->trangthai == 0) : ?>
+                        <a href="index.php?controller=requests&action=delivery&request_id=<?php echo $request_id; ?>" class="btn btn-success float-right">Xác nhận yêu cầu</a>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

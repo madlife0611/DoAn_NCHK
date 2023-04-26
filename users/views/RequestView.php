@@ -127,10 +127,10 @@ $this->fileLayout = "Layout.php";
 											<?php echo $rows->request_id; ?>
 										</td>
 										<td>
-										<?php echo date("d/m/Y", strtotime($rows->ngaylap)); ?>
+											<?php echo date("d/m/Y", strtotime($rows->ngaylap)); ?>
 										</td>
 										<td>
-										<?php echo number_format($rows->tongtien); ?> đ
+											<?php echo number_format($rows->tongtien); ?> đ
 										</td>
 										<td>
 											<?php if ($rows->trangthai == 1) : ?>
@@ -140,6 +140,9 @@ $this->fileLayout = "Layout.php";
 											<?php endif; ?>
 										</td>
 										<td class="text-center">
+											<?php if ($rows->trangthai == 0) : ?>
+												<a href="index.php?controller=requests&action=delete_request&request_id=<?php echo $request_id; ?>" rel="noopener" target="_blank" class="btn btn-danger btn-sm" onclick="return window.confirm('Bạn có chắc chắn hủy yêu cầu này?');"><i class="fas fa-trash"></i>Hủy yêu cầu</a>
+											<?php endif; ?>
 											<a class="btn btn-primary btn-sm" href="index.php?controller=request&action=detail&request_id=<?php echo $rows->request_id; ?>">
 												<i class="fas fa-eye">
 												</i>

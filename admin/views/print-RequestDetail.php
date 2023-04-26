@@ -45,7 +45,12 @@
                         <div class="col-12">
                             <h4>
                                 <i class="fas fa-globe"></i> BKAT, Inc.
-                                <small class="float-right">Date: <?php echo date("d/m/Y"); ?></small>
+                                <small class="float-right">Date: <?php
+                                if ($rq->trangthai == 1) {
+                                    echo date("d-m-Y", strtotime($rq->ngayxacnhan));
+                                } else {
+                                    echo date("d/m/Y");
+                                } ?></small>
                             </h4>
                         </div>
                         <!-- /.col -->
@@ -155,8 +160,6 @@
                                         <th scope="col">Giá nhập</th>
                                         <th scope="col">Ngày nhập</th>
                                         <th scope="col">Hạn bảo trì</th>
-                                        <th scope="col">Số lần sử dụng</th>
-                                        <th scope="col">Trạng thái</th>
                                         <th scope="col">Danh mục</th>
                                         <th scope="col">Nhà cung cấp</th>
                                         <th scope="col">Số lượng có</th>
@@ -179,20 +182,6 @@
                                             <td><?php echo number_format($product->gianhap); ?>đ</td>
                                             <td><?php echo $product->ngaynhap; ?></td>
                                             <td><?php echo $product->hanbaotri; ?></td>
-                                            <td><?php echo $product->solansudung; ?></td>
-                                            <td><?php if (isset($product->trangthai) && $product->trangthai == 0) : ?>
-                                                    Tự do
-                                                <?php endif; ?>
-                                                <?php if (isset($product->trangthai) && $product->trangthai == 1) : ?>
-                                                    Đang được sử dụng
-                                                <?php endif; ?>
-                                                <?php if (isset($product->trangthai) && $product->trangthai == 2) : ?>
-                                                    Đang bảo trì
-                                                <?php endif; ?>
-                                                <?php if (isset($product->trangthai) && $product->trangthai == 3) : ?>
-                                                    Hỏng
-                                                <?php endif; ?>
-                                            </td>
                                             <td><?php
                                                 //co the goi ham tu class model o day
                                                 $category = $this->getCategory($product->madm);
