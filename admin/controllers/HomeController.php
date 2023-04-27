@@ -7,10 +7,6 @@
 			//goi view
 			$this->loadView("HomeView.php");
 		}
-		public function getStackedBarChart() {
-			$chartData = $this->getChartDataForStackedBarChart();
-			header('Content-Type: application/json');
-			echo json_encode($chartData);
-		}
+
 	}
  ?>

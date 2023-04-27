@@ -47,7 +47,7 @@ $this->fileLayout = "Layout.php";
                                         class="text-danger float-right">111</span></li>
                             </ul>
                             <div class="card-body">
-                                <a class="btn btn-primary btn-sm" href="#">
+                                <a class="btn btn-primary btn-sm" href="index.php?controller=categories&action=view&madm=<?php echo $rows->madm; ?>">
                                     <i class="fas fa-eye">
                                     </i>
                                     View

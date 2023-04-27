@@ -75,6 +75,14 @@
           </a>
         </li>
         <li class="nav-item">
+          <a href="index.php?controller=maintenances" class="nav-link">
+            <i class="nav-icon fas fa-tools"></i>
+            <p>
+              Danh sách bảo trì
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="index.php?controller=accounts" class="nav-link">
             <i class="nav-icon fas fa-users"></i>
             <p>

@@ -1,11 +1,11 @@
 <?php
-trait MaintenanceModel
+trait MaintenancesModel
 {
 	public function maintenanceAdd($masp)
 	{
 		if (isset($_SESSION['maintenance'][$masp])) {
 			//Nếu đã có sản phẩm đó trong ds bảo trì rồi thì hiển thị thông báo sản phẩm này đẫ có trong danh sách
-            echo "<script>alert('Sản phẩm này đã có trong danh sách bảo trì!');</script>";
+			echo "<script>alert('Sản phẩm này đã có trong danh sách bảo trì!');</script>";
 		} else {
 			$conn = Connection::getInstance();
 			$query = $conn->prepare("select * from products where masp=:masp");
@@ -20,20 +20,29 @@ trait MaintenanceModel
 				'mota' => $product->mota,
 				'soluong' => $product->soluong,
 				'anhsp' => $product->anhsp,
-                'trangthai' => $product->trangthai,
-                'ngaynhap' => $product->ngaynhap,
-                'hanbaotri' => $product->hanbaotri,
-				'gianhap' => $product->gianhap
+				'trangthai' => $product->trangthai,
+				'ngaynhap' => $product->ngaynhap,
+				'hanbaotri' => $product->hanbaotri,
+				'gianhap' => $product->gianhap,
+				'mancc' => $product->mancc
 			);
 		}
 	}
-    public function maintenanceNumber()
+	public function maintenanceNumber()
 	{
 		$number = 0;
 		foreach ($_SESSION['maintenance'] as $product) {
-			$number += $product['number'];
+			$number += $product['soluong'];
 		}
 		return $number;
+	}
+	public function maintenanceSupplier()
+	{
+		$mancc = 0;
+		foreach ($_SESSION['maintenance'] as $product) {
+			$mancc = $product['mancc'];
+		}
+		return $mancc;
 	}
 	public function maintenanceDelete($masp)
 	{
@@ -57,10 +66,11 @@ trait MaintenanceModel
 		//lay masp vua moi insert
 		$matk = $_SESSION["matk_admin"];
 		//---
+		$mancc = $this->maintenanceSupplier();
 		//---
 		//insert ban ghi vao maintenances, lay mabt vua moi insert
-		$query = $conn->prepare("insert into maintenances set matk=:matk, ngaybaotri=now(), trangthai = 0");
-		$query->execute(array("matk" => $matk));
+		$query = $conn->prepare("insert into maintenances set matk=:matk, ngaybaotri=now(), trangthai = 0, mancc=:mancc");
+		$query->execute(array("matk" => $matk, "mancc" => $mancc));
 		//lay masp vua moi insert
 		$mabt = $conn->lastInsertId();
 		//---
@@ -70,7 +80,7 @@ trait MaintenanceModel
 			$query->execute(array("mabt" => $mabt, "masp" => $product["masp"]));
 		}
 
-        //duyet cac ban ghi trong session array de update products
+		//duyet cac ban ghi trong session array de update products
 		foreach ($_SESSION["maintenance"] as $product) {
 			$query = $conn->prepare("update products set trangthai = 2 where masp=:masp");
 			$query->execute(array("masp" => $product["masp"]));
@@ -98,7 +108,7 @@ trait MaintenanceModel
 	}
 	public function modelTotalRecord()
 	{
-		$matk = $_SESSION["matk"];
+		$matk = $_SESSION["matk_admin"];
 		//lay bien ket noi csdl
 		$conn = Connection::getInstance();
 		//thuc hien truy van
@@ -106,22 +116,23 @@ trait MaintenanceModel
 		//tra ve so luong ban ghi
 		return $query->rowCount();
 	}
-	//chi tiet don hang
+	
+	//chi tiet 
 	public function modelMaintenancesDetail($mabt)
 	{
 		//lay bien ket noi csdl
 		$conn = Connection::getInstance();
 		//thuc hien truy van
-		$query = $conn->query("select * from maintenancedetails where mabt=$mabt");
+		$query = $conn->query("select * from maintenance_details where mabt=$mabt");
 		//tra ve mot ban ghi
 		return $query->fetchAll();
 	}
-	public function modelGetAccountAdmin($mabt)
+	public function modelGetAccount($mabt)
 	{
 		//lay bien ket noi csdl
 		$conn = Connection::getInstance();
 		//thuc hien truy van
-		$query = $conn->query("select * from accounts where matk=(select matk_admin from maintenances where mabt = $mabt limit 0,1)");
+		$query = $conn->query("select * from accounts where matk=(select matk from maintenances where mabt = $mabt limit 0,1)");
 		//tra ve nhieu ban ghi
 		return $query->fetch();
 	}
@@ -168,20 +179,63 @@ trait MaintenanceModel
 		//lay bien ket noi csdl
 		$conn = Connection::getInstance();
 		//thuc hien truy van
-		$query = $conn->query("select * from maintenancedetails where mabt=$mabt and masp=$masp");
+		$query = $conn->query("select * from maintenance_details where mabt=$mabt and masp=$masp");
 		//tra ve nhieu ban ghi
 		return $query->fetch();
 	}
-	//Xóa yêu cầu
-	public function modelDeleteMaintenance()
+	//Lấy bản ghi 
+	public function modelGetMaintenanceDetailRecord()
+	{
+		$masp = isset($_GET["masp"]) && $_GET["masp"] > 0 ? $_GET["masp"] : 0;
+		$mabt = isset($_GET["mabt"]) && $_GET["mabt"] > 0 ? $_GET["mabt"] : 0;
+		//lay bien ket noi csdl
+		$db = Connection::getInstance();
+		//chuan bi truy van
+		$query = $db->prepare("select * from products where masp=:var_masp");
+		//thuc thi truy van, co truyen tham so vao cau lenh sql
+		$query->execute(["var_masp" => $masp]);
+		//tra ve mot ban ghi
+		return $query->fetch();
+	}
+	//update thông tin
+	public function modelUpdateDetail()
+	{
+		$masp = isset($_GET["masp"]) && $_GET["masp"] > 0 ? $_GET["masp"] : 0;
+		$mabt = isset($_GET["mabt"]) && $_GET["mabt"] > 0 ? $_GET["mabt"] : 0;
+		$hanbaotrimoi = $_POST["hanbaotrimoi"];
+		$chiphi = $_POST["chiphi"];
+		//lay bien ket noi csdl
+		$conn = Connection::getInstance();
+
+		$query = $conn->prepare("update maintenance_details set hanbaotrimoi = :hanbaotrimoi, chiphi = :chiphi where masp=$masp and mabt=$mabt");
+		$query->execute([
+			"hanbaotrimoi" => $hanbaotrimoi,
+			"chiphi" => $chiphi
+		]);
+		// update trạng thái, hạn bảo trì mới cho sản phẩm
+		$query_prod = $conn->prepare("update products set trangthai = 0, hanbaotri = :hanbaotrimoi where masp=$masp");
+		$query_prod->execute([
+			"hanbaotrimoi" => $hanbaotrimoi
+		]);
+		// update tổng tiền mới cho bảo trì
+		$tongchiphi_query = $conn->query("select SUM(chiphi) as total from maintenance_details where mabt=$mabt");
+		$tongchiphi_result = $tongchiphi_query->fetch(PDO::FETCH_ASSOC);
+		$tongchiphi = $tongchiphi_result['total'];
+
+		$query_main = $conn->prepare("update maintenances set tongchiphi = :tongchiphi where mabt=$mabt");
+		$query_main->execute([
+			"tongchiphi" => $tongchiphi
+		]);
+	}
+	//Kết thúc bảo trì
+	public function modelFinishMaintenance()
 	{
 		$mabt = isset($_GET["mabt"]) && $_GET["mabt"] > 0 ? $_GET["mabt"] : 0;
 		//lay bien ket noi csdl
 		$conn = Connection::getInstance();
 		//chuan bi truy van
-		$query = $conn->prepare("delete from maintenance where mabt=:var_mabt");
+		$query = $conn->prepare("update maintenances set trangthai = 1 where mabt=:var_mabt");
 		//thuc thi truy van, co truyen tham so vao cau lenh sql
 		$query->execute(["var_mabt" => $mabt]);
 	}
-	
 }

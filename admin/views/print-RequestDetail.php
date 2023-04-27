@@ -37,6 +37,11 @@
         $account = $this->modelGetAccount($request_id);
         $account_admin = $this->modelGetAccountAdmin($request_id);
         ?>
+        <?php
+        $conn = Connection::getInstance();
+        $query = $conn->query("select * from requests where request_id = $request_id");
+        $rq = $query->fetch();
+        ?>
         <section class="content list-products">
             <div class="container-fluid">
                 <div class="invoice p-3 mb-3">
@@ -46,11 +51,11 @@
                             <h4>
                                 <i class="fas fa-globe"></i> BKAT, Inc.
                                 <small class="float-right">Date: <?php
-                                if ($rq->trangthai == 1) {
-                                    echo date("d-m-Y", strtotime($rq->ngayxacnhan));
-                                } else {
-                                    echo date("d/m/Y");
-                                } ?></small>
+                                                                    if ($rq->trangthai == 1) {
+                                                                        echo date("d-m-Y", strtotime($rq->ngayxacnhan));
+                                                                    } else {
+                                                                        echo date("d/m/Y");
+                                                                    } ?></small>
                             </h4>
                         </div>
                         <!-- /.col -->

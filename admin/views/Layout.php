@@ -29,6 +29,7 @@
 
   <!-- my styles -->
   <link rel="stylesheet" href="../assets/admin/css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
 </head>
 

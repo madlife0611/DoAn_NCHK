@@ -64,7 +64,7 @@ $this->fileLayout = "Layout.php";
                             </div>
                             <div class="card-footer">
                            
-                                <a class="btn btn-primary btn-sm" href="#">
+                                <a class="btn btn-primary btn-sm" href="index.php?controller=suppliers&action=view&mancc=<?php echo $rows->mancc; ?>">
                                     <i class="fas fa-eye">
                                     </i>
                                     View
@@ -93,7 +93,7 @@ $this->fileLayout = "Layout.php";
                 <ul class="pagination justify-content-center m-0">
                     <?php for ($i = 1; $i <= $numPage; $i++): ?>
                         <li class="page-item"><a class="page-link"
-                                href="index.php?controller=categories&p=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                                href="index.php?controller=suppliers&p=<?php echo $i; ?>"><?php echo $i; ?></a></li>
                     <?php endfor; ?>
                 </ul>
             </nav>

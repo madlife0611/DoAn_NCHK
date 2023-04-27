@@ -2,11 +2,11 @@
 $this->fileLayout = "Layout.php";
 ?>
 <section class="content-header">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-9">
                 <div class="card-body table-responsive p-0">
-                    <form action="index.php?controller=maintenance&action=update" method="post">
+                    <form action="index.php?controller=maintenances&action=update" method="post">
                         <table class="table table-head-fixed text-wrap">
                             <thead>
                                 <tr>
@@ -14,6 +14,7 @@ $this->fileLayout = "Layout.php";
                                     <th class="tensp" scope="col">Tên vật tư</th>
                                     <th class="gianhap" scope="col">Giá nhập</th>
                                     <th class="quantity" scope="col">Số lượng</th>
+                                    <th class="" scope="col">Hạn bảo trì</th>
                                     <th scope="col">Xóa</th>
                                 </tr>
                             </thead>
@@ -28,8 +29,9 @@ $this->fileLayout = "Layout.php";
                                         <td><?php echo $product["tensp"]; ?></td>
                                         <td><?php echo number_format($product["gianhap"]); ?>đ</td>
                                         <td><?php echo $product["soluong"]; ?></td>
+                                        <td><?php echo $product["hanbaotri"]; ?></td>
                                         <td>
-                                            <a href="index.php?controller=maintenance&action=delete&masp=<?php echo $product["masp"]; ?>" data-id="2479395"><i class="fa fa-trash"></i></a>
+                                            <a href="index.php?controller=maintenances&action=delete&masp=<?php echo $product["masp"]; ?>" data-id="2479395"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -37,9 +39,9 @@ $this->fileLayout = "Layout.php";
                             <tfoot>
                                 <tr>
                                     <td colspan="4">
-                                        <a href="index.php" class="btn btn-primary btn-sm">Trở lại trang chủ</a>
+                                        <a href="index.php?controller=suppliers" class="btn btn-primary btn-sm">Trở lại nhà cung cấp</a>
                                     </td>
-                                    <td><a href="index.php?controller=maintenance&action=destroy" class="btn btn-primary btn-sm">Xóa toàn bộ</a></td>
+                                    <td><a href="index.php?controller=maintenances&action=destroy" class="btn btn-primary btn-sm">Xóa toàn bộ</a></td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -50,8 +52,9 @@ $this->fileLayout = "Layout.php";
                 <div class="card">
                     <div class="card-body">
                         <?php if ($this->maintenanceNumber() > 0) : ?>
-                            <h5 class="card-title">VUI LÒNG KIỂM TRA KỸ TRƯỚC KHI XÁC NHẬN BẢO HÀNH</h5>
-                            <a href="index.php?controller=maintenance&action=checkout" class="btn btn-primary btn-sm">Xác nhận bảo hành</a>
+                            <?php $ncc = $this->getSupplier($this->maintenanceSupplier()); ?>
+                            <h5 class="card-title">Nhà cung cấp: <?php echo $ncc->tenncc; ?></h5>
+                            <a href="index.php?controller=maintenances&action=checkout" class="btn btn-primary btn-sm">Xác nhận bảo hành</a>
                         <?php else : ?>
                             <h5 class="card-title">CHƯA CÓ SẢN PHẨM NÀO TRONG DANH SÁCH</h5>
                             <a href="index.php" class="btn btn-primary btn-sm">Trở lại trang chủ</a>
@@ -63,7 +66,7 @@ $this->fileLayout = "Layout.php";
     </div>
 </section>
 <section class="content list-products">
-    <div class="container">
+    <div class="container-fluid">
         <!-- /.row -->
         <div class="row">
             <div class="col-12">
@@ -117,23 +120,22 @@ $this->fileLayout = "Layout.php";
                                             <?php echo date("d/m/Y", strtotime($rows->ngaybaotri)); ?>
                                         </td>
                                         <td>
-                                            <?php echo $rows->donvibaotri; ?>
+                                        <?php $ncc = $this->getSupplier($rows->mancc);
+                                            echo $ncc->tenncc;
+                                        ?>
                                         </td>
                                         <td>
-                                            <?php echo isset($rows->chiphi) ? $rows->chiphi : ""; ?>
+                                            <?php echo isset($rows->tongchiphi) ? $rows->tongchiphi : ""; ?>
                                         </td>
                                         <td>
                                             <?php if ($rows->trangthai == 1) : ?>
-                                                <p>Đã xác nhận</p>
+                                                <p>Đã hoàn thành bảo trì</p>
                                             <?php else : ?>
-                                                <p>Chưa xác nhận</p>
+                                                <p>Chưa hoàn thành</p>
                                             <?php endif; ?>
                                         </td>
-                                        <td class="text-center">
-                                            <?php if ($rows->trangthai == 0) : ?>
-                                                <a href="index.php?controller=maintenances&action=delete_maintenance&mabt=<?php echo $mabt; ?>" rel="noopener" target="_blank" class="btn btn-danger btn-sm" onclick="return window.confirm('Bạn có chắc chắn hủy yêu cầu này?');"><i class="fas fa-trash"></i>Hủy yêu cầu</a>
-                                            <?php endif; ?>
-                                            <a class="btn btn-primary btn-sm" href="index.php?controller=maintenance&action=detail&mabt=<?php echo $rows->mabt; ?>">
+                                        <td class="text-center d-flex flex-column">
+                                            <a class="btn btn-primary btn-sm" href="index.php?controller=maintenances&action=detail&mabt=<?php echo $rows->mabt; ?>">
                                                 <i class="fas fa-eye">
                                                 </i>
                                                 Xem chi tiết

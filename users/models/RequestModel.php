@@ -232,7 +232,7 @@ trait RequestModel
 		//lay bien ket noi csdl
 		$conn = Connection::getInstance();
 		//chuan bi truy van
-		$query = $conn->prepare("delete from request where request_id=:var_request_id");
+		$query = $conn->prepare("update requests set trangthai = 2 where request_id=:var_request_id");
 		//thuc thi truy van, co truyen tham so vao cau lenh sql
 		$query->execute(["var_request_id" => $request_id]);
 	}

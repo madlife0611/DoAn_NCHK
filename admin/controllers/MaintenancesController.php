@@ -1,8 +1,8 @@
 <?php
-include "models/MaintenanceModel.php";
-class MaintenanceController extends Controller
+include "models/MaintenancesModel.php";
+class MaintenancesController extends Controller
 {
-	use MaintenanceModel;
+	use MaintenancesModel;
 	public function __construct()
 	{
 		//kiem tra neu maintenance chua ton tai thi khoi tao no
@@ -18,7 +18,7 @@ class MaintenanceController extends Controller
 		//lay du lieu tu model
 		$data = $this->maintenanceHistory($recordPerPage);
 		//goi view, truyen du lieu ra view
-		$this->loadView("MaintenanceView.php", ["data" => $data, "numPage" => $numPage]);
+		$this->loadView("MaintenancesView.php", ["data" => $data, "numPage" => $numPage]);
 	}
 	//them san pham vao maintenance
 	public function create()
@@ -27,7 +27,7 @@ class MaintenanceController extends Controller
 		$db = Connection::getInstance();
 		//goi ham trong model
 		$this->maintenanceAdd($masp);
-		header("location:index.php?controller=products");
+		header("location:index.php?controller=maintenances");
 	}
 	//xoa san pham khoi maintenance
 	public function delete()
@@ -35,14 +35,14 @@ class MaintenanceController extends Controller
 		$masp = isset($_GET["masp"]) ? $_GET["masp"] : 0;
 		//goi ham trong model
 		$this->maintenanceDelete($masp);
-		header("location:index.php?controller=maintenance");
+		header("location:index.php?controller=maintenances");
 	}
 	//xoa toan bo san pha khoi maintenance
 	public function destroy()
 	{
 		//goi ham trong model
 		$this->maintenanceDestroy();
-		header("location:index.php?controller=maintenance");
+		header("location:index.php?controller=maintenances");
 	}
 
 	//thanh toan maintenance
@@ -54,7 +54,7 @@ class MaintenanceController extends Controller
 		else {
 			//goi ham maintenanceCheckOut trong model
 			$this->maintenanceCheckOut();
-			header("location:index.php?controller=maintenance");
+			header("location:index.php?controller=maintenances");
 		}
 	}
 	public function detail()
@@ -64,15 +64,38 @@ class MaintenanceController extends Controller
 		//goi view, truyen du lieu ra view
 		$this->loadView("MaintenanceDetailView.php", ["data" => $data, "mabt" => $mabt]);
 	}
-	//xac nhan da accept maintenance
+	public function update_detail(){
+		$masp = isset($_GET["masp"]) && $_GET["masp"] > 0 ? $_GET["masp"] : 0;
+		$mabt = isset($_GET["mabt"]) && $_GET["mabt"] > 0 ? $_GET["mabt"] : 0;
+		//lay bthi
+		$record = $this->modelGetMaintenanceDetailRecord();
+		//tao bien $action de biet duoc khi an nut submit thi trang se submit den dau
+		$action = "index.php?controller=maintenances&action=updatePost&masp=$masp&mabt=$mabt";
+		//goi view, truyen du lieu ra view
+		$this->loadView("MaintenancesUpdateView.php",["record"=>$record,"action"=>$action]);
+	}
+	public function updatePost(){
+		$masp = isset($_GET["masp"]) && $_GET["masp"] > 0 ? $_GET["masp"] : 0;
+		$mabt = isset($_GET["mabt"]) && $_GET["mabt"] > 0 ? $_GET["mabt"] : 0;
+		//goi ham modelUpdate de update ban ghi
+		$this->modelUpdateDetail();
+		//quay tro lai trang products
+		header("location:index.php?controller=maintenances&action=detail&mabt=$mabt");
+	}
 
-	//Hủy maintenance
-	public function delete_maintenance()
+	//hoàn thành maintenance
+	public function finish_maintenance()
 	{
 		$mabt = isset($_GET["mabt"]) && $_GET["mabt"] > 0 ? $_GET["mabt"] : 0;
 		//goi ham modelDelete
-		$this->modelDeleteMaintenance();
+		$this->modelFinishMaintenance();
 		//quay tro lai trang products
-		header("location:index.php?controller=maintenance");
+		header("location:index.php?controller=maintenances");
+	}
+	public function print_MaintenanceDetail(){
+		$mabt = isset($_GET["mabt"]) ? $_GET["mabt"] : 0;
+		$data = $this->modelMaintenancesDetail($mabt);
+		//goi view, truyen du lieu ra view
+		$this->loadView("print-MaintenanceDetail.php", ["data" => $data, "mabt" => $mabt]);
 	}
 }

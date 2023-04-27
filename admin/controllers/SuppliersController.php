@@ -14,6 +14,16 @@
 			//goi view, truyen du lieu ra view
 			$this->loadView("SuppliersView.php",["data"=>$data,"numPage"=>$numPage]);
 		}
+		public function view(){
+			$mancc =isset($_GET["mancc"]) ? $_GET["mancc"] : 0;
+			//quy dinh so ban ghi tren mot trang
+			$recordPerPage = 10;
+			$numPage = ceil($this->modelTotalRecordSupplier()/$recordPerPage);
+			//lay du lieu tu model
+			$data = $this->modelReadSupplier($recordPerPage);
+			//goi view, truyen du lieu ra view
+			$this->loadView("SupplierProductsView.php",["data"=>$data,"numPage"=>$numPage, "mancc"=>$mancc]);
+		}
 		public function update(){
 			$mancc = isset($_GET["mancc"]) && $_GET["mancc"] > 0 ? $_GET["mancc"] : 0;
 			//lay mot ban ghi

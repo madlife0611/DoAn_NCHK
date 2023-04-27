@@ -35,7 +35,71 @@
 			//tra ve mot ban ghi
 			return $query->fetch();
 		}
+		//xem sản phẩm theo danh mục
+	public function modelReadSupplier($recordPerPage)
+	{
+		$mancc = isset($_GET["mancc"]) ? $_GET["mancc"] : 0;
+		//lay bien page truyen tu url
+		$page = isset($_GET["p"]) && $_GET["p"] > 0 ? ($_GET["p"] - 1) : 0;
+		//lay tu ban ghi nao
+		$from = $page * $recordPerPage;
+		//---
+		//---sap xep theo khau hao, gia nhap, ngay nhap---------------
+		$sqlOrder = "";
+		$order = isset($_GET["order"]) ? $_GET["order"] : "";
+		switch ($order) {
+			case 'idtang':
+				$sqlOrder = "order by masp asc";
+				break;
+			case 'idgiam':
+				$sqlOrder = "order by masp desc";
+				break;
+			case 'thoigiandenhanbaotritang':
+				$sqlOrder = "order by DATEDIFF(hanbaotri, NOW()) asc";
+				break;
+			case 'thoigiandenhanbaotrigiam':
+				$sqlOrder = "order by DATEDIFF(hanbaotri, NOW()) desc";
+				break;
+			case 'ngaynhapxa':
+				$sqlOrder = "order by ngaynhap asc";
+				break;
+			case 'ngaynhapgan':
+				$sqlOrder = "order by ngaynhap desc";
+				break;
+			case 'trangthai_tudo':
+				$sqlOrder = "and trangthai = 0 order by masp desc";
+				break;
+			case 'trangthai_dangsudung':
+				$sqlOrder = "and trangthai = 1 order by masp desc";
+				break;
+			case 'trangthai_dangbaotri':
+				$sqlOrder = "and trangthai = 2 order by masp desc";
+				break;
+			case 'trangthai_hong':
+				$sqlOrder = "and trangthai = 3 order by masp desc";
+				break;
+			default:
+				$sqlOrder = "order by masp desc";
+				break;
+		}
 		
+		//---
+		//lay bien ket noi csdl
+		$db = Connection::getInstance();
+		//thuc hien truy van
+		$query = $db->query("select * from products where mancc in (select mancc from suppliers where mancc=$mancc) $sqlOrder limit $from,$recordPerPage");
+		//tra ve nhieu ban ghi
+		return $query->fetchAll();
+	}
+	public function modelTotalRecordSupplier(){
+		$mancc =isset($_GET["mancc"]) ? $_GET["mancc"] : 0;
+		//lay bien ket noi csdl
+		$db = Connection::getInstance();
+		//thuc hien truy van
+		$query = $db->query("select * from products where mancc in (select mancc from suppliers where mancc=$mancc)");
+		//tra ve so luong ban ghi
+		return $query->rowCount();
+	}
 		public function modelUpdate(){
 			$mancc = isset($_GET["mancc"]) && $_GET["mancc"] > 0 ? $_GET["mancc"] : 0;
 			$tenncc = $_POST["tenncc"];

@@ -1,6 +1,35 @@
-<?php
-$this->fileLayout = "Layout.php";
-?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance_Detail_<?php echo $mabt; ?></title>
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../assets/lte/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="../assets/lte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="../assets/lte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="../assets/lte/plugins/jqvmap/jqvmap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../assets/lte/dist/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="../assets/lte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="../assets/lte/plugins/daterangepicker/daterangepicker.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="../assets/lte/plugins/summernote/summernote-bs4.min.css">
+
+    <!-- my styles -->
+    <link rel="stylesheet" href="../assets/admin/css/styles.css">
+</head>
 <?php
 $conn = Connection::getInstance();
 $query = $conn->query("select * from maintenances where mabt = $mabt");
@@ -10,25 +39,9 @@ $bt = $query->fetch();
 $account = $this->modelGetAccount($mabt);
 $supplier = $this->getSupplier($bt->mancc);
 ?>
-
-<!-- Content Header (Page header) -->
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-8">
-                <button type="button" class="btn btn-default"><a href="index.php?controller=maintenances">Trở lại <i class="fas fa-backward"></i></a></button>
-            </div>
-            <div class="col-sm-4">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                    <li class="breadcrumb-item"><a href="#">Bảo trì</a> </li>
-                    <li class="breadcrumb-item active">Chi tiết bảo trì </li>
-                </ol>
-            </div>
-        </div>
-    </div><!-- /.container-fluid -->
-</section>
-<section class="content list-products">
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+    <section class="content list-products">
     <div class="container-fluit">
         <div class="invoice p-3 mb-3">
             <!-- title row -->
@@ -205,18 +218,48 @@ $supplier = $this->getSupplier($bt->mancc);
                 <!-- /.col -->
             </div>
             <!-- /.row -->
-
-            <!-- this row will not appear when printing -->
-            <div class="row no-print">
-                <div class="col-12">
-                    <?php if ($bt->trangthai == 0) : ?>
-                        <a href="index.php?controller=maintenances&action=finish_maintenance&mabt=<?php echo $mabt;?>" class="btn btn-success" onclick="return window.confirm('Bạn có chắc chắn hoàn thành bảo trì này?');"><i class="fas fa-check"></i>Hoàn thành bảo trì</a>
-                    <?php endif; ?>
-                    <?php if ($bt->trangthai == 1) : ?>
-                        <a href="index.php?controller=maintenances&action=print_MaintenanceDetail&mabt=<?php echo $mabt; ?>" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> In hóa đơn bảo trì</a>
-                    <?php endif; ?>
-                </div>
-            </div>
         </div>
     </div>
 </section>
+    </div>
+    <!-- ./wrapper -->
+    <!-- jQuery -->
+    <script src="../assets/lte/plugins/jquery/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="../assets/lte/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button)
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src="../assets/lte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- ChartJS -->
+    <script src="../assets/lte/plugins/chart.js/Chart.min.js"></script>
+    <!-- Sparkline -->
+    <script src="../assets/lte/plugins/sparklines/sparkline.js"></script>
+    <!-- JQVMap -->
+    <script src="../assets/lte/plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src="../assets/lte/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="../assets/lte/plugins/jquery-knob/jquery.knob.min.js"></script>
+    <!-- daterangepicker -->
+    <script src="../assets/lte/plugins/moment/moment.min.js"></script>
+    <script src="../assets/lte/plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="../assets/lte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- Summernote -->
+    <script src="../assets/lte/plugins/summernote/summernote-bs4.min.js"></script>
+    <!-- overlayScrollbars -->
+    <script src="../assets/lte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../assets/lte/dist/js/adminlte.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <!-- <script src="../assets/lte/dist/js/demo.js"></script> -->
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <!-- <script src="../assets/lte/dist/js/pages/dashboard.js"></script> -->
+    <script>
+        window.addEventListener("load", window.print());
+    </script>
+</body>
+
+</html>
