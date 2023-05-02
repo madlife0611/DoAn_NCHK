@@ -67,7 +67,7 @@ $this->fileLayout = "Layout.php";
 							<tbody>
 								<?php foreach ($data as $rows) : ?>
 									<?php
-									$account = $this->modelGetAccount($rows->matk);
+									$account = $this->modelGetAccount($rows->request_id);
 									$department = $this->modelGetDepartment($account->mapb);
 									?>
 									<tr>
@@ -92,6 +92,8 @@ $this->fileLayout = "Layout.php";
 										<td>
 											<?php if ($rows->trangthai == 1) : ?>
 												<p>Đã xác nhận</p>
+											<?php elseif ($rows->trangthai == 2) : ?>
+												<p>Đã hủy</p>
 											<?php else : ?>
 												<p>Chưa xác nhận</p>
 											<?php endif; ?>

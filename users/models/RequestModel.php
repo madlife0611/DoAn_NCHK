@@ -106,12 +106,13 @@ trait RequestModel
 		//lay masp vua moi insert
 		$matk = $_SESSION["matk"];
 		//---
-		//---
 		//insert ban ghi vao requests, lay request_id vua moi insert
+		$query_acc = $conn->query("select mapb from accounts where matk = $matk");
+		$mapb = $query_acc->fetchColumn();
 		//lay tong gia cua gio hang
 		$tongtien = $this->requestTotal();
-		$query = $conn->prepare("insert into requests set matk=:matk, ngaylap=now(),tongtien=:tongtien");
-		$query->execute(array("matk" => $matk, "tongtien" => $tongtien));
+		$query = $conn->prepare("insert into requests set matk=:matk, ngaylap=now(),tongtien=:tongtien,mapb=:mapb");
+		$query->execute(array("matk" => $matk, "tongtien" => $tongtien, "mapb" => $mapb));
 		//lay masp vua moi insert
 		$request_id = $conn->lastInsertId();
 		//---
@@ -235,65 +236,5 @@ trait RequestModel
 		$query = $conn->prepare("update requests set trangthai = 2 where request_id=:var_request_id");
 		//thuc thi truy van, co truyen tham so vao cau lenh sql
 		$query->execute(["var_request_id" => $request_id]);
-	}
-	//xác nhận đang sử dụng
-	public function modelUsing()
-	{
-		$masp = isset($_GET["masp"]) && $_GET["masp"] > 0 ? $_GET["masp"] : 0;
-		//lay bien ket noi csdl
-		$conn = Connection::getInstance();
-		// Lấy thông tin sản phẩm
-		$query_prod = $conn->prepare("SELECT loaisp, ngaynhap FROM products WHERE masp = :var_masp");
-		$query_prod->execute(["var_masp" => $masp]);
-		$prod_info = $query_prod->fetch(PDO::FETCH_ASSOC);
-		$loaisp = $prod_info["loaisp"];
-		//thuc hien truy van
-		//với loại sản phẩm bằng 1 thì trạng thái sẽ không đổi
-		if ($loaisp == 2) {
-			$query = $conn->query("update products set trangthai = 1 where masp=$masp");
-		} else {
-			$query = $conn->query("update products set trangthai = 1, time_start = now() where masp=$masp");
-		}
-		
-	}
-
-	//xác nhận đã dùng xong 
-	public function modelFinishedUsing()
-	{
-		$masp = isset($_GET["masp"]) && $_GET["masp"] > 0 ? $_GET["masp"] : 0;
-		$soluongyeucau = isset($_GET["soluong"]) && $_GET["soluong"] > 0 ? $_GET["soluong"] : 0;
-		//lay bien ket noi csdl
-		$conn = Connection::getInstance();
-		// Lấy thông tin sản phẩm
-		$query_prod = $conn->prepare("SELECT loaisp, ngaynhap FROM products WHERE masp = :var_masp");
-		$query_prod->execute(["var_masp" => $masp]);
-		$prod_info = $query_prod->fetch(PDO::FETCH_ASSOC);
-		$loaisp = $prod_info["loaisp"];
-		$ngaynhap = $prod_info["ngaynhap"];
-		//thuc hien truy van
-		//Với loại sản phẩm 1 và 2 thì người ta không quan tâm tần suất sử dụng mà chỉ quan tâm số lần sử dụng
-		if ($loaisp == 1) {
-			//loai san pham = 1; soluongco = soluongco - soluongyeucau
-			$query = $conn->query("update products set soluong = soluong - $soluongyeucau, solansudung = solansudung + 1 where masp=$masp");
-		} else if ($loaisp == 2) {
-			$query = $conn->query("update products set trangthai = 0, soluong = soluong + $soluongyeucau, solansudung = solansudung + 1 where masp=$masp");
-		} else {
-			$query = $conn->query("UPDATE products 
-			SET tongthoigiansudung = tongthoigiansudung + TIMESTAMPDIFF(SECOND, time_start, NOW()),
-				tansuatsudung = (tongthoigiansudung / 3600) / DATEDIFF(NOW(), ngaynhap),
-				time_start = '',
-				trangthai = '0',
-				solansudung = solansudung + 1
-			WHERE masp = $masp");
-		}
-	}
-	//xác nhận đã hỏng hoặc lỗi
-	public function modelBroken()
-	{
-		$masp = isset($_GET["masp"]) && $_GET["masp"] > 0 ? $_GET["masp"] : 0;
-		//lay bien ket noi csdl
-		$conn = Connection::getInstance();
-		//thuc hien truy van
-		$query = $conn->query("update products set trangthai = 3 where masp=$masp");
 	}
 }

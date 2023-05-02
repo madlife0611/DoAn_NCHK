@@ -31,7 +31,6 @@ $this->fileLayout = "Layout.php";
         <div class="small-box bg-info">
           <div class="inner">
             <h3><?php echo $TotalProducts = $this->modelTotalProducts(); ?></h3>
-
             <p>Tổng số vật tư</p>
           </div>
           <div class="icon">

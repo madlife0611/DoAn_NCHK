@@ -153,9 +153,6 @@ $rq = $query->fetch();
                                 <th scope="col">Nhà cung cấp</th>
                                 <th scope="col">Số lượng có</th>
                                 <th scope="col">Số lượng yêu cầu</th>
-                                <?php if ($rq->trangthai == 1) : ?>
-                                    <th></th>
-                                <?php endif; ?>
                             </tr>
                         </thead>
                         <tbody>
@@ -187,6 +184,9 @@ $rq = $query->fetch();
                                         <?php if (isset($product->trangthai) && $product->trangthai == 3) : ?>
                                             Hỏng
                                         <?php endif; ?>
+                                        <?php if (isset($product->trangthai) && $product->trangthai == 4) : ?>
+                                           Đã hoàn tất quá trình sử dụng
+                                        <?php endif; ?>
                                     </td>
                                     <td><?php
                                         //co the goi ham tu class model o day
@@ -206,24 +206,6 @@ $rq = $query->fetch();
                                         echo isset($requestdetail->soluong) ? $requestdetail->soluong : "";
                                         ?>
                                     </td>
-                                    <?php if ($rq->trangthai == 1) : ?>
-                                        <td class="d-flex flex-column">
-                                            <?php if (isset($product->trangthai) && $product->trangthai == 0) : ?>
-                                                <a class="btn btn-info btn-sm" href="index.php?controller=request&action=using&masp=<?php echo $rows->masp; ?>&request_id=<?php echo $rows->request_id; ?>">
-                                                    Đang sử dụng
-                                                </a>
-                                            <?php endif; ?>
-                                            <?php if (isset($product->trangthai) && $product->trangthai == 1) : ?>
-                                                <a class="btn btn-success btn-sm" href="index.php?controller=request&action=finished_using&masp=<?php echo $rows->masp; ?>&soluong=<?php echo $requestdetail->soluong; ?>&request_id=<?php echo $rows->request_id; ?>" onclick="return window.confirm('Xác nhận đã sử dụng sản phẩm này?');">
-                                                    Hoàn tất
-                                                </a>
-                                            <?php endif; ?>
-                                            <a class="btn btn-danger btn-sm" href="index.php?controller=request&action=broken&masp=<?php echo $rows->masp; ?>&request_id=<?php echo $rows->request_id; ?>" onclick="return window.confirm('Xác nhận sản phẩm này lỗi hoặc hỏng?');">
-                                                Báo lỗi/hỏng
-                                            </a>
-
-                                        </td>
-                                    <?php endif; ?>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -237,7 +219,7 @@ $rq = $query->fetch();
             <div class="row no-print">
                 <div class="col-12">
                     <?php if ($rq->trangthai == 0) : ?>
-                        <a href="index.php?controller=requests&action=delete_request&request_id=<?php echo $request_id; ?>" rel="noopener" target="_blank" class="btn btn-danger" onclick="return window.confirm('Bạn có chắc chắn hủy yêu cầu này?');"><i class="fas fa-trash"></i>Hủy yêu cầu</a>
+                        <a href="index.php?controller=request&action=delete_request&request_id=<?php echo $rq->request_id; ?>" class="btn btn-danger" onclick="return window.confirm('Bạn có chắc chắn hủy yêu cầu này?');"><i class="fas fa-trash"></i>Hủy yêu cầu</a>
                     <?php endif; ?>
                 </div>
             </div>

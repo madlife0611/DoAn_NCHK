@@ -8,7 +8,7 @@
 			$data = $this->modelAjaxSearch();
 			$strResult = "";
 			foreach($data as $rows){
-				$strResult = $strResult."<li><a href='index.php?controller=products&action=update&masp={$rows->masp}'>{$rows->tensp}</a></li>";
+				$strResult = $strResult."<li><a href='index.php?controller=products&action=detail&masp={$rows->masp}'>{$rows->tensp}</a></li>";
 			}
 			echo $strResult;
 		}
@@ -21,7 +21,7 @@
 			//lay du lieu tu model
 			$data = $this->modelRead($recordPerPage);
 			//goi view, truyen du lieu ra view
-			$this->loadView("SearchNameView.php",["data"=>$data,"numPage"=>$numPage,"key"=>$key]);
+			$this->loadView("SearchView.php",["data"=>$data,"numPage"=>$numPage,"key"=>$key]);
 		}
 	}
  ?>

@@ -30,6 +30,7 @@
   <!-- my styles -->
   <link rel="stylesheet" href="../assets/admin/css/styles.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
   
 </head>
 

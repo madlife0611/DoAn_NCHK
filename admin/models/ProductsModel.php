@@ -42,6 +42,15 @@ trait ProductsModel
 			case 'trangthai_hong':
 				$sqlOrder = "where trangthai = 3 order by masp desc";
 				break;
+			case 'loaisp1':
+				$sqlOrder = "where loaisp = 1 order by masp desc";
+				break;
+			case 'loaisp2':
+				$sqlOrder = "where loaisp = 2 order by masp desc";
+				break;
+			case 'loaisp3':
+				$sqlOrder = "where loaisp = 3 order by masp desc";
+				break;
 			default:
 				$sqlOrder = "order by masp desc";
 				break;
@@ -327,4 +336,3 @@ trait ProductsModel
 		$query->execute(["var_masp" => $masp]);
 	}
 }
-?>

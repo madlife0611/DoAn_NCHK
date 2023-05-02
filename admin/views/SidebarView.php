@@ -83,6 +83,14 @@
           </a>
         </li>
         <li class="nav-item">
+          <a href="index.php?controller=departments" class="nav-link">
+            <i class=" nav-icon fas fa-house-user"></i>
+            <p>
+              Phòng ban
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="index.php?controller=accounts" class="nav-link">
             <i class="nav-icon fas fa-users"></i>
             <p>

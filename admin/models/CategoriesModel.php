@@ -95,15 +95,18 @@ trait CategoriesModel
 		//tra ve nhieu ban ghi
 		return $query->fetchAll();
 	}
+
 	public function modelTotalRecordCategory(){
 		$madm =isset($_GET["madm"]) ? $_GET["madm"] : 0;
 		//lay bien ket noi csdl
 		$db = Connection::getInstance();
 		//thuc hien truy van
-		$query = $db->query("select * from products where madm in (select madm from categories where madm=$madm)");
+		$query = $db->query("select sum(soluong) from products where madm = $madm)");
 		//tra ve so luong ban ghi
-		return $query->rowCount();
+		return $query->fetchColumn();
 	}
+
+	//Các chức năng quản lý
 	public function modelUpdate()
 	{
 		$madm = isset($_GET["madm"]) && $_GET["madm"] > 0 ? $_GET["madm"] : 0;

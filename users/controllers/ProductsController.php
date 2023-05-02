@@ -18,7 +18,7 @@
 			$masp = isset($_GET["masp"]) && $_GET["masp"] > 0 ? $_GET["masp"] : 0;
 			$record = $this->modelGetRecord($masp);	
 			//goi view, truyen du lieu ra view
-			$this->loadView("DetailProductsView.php",["record"=>$record,"masp"=>$masp]);
+			$this->loadView("ProductDetailView.php",["record"=>$record,"masp"=>$masp]);
 		}
 	
 	}

@@ -22,105 +22,62 @@
       <div class="navbar-search-block">
         <form class="form-inline">
           <div class="input-group input-group-sm">
-            <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control form-control-navbar position-relative" autocomplete="off" type="search" placeholder="Tìm kiếm vật tư" id="key" aria-label="Search">
             <div class="input-group-append">
               <button class="btn btn-navbar" type="submit">
-                <i class="fas fa-search"></i>
-              </button>
-              <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                <i class="fas fa-times"></i>
+                <i class="fas fa-search" id="btnSearch"></i>
               </button>
             </div>
+          </div>
+          <div class="smart-search">
+            <ul>
+              <li><a href="#">Sản phẩm 1</a></li>
+              <li><a href="#">Sản phẩm 1</a></li>
+              <li><a href="#">Sản phẩm 1</a></li>
+            </ul>
           </div>
         </form>
       </div>
     </li>
+    <?php
+      $ProductNumberMaintenance = 0;
+      if (isset($_SESSION['maintenance'])) foreach ($_SESSION['maintenance'] as $product)
+          $ProductNumberMaintenance++;
+      ?>
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="fas fa-tools"></i>
+          <span class="badge badge-danger navbar-badge">
+            <?php echo $ProductNumberMaintenance; ?>
+          </span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <?php if (isset($_SESSION['maintenance'])): ?>
+            <?php foreach ($_SESSION['maintenance'] as $product): ?>
+              <a href="#" class="dropdown-item">
+                <!-- product Start -->
+                <div class="media">
+                  <img src="../assets/image/upload/products/<?php echo $product["anhsp"]; ?>" alt="product"
+                    class="img-size-50 mr-3 ">
+                  <div class="media-body">
+                    <h3 class="dropdown-item-title">
+                      <?php echo $product["tensp"]; ?>
 
-    <!-- Messages Dropdown Menu -->
-    <li class="nav-item dropdown">
-      <a class="nav-link" data-toggle="dropdown" href="#">
-        <i class="far fa-comments"></i>
-        <span class="badge badge-danger navbar-badge">3</span>
-      </a>
-      <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-        <a href="#" class="dropdown-item">
-          <!-- Message Start -->
-          <div class="media">
-            <img src="../assets/lte/dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-            <div class="media-body">
-              <h3 class="dropdown-item-title">
-                Brad Diesel
-                <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-              </h3>
-              <p class="text-sm">Call me whenever you can...</p>
-              <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-            </div>
-          </div>
-          <!-- Message End -->
-        </a>
-        <div class="dropdown-divider"></div>
-        <a href="#" class="dropdown-item">
-          <!-- Message Start -->
-          <div class="media">
-            <img src="../assets/lte/dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-            <div class="media-body">
-              <h3 class="dropdown-item-title">
-                John Pierce
-                <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-              </h3>
-              <p class="text-sm">I got your message bro</p>
-              <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-            </div>
-          </div>
-          <!-- Message End -->
-        </a>
-        <div class="dropdown-divider"></div>
-        <a href="#" class="dropdown-item">
-          <!-- Message Start -->
-          <div class="media">
-            <img src="../assets/lte/dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-            <div class="media-body">
-              <h3 class="dropdown-item-title">
-                Nora Silvester
-                <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-              </h3>
-              <p class="text-sm">The subject goes here</p>
-              <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-            </div>
-          </div>
-          <!-- Message End -->
-        </a>
-        <div class="dropdown-divider"></div>
-        <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-      </div>
-    </li>
-    <!-- Notifications Dropdown Menu -->
-    <li class="nav-item dropdown">
-      <a class="nav-link" data-toggle="dropdown" href="#">
-        <i class="far fa-bell"></i>
-        <span class="badge badge-warning navbar-badge">15</span>
-      </a>
-      <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-        <span class="dropdown-item dropdown-header">15 Notifications</span>
-        <div class="dropdown-divider"></div>
-        <a href="#" class="dropdown-item">
-          <i class="fas fa-envelope mr-2"></i> 4 new messages
-          <span class="float-right text-muted text-sm">3 mins</span>
-        </a>
-        <div class="dropdown-divider"></div>
-        <a href="#" class="dropdown-item">
-          <i class="fas fa-users mr-2"></i> 8 friend requests
-          <span class="float-right text-muted text-sm">12 hours</span>
-        </a>
-        <div class="dropdown-divider"></div>
-        <a href="#" class="dropdown-item">
-          <i class="fas fa-file mr-2"></i> 3 new reports
-          <span class="float-right text-muted text-sm">2 days</span>
-        </a>
-        <div class="dropdown-divider"></div>
-        <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-      </div>
-    </li>
+                    </h3>
+                    <p class="text-sm">
+                      <?php echo $product["mota"]; ?>
+                    </p>
+
+                  </div>
+                </div>
+                <!-- product End -->
+              </a>
+              <div class="dropdown-divider"></div>
+            <?php endforeach; ?>
+          <?php endif; ?>
+          <a href="index.php?controller=maintenances" class="dropdown-item dropdown-footer">Chi tiết bảo trì</a>
+        </div>
+      </li>
     <li class="nav-item">
       <a class="nav-link" data-widget="fullscreen" href="#" role="button">
         <i class="fas fa-expand-arrows-alt"></i>
@@ -133,3 +90,58 @@
     </li>
   </ul>
 </nav>
+<style type="text/css">
+  .smart-search {
+    position: absolute;
+    border: 1px solid #000;
+    border-radius: 20px 0 0 0;
+    margin-top: 330px;
+    width: 500px;
+    padding-left: 10px;
+    background: white;
+    height: 300px;
+    overflow: scroll;
+    z-index: 2;
+    display: none;
+  }
+
+  .smart-search ul {
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+  }
+
+  .smart-search a {
+    text-decoration: none;
+    color: black;
+  }
+</style>
+<script type="text/javascript">
+  $(document).ready(function() {
+    //bat su kien click cua id=btnSearch
+    $("#btnSearch").click(function() {
+      var key = $("#key").val();
+      //di chuyen den url tim kiem
+      location.href = "index.php?controller=search&action=name&key=" + key;
+    });
+    //---
+    $(".form-control-navbar").keyup(function() {
+      var strKey = $("#key").val();
+      if (strKey.trim() == "")
+        $(".smart-search").attr("style", "display:none");
+      else {
+        $(".smart-search").attr("style", "display:block");
+        //---
+        //su dung ajax de lay du lieu
+        $.get("index.php?controller=search&action=ajaxSearch&key=" + strKey, function(data) {
+          //clear cac the li ben trong the ul
+          $(".smart-search ul").empty();
+          //them du lieu vua lay duoc bang ajax vao the ul
+          $(".smart-search ul").append(data);
+        });
+        //---
+      }
+    });
+    //---
+  });
+</script>

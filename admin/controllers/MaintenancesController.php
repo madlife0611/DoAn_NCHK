@@ -24,10 +24,11 @@ class MaintenancesController extends Controller
 	public function create()
 	{
 		$masp = isset($_GET["masp"]) ? $_GET['masp'] : 0;
+		$mancc = isset($_GET["mancc"]) ? $_GET['mancc'] : 0;
 		$db = Connection::getInstance();
 		//goi ham trong model
 		$this->maintenanceAdd($masp);
-		header("location:index.php?controller=maintenances");
+		header("location:index.php?controller=suppliers&action=view&mancc=$mancc");
 	}
 	//xoa san pham khoi maintenance
 	public function delete()

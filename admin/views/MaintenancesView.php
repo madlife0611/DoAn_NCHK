@@ -1,6 +1,6 @@
 <?php
 $this->fileLayout = "Layout.php";
-?>
+?><?php $ncc = $this->getSupplier($this->maintenanceSupplier()); ?>
 <section class="content-header">
     <div class="container-fluid">
         <div class="row">
@@ -10,6 +10,7 @@ $this->fileLayout = "Layout.php";
                         <table class="table table-head-fixed text-wrap">
                             <thead>
                                 <tr>
+                                    <th scope="col">ID</th>
                                     <th class="anh" scope="col">Ảnh</th>
                                     <th class="tensp" scope="col">Tên vật tư</th>
                                     <th class="gianhap" scope="col">Giá nhập</th>
@@ -23,6 +24,7 @@ $this->fileLayout = "Layout.php";
                                 foreach ($_SESSION['maintenance'] as $product) :
                                 ?>
                                     <tr>
+                                        <td><?php echo $product["masp"]; ?></td>
                                         <td>
                                             <img src="../assets/image/upload/products/<?php echo $product["anhsp"]; ?>" style="max-width: 100px;">
                                         </td>
@@ -39,7 +41,7 @@ $this->fileLayout = "Layout.php";
                             <tfoot>
                                 <tr>
                                     <td colspan="4">
-                                        <a href="index.php?controller=suppliers" class="btn btn-primary btn-sm">Trở lại nhà cung cấp</a>
+                                        <a href="index.php?controller=suppliers&action=view&mancc=<?php echo $ncc->mancc; ?>" class="btn btn-primary btn-sm">Trở lại nhà cung cấp</a>
                                     </td>
                                     <td><a href="index.php?controller=maintenances&action=destroy" class="btn btn-primary btn-sm">Xóa toàn bộ</a></td>
                                 </tr>
@@ -52,12 +54,12 @@ $this->fileLayout = "Layout.php";
                 <div class="card">
                     <div class="card-body">
                         <?php if ($this->maintenanceNumber() > 0) : ?>
-                            <?php $ncc = $this->getSupplier($this->maintenanceSupplier()); ?>
+                            
                             <h5 class="card-title">Nhà cung cấp: <?php echo $ncc->tenncc; ?></h5>
                             <a href="index.php?controller=maintenances&action=checkout" class="btn btn-primary btn-sm">Xác nhận bảo hành</a>
                         <?php else : ?>
                             <h5 class="card-title">CHƯA CÓ SẢN PHẨM NÀO TRONG DANH SÁCH</h5>
-                            <a href="index.php" class="btn btn-primary btn-sm">Trở lại trang chủ</a>
+                            <a href="index.php?controller=suppliers" class="btn btn-primary btn-sm">Trở lại nhà cung cấp</a>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -74,27 +76,6 @@ $this->fileLayout = "Layout.php";
                     <div class="card-header">
                         <div class="card-title">
                             <h4>Lịch sử bảo trì</h4>
-                        </div>
-                        <div class="form-inline float-right">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default">Sắp xếp</button>
-                                <button type="button" class="btn btn-default dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <div class="dropdown-menu" role="menu">
-                                    <a class="dropdown-item" href="index.php?controller=products&action=category&madm=<?php echo $madm; ?>&order=idtang">Theo mã
-                                        vật tư tăng dần</a>
-                                    <a class="dropdown-item" href="index.php?controller=products&action=category&madm=<?php echo $madm; ?>&order=idgiam">Theo mã
-                                        vật giảm dần</a>
-                                    <a class="dropdown-item" href="index.php?controller=products&action=category&madm=<?php echo $madm; ?>&order=ngaynhapgan">Theo
-                                        ngày nhập gần
-                                        dần</a>
-                                    <a class="dropdown-item" href="index.php?controller=products&action=category&madm=<?php echo $madm; ?>&order=ngaynhapxa">Theo
-                                        ngày nhập xa nhất
-                                        dần</a>
-
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <!-- /.card-header -->

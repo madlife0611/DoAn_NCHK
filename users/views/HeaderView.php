@@ -12,20 +12,22 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse order-3" id="navbarCollapse">
+      <?php
+        $matk = $_SESSION["matk"];
+        $db = Connection::getInstance();
+        $query = $db->query("select * from categories order by madm asc");
+        $categories = $query->fetchAll();
+        $query_d = $db->query("select * from departments where mapb = (select mapb from accounts where matk = $matk)");
+        $pb = $query_d->fetch();
+        ?>
       <!-- Left navbar links -->
       <ul class="navbar-nav">
         <li class="nav-item">
           <a href="index.php" class="nav-link">Trang chủ</a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">Liên hệ</a>
+          <a href="index.php?controller=department" class="nav-link">Phòng ban: <?php echo $pb->tenpb; ?></a>
         </li>
-        <?php
-        $db = Connection::getInstance();
-        $query = $db->query("select * from categories order by madm asc");
-        $categories = $query->fetchAll();
-        ?>
         <li class="nav-item dropdown">
           <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
             class="nav-link dropdown-toggle">Danh mục vật tư</a>
@@ -44,20 +46,27 @@
 
       <!-- SEARCH FORM -->
       <form class="form-inline ml-0 ml-md-3">
-        <div class="input-group input-group-sm">
-          <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+        <div class="input-group input-group-sm" style="">
+          <input class="form-control form-control-navbar" autocomplete="off" type="search" placeholder="Tìm kiếm vật tư" id="key" aria-label="Search">
           <div class="input-group-append">
             <button class="btn btn-navbar" type="submit">
-              <i class="fas fa-search"></i>
+              <i class="fas fa-search" id="btnSearch"></i>
             </button>
           </div>
         </div>
+        <div class="smart-search">
+            <ul>
+              <li><a href="#">Sản phẩm 1</a></li>
+              <li><a href="#">Sản phẩm 1</a></li>
+              <li><a href="#">Sản phẩm 1</a></li>
+            </ul>
+          </div>
       </form>
-    </div>
 
-    <!-- Right navbar links -->
-    <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-      <!-- Messages Dropdown Menu -->
+
+    <ul class="navbar-nav ml-auto">
+
+    <!-- Messages Dropdown Menu -->
       <?php
       $ProductNumberRequest = 0;
       if (isset($_SESSION['request'])) foreach ($_SESSION['request'] as $product)
@@ -121,7 +130,62 @@
           <a href="#" class="dropdown-item dropdown-footer">Cập nhật thông tin cá nhân</a>
         </div>
       </li>
-    </ul>
+  </ul>
   </div>
 </nav>
 <!-- /.navbar -->
+<style type="text/css">
+  .smart-search {
+    position: absolute;
+    border: 1px solid #000;
+    border-radius: 20px 0 0 0;
+    margin-top: 330px;
+    width: 330px;
+    padding-left: 10px;
+    background: white;
+    height: 300px;
+    overflow: scroll;
+    z-index: 2;
+    display: none;
+  }
+
+  .smart-search ul {
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+  }
+
+  .smart-search a {
+    text-decoration: none;
+    color: black;
+  }
+</style>
+<script type="text/javascript">
+  $(document).ready(function() {
+    //bat su kien click cua id=btnSearch
+    $("#btnSearch").click(function() {
+      var key = $("#key").val();
+      //di chuyen den url tim kiem
+      location.href = "index.php?controller=search&action=name&key=" + key;
+    });
+    //---
+    $(".form-control-navbar").keyup(function() {
+      var strKey = $("#key").val();
+      if (strKey.trim() == "")
+        $(".smart-search").attr("style", "display:none");
+      else {
+        $(".smart-search").attr("style", "display:block");
+        //---
+        //su dung ajax de lay du lieu
+        $.get("index.php?controller=search&action=ajaxSearch&key=" + strKey, function(data) {
+          //clear cac the li ben trong the ul
+          $(".smart-search ul").empty();
+          //them du lieu vua lay duoc bang ajax vao the ul
+          $(".smart-search ul").append(data);
+        });
+        //---
+      }
+    });
+    //---
+  });
+</script>

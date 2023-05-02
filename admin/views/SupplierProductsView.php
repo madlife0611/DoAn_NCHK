@@ -127,7 +127,7 @@ $this->fileLayout = "Layout.php";
                       <?php endif; ?>
                     </td>
                     <td class="text-right">
-                      <a class="btn btn-primary btn-sm" href="index.php?controller=maintenances&action=create&masp=<?php echo $rows->masp; ?>">
+                      <a class="btn btn-primary btn-sm" href="index.php?controller=maintenances&action=create&masp=<?php echo $rows->masp; ?>&mancc=<?php echo $mancc; ?>">
                       <i class="fas fa-plus"></i>
                       </a>
                       <a class="btn btn-primary btn-sm" href="index.php?controller=products&action=detail&masp=<?php echo $rows->masp; ?>">

@@ -6,8 +6,7 @@ $this->fileLayout = "Layout.php";
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-      <button type="button" class="btn btn-default"><a href="index.php?controller=products&action=create">Thêm vật tư mới <i
-              class="fas fa-plus"></i></a></button>
+        <button type="button" class="btn btn-default"><a href="index.php?controller=products&action=create">Thêm vật tư mới <i class="fas fa-plus"></i></a></button>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
@@ -28,8 +27,7 @@ $this->fileLayout = "Layout.php";
             <div class="card-title">
               <div class="btn-group">
                 <button type="button" class="btn btn-default">Sắp xếp</button>
-                <button type="button" class="btn btn-default dropdown-toggle dropdown-icon" data-toggle="dropdown"
-                  aria-expanded="false">
+                <button type="button" class="btn btn-default dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
                   <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <div class="dropdown-menu" role="menu" style="">
@@ -43,6 +41,14 @@ $this->fileLayout = "Layout.php";
                     gian ngày bảo trì gần nhất</a>
                   <a class="dropdown-item" href="index.php?controller=products&order=thoigiandenhanbaotrigiam">Theo thời
                     gian ngày bảo trì xa nhất</a>
+                </div>
+              </div>
+              <div class="btn-group">
+                <button type="button" class="btn btn-default">Tìm kiếm</button>
+                <button type="button" class="btn btn-default dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu" role="menu" style="">
                   <a class="dropdown-item" href="index.php?controller=products&order=trangthai_tudo">Trạng thái tự
                     do</a>
                   <a class="dropdown-item" href="index.php?controller=products&order=trangthai_dangsudung">Trạng thái
@@ -50,13 +56,15 @@ $this->fileLayout = "Layout.php";
                   <a class="dropdown-item" href="index.php?controller=products&order=trangthai_dangbaotri">Trạng thái
                     đang bảo trì</a>
                   <a class="dropdown-item" href="index.php?controller=products&order=trangthai_hong">Trạng thái hỏng</a>
+                  <a class="dropdown-item" href="index.php?controller=products&order=loaisp1">Vật tư dùng xong bỏ</a>
+                  <a class="dropdown-item" href="index.php?controller=products&order=loaisp2">Vật tư dùng xong trả lại kho</a>
+                  <a class="dropdown-item" href="index.php?controller=products&order=loaisp3">Trang thiết bị</a>
                 </div>
               </div>
             </div>
             <div class="form-inline float-right">
-              <div class="input-group" data-widget="sidebar-search">
-                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search"
-                  id="key">
+              <div class="input-group">
+                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search" id="key">
                 <div class="input-group-append">
                   <button class="btn btn-default" id="btnSearchForAdmin">
                     <i class="fas fa-fw fa-search"></i>
@@ -71,7 +79,6 @@ $this->fileLayout = "Layout.php";
                       <li><a href="#">Sản phẩm 2</a></li>
                       <li><a href="#">Sản phẩm 3</a></li>
                     </ul>
-                    <div class="search-path"></div>
                   </a>
                 </div>
               </div>
@@ -86,6 +93,7 @@ $this->fileLayout = "Layout.php";
                   <th style="width: 100px;">Ảnh</th>
                   <th>Tên</th>
                   <th>Mô tả</th>
+                  <th>Loại vật tư</th>
                   <th>Số lượng</th>
                   <th>Ngày nhập</th>
                   <th>Ngày bảo trì</th>
@@ -94,18 +102,28 @@ $this->fileLayout = "Layout.php";
                 </tr>
               </thead>
               <tbody>
-                <?php foreach ($data as $rows): ?>
+                <?php foreach ($data as $rows) : ?>
                   <tr>
                     <td>
                       <?php echo $rows->masp; ?>
                     </td>
-                    <td><img src="../assets/image/upload/products/<?php echo $rows->anhsp; ?>" alt="product-img"
-                        class="img-product"></td>
+                    <td><img src="../assets/image/upload/products/<?php echo $rows->anhsp; ?>" alt="product-img" class="img-product"></td>
                     <td>
                       <?php echo $rows->tensp; ?>
                     </td>
                     <td>
                       <?php echo $rows->mota; ?>
+                    </td>
+                    <td>
+                      <?php if (isset($rows->loaisp) && $rows->loaisp == 1) : ?>
+                        Dùng xong bỏ
+                      <?php endif; ?>
+                      <?php if (isset($rows->loaisp) && $rows->loaisp == 2) : ?>
+                        Dùng xong trả lại kho
+                      <?php endif; ?>
+                      <?php if (isset($rows->loaisp) && $rows->loaisp == 3) : ?>
+                        Trang thiết bị
+                      <?php endif; ?>
                     </td>
                     <td>
                       <?php echo $rows->soluong; ?>
@@ -117,16 +135,16 @@ $this->fileLayout = "Layout.php";
                       <?php echo $rows->hanbaotri; ?>
                     </td>
                     <td>
-                      <?php if (isset($rows->trangthai) && $rows->trangthai == 0): ?>
+                      <?php if (isset($rows->trangthai) && $rows->trangthai == 0) : ?>
                         Tự do
                       <?php endif; ?>
-                      <?php if (isset($rows->trangthai) && $rows->trangthai == 1): ?>
+                      <?php if (isset($rows->trangthai) && $rows->trangthai == 1) : ?>
                         Đang được sử dụng
                       <?php endif; ?>
-                      <?php if (isset($rows->trangthai) && $rows->trangthai == 2): ?>
+                      <?php if (isset($rows->trangthai) && $rows->trangthai == 2) : ?>
                         Đang bảo trì
                       <?php endif; ?>
-                      <?php if (isset($rows->trangthai) && $rows->trangthai == 3): ?>
+                      <?php if (isset($rows->trangthai) && $rows->trangthai == 3) : ?>
                         Hỏng
                       <?php endif; ?>
                     </td>
@@ -139,8 +157,7 @@ $this->fileLayout = "Layout.php";
                         <i class="fas fa-pencil-alt">
                         </i>
                       </a>
-                      <a class="btn btn-danger btn-sm" href="index.php?controller=products&action=delete&masp=<?php echo $rows->masp; ?>"
-                    onclick="return window.confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');">
+                      <a class="btn btn-danger btn-sm" href="index.php?controller=products&action=delete&masp=<?php echo $rows->masp; ?>" onclick="return window.confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');">
                         <i class="fas fa-trash">
                         </i>
                       </a>
@@ -154,9 +171,8 @@ $this->fileLayout = "Layout.php";
           <div class="card-footer">
             <nav aria-label="Contacts Page Navigation">
               <ul class="pagination justify-content-center m-0">
-                <?php for ($i = 1; $i <= $numPage; $i++): ?>
-                  <li class="page-item"><a class="page-link"
-                      href="index.php?controller=products&p=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                <?php for ($i = 1; $i <= $numPage; $i++) : ?>
+                  <li class="page-item"><a class="page-link" href="index.php?controller=products&p=<?php echo $i; ?>"><?php echo $i; ?></a></li>
                 <?php endfor; ?>
               </ul>
             </nav>
@@ -169,15 +185,15 @@ $this->fileLayout = "Layout.php";
 </section>
 <script type="text/javascript">
   //tinh nang nay phai dung ket hop voi jquery -> phai load thu vien jquery
-  $(document).ready(function () {
+  $(document).ready(function() {
     //bat su kien click cua id=btnSearch
-    $("#btnSearchForAdmin").click(function () {
+    $("#btnSearchForAdmin").click(function() {
       var key = $("#key").val();
       //di chuyen den url tim kiem
       location.href = "index.php?controller=search&action=name&key=" + key;
     });
     //---
-    $(".input-control").keyup(function () {
+    $(".input-control").keyup(function() {
       var strKey = $("#key").val();
       if (strKey.trim() == "")
         $(".sidebar-search-results").attr("style", "display:none");
@@ -185,7 +201,7 @@ $this->fileLayout = "Layout.php";
         $(".sidebar-search-results").attr("style", "display:block");
         //---
         //su dung ajax de lay du lieu
-        $.get("index.php?controller=search&action=ajaxSearch&key=" + strKey, function (data) {
+        $.get("index.php?controller=search&action=ajaxSearch&key=" + strKey, function(data) {
           //clear cac the li ben trong the ul
           $(".sidebar-search-results ul").empty();
           //them du lieu vua lay duoc bang ajax vao the ul

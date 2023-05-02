@@ -32,34 +32,16 @@ $this->fileLayout = "Layout.php";
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
                                 <div class="dropdown-menu" role="menu" style="">
-                                    <a class="dropdown-item" href="#">Theo ngày thay đổi gần dần</a>
-                                    <a class="dropdown-item" href="#">Theo ngày thay đổi xa nhất dần</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-inline float-right">
-                            <div class="input-group" data-widget="sidebar-search">
-                                <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                                    aria-label="Search" id="key">
-                                <div class="input-group-append">
-                                    <button class="btn btn-default" id="btnSearchForAdmin">
-                                        <i class="fas fa-fw fa-search"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="sidebar-search-results">
-                                <div class="list-group">
-                                    <a href="#" class="list-group-item">
-                                        <div class="search-title">
-                                            <strong class="text-light"></strong>Không tìm thấy vật tư nào!
-                                        </div>
-                                        <ul>
-                                            <li><a href="#">Sản phẩm 1</a></li>
-                                            <li><a href="#">Sản phẩm 2</a></li>
-                                            <li><a href="#">Sản phẩm 3</a></li>
-                                        </ul>
-                                        <div class="search-path"></div>
-                                    </a>
+                                    <a class="dropdown-item" href="index.php?controller=changelog&order=ngaythuchiengan">Theo ngày thay đổi gần dần</a>
+                                    <a class="dropdown-item" href="index.php?controller=changelog&order=ngaythuchiexa">Theo ngày thay đổi xa nhất dần</a>
+                                    <a class="dropdown-item" href="index.php?controller=changelog&order=trangthai_create">Theo trạng thái create</a>
+                                    <a class="dropdown-item" href="index.php?controller=changelog&order=trangthai_update">Theo trạng thái update</a>
+                                    <a class="dropdown-item" href="index.php?controller=changelog&order=trangthai_delete">Theo trạng thái delete</a>
+                                    <a class="dropdown-item" href="index.php?controller=changelog&order=bang_products">Theo bảng products</a>
+                                    <a class="dropdown-item" href="index.php?controller=changelog&order=bang_categories">Theo bảng categories</a>
+                                    <a class="dropdown-item" href="index.php?controller=changelog&order=bang_suppliers">Theo bảng suppliers</a>
+                                    <a class="dropdown-item" href="index.php?controller=changelog&order=bang_departments">Theo bảng departments</a>
+                                    <a class="dropdown-item" href="index.php?controller=changelog&order=bang_accounts">Theo bảng accounts</a>
                                 </div>
                             </div>
                         </div>

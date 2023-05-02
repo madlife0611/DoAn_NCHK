@@ -87,35 +87,4 @@ class RequestController extends Controller
 		//quay tro lai trang products
 		header("location:index.php?controller=request");
 	}
-	//using
-	public function using()
-	{
-		$request_id = isset($_GET["request_id"]) ? $_GET["request_id"] : 0;
-		$masp = isset($_GET["masp"]) ? $_GET["masp"] : 0;
-		//goi ham modelDelete
-		$this->modelUsing();
-		//quay tro lai trang products
-		header("location:index.php?controller=request&action=detail&request_id=$request_id");
-	}
-	//broken
-	public function broken()
-	{
-		$request_id = isset($_GET["request_id"]) ? $_GET["request_id"] : 0;
-		$masp = isset($_GET["masp"]) ? $_GET["masp"] : 0;
-		//goi ham modelDelete
-		$this->modelBroken();
-		//quay tro lai trang products
-		header("location:index.php?controller=request&action=detail&request_id=$request_id");
-	}
-	//finished using
-	public function finished_using()
-	{
-		$request_id = isset($_GET["request_id"]) ? $_GET["request_id"] : 0;
-		$masp = isset($_GET["masp"]) ? $_GET["masp"] : 0;
-		$soluongyeucau = isset($_GET["soluong"]) ? $_GET["soluong"] : 0;
-		//goi ham modelDelete
-		$this->modelFinishedUsing();
-		//quay tro lai trang products
-		header("location:index.php?controller=request&action=detail&request_id=$request_id");
-	}
 }

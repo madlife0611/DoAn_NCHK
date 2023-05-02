@@ -6,8 +6,7 @@ $this->fileLayout = "Layout.php";
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <button type="button" class="btn btn-default"><a href="index.php?controller=categories&action=create">Thêm vật tư mới <i
-                            class="fas fa-plus"></i></a></button>
+                <button type="button" class="btn btn-default"><a href="index.php?controller=categories&action=create">Thêm vật tư mới <i class="fas fa-plus"></i></a></button>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -26,27 +25,41 @@ $this->fileLayout = "Layout.php";
     <div class="card card-solid">
         <div class="card-body pb-0">
             <div class="row">
-                <?php foreach ($data as $rows): ?>
+                <?php foreach ($data as $rows) : ?>
                     <!-- col -->
                     <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <?php echo $rows->tendm; ?>
-                                </h5>
-                                <p class="card-text">
-                                    <?php echo $rows->mota; ?>
-                                </p>
+                        <div class="card bg-light d-flex flex-fill">
+                            <div class="card-header text-muted border-bottom-0">
+                                
+                                <?php echo $rows->tendm; ?>
                             </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Tổng số lượng vật tư: <span
-                                        class="text-danger float-right">111</span></li>
-                                <li class="list-group-item">Tổng vật tư sắp đến hạn bảo hành: <span
-                                        class="text-danger float-right">111</span></li>
-                                <li class="list-group-item">Tổng vật tư đang được sử dụng: <span
-                                        class="text-danger float-right">111</span></li>
-                            </ul>
-                            <div class="card-body">
+                            <div class="card-body pt-0">
+                                <div class="row">
+                                    <div class="col-7">
+                                        <h2 class="lead"><b>
+                                                <?php echo $rows->mota; ?>
+                                            </b></h2>
+                                    </div>
+                                    <div class="col-5 text-center">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">Tổng số lượng vật tư:
+                                                <span class="text-danger float-right">
+                                                    <?php
+                                                    $madm = $rows->madm;
+                                                    $db = Connection::getInstance();
+                                                    //thuc hien truy van
+                                                    $query = $db->query("select sum(soluong) from products where madm = $madm");
+                                                    //tra ve so luong ban ghi
+                                                    echo $query->fetchColumn();
+                                                    ?>
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+
                                 <a class="btn btn-primary btn-sm" href="index.php?controller=categories&action=view&madm=<?php echo $rows->madm; ?>">
                                     <i class="fas fa-eye">
                                     </i>
@@ -62,8 +75,10 @@ $this->fileLayout = "Layout.php";
                                     </i>
                                     Delete
                                 </a>
+
                             </div>
                         </div>
+
                     </div>
                     <!-- end col -->
                 <?php endforeach; ?>
@@ -73,9 +88,8 @@ $this->fileLayout = "Layout.php";
         <div class="card-footer">
             <nav aria-label="Contacts Page Navigation">
                 <ul class="pagination justify-content-center m-0">
-                    <?php for ($i = 1; $i <= $numPage; $i++): ?>
-                        <li class="page-item"><a class="page-link"
-                                href="index.php?controller=categories&p=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                    <?php for ($i = 1; $i <= $numPage; $i++) : ?>
+                        <li class="page-item"><a class="page-link" href="index.php?controller=categories&p=<?php echo $i; ?>"><?php echo $i; ?></a></li>
                     <?php endfor; ?>
                 </ul>
             </nav>

@@ -60,6 +60,7 @@ $this->fileLayout = "Layout.php";
                                     <th style="width: 100px;">Ảnh</th>
                                     <th>Tên</th>
                                     <th>Mô tả</th>
+                                    <th>Loại vật tư</th>
                                     <th>Số lượng</th>
                                     <th>Ngày nhập</th>
                                     <th>Nhà cung cấp</th>
@@ -79,6 +80,17 @@ $this->fileLayout = "Layout.php";
                                         </td>
                                         <td>
                                             <?php echo $rows->mota; ?>
+                                        </td>
+                                        <td>
+                                            <?php if (isset($rows->loaisp) && $rows->loaisp == 1) : ?>
+                                                Dùng xong bỏ
+                                            <?php endif; ?>
+                                            <?php if (isset($rows->loaisp) && $rows->loaisp == 2) : ?>
+                                                Dùng xong trả lại kho
+                                            <?php endif; ?>
+                                            <?php if (isset($rows->loaisp) && $rows->loaisp == 3) : ?>
+                                                Trang thiết bị
+                                            <?php endif; ?>
                                         </td>
                                         <td>
                                             <?php echo $rows->soluong; ?>
