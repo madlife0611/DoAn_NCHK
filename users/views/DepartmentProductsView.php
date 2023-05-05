@@ -87,13 +87,13 @@ $pb = $query_d->fetch();
                                     ?>
                                     <tr>
                                         <td><?php echo $rows->request_id; ?></td>
-                                        <td><?php echo $product->masp; ?></td>
-                                        <td><?php if ($product->anhsp != "" && file_exists("../assets/image/upload/products/" . $product->anhsp)) : ?>
-                                                <img src="../assets/image/upload/products/<?php echo $product->anhsp; ?>" style="max-width: 100px;">
-                                            <?php endif; ?>
+                                        <td><?php echo isset($product->masp) ? $product->masp : ""; ?></td>
+                                        <td>
+                                                <img src="../assets/image/upload/products/<?php echo isset($product->anhsp) ? $product->anhsp : ""; ?>" style="max-width: 100px;">
+                                            
                                         </td>
-                                        <td><?php echo $product->tensp; ?></td>
-                                        <td><?php echo $product->mota; ?></td>
+                                        <td><?php echo isset($product->tensp) ? $product->tensp : ""; ?></td>
+                                        <td><?php echo isset($product->mota) ? $product->mota : ""; ?></td>
                                         <td>
                                             <?php if (isset($product->loaisp) && $product->loaisp == 1) : ?>
                                                 Dùng xong bỏ
@@ -105,31 +105,31 @@ $pb = $query_d->fetch();
                                                 Trang thiết bị
                                             <?php endif; ?>
                                         </td>
-                                        <td><?php echo $product->ngaynhap; ?></td>
-                                        <td><?php echo $product->hanbaotri; ?></td>
-                                        <td><?php echo $product->solansudung; ?></td>
-                                        <td><?php if (isset($rows->trangthai) && $rows->trangthai == 0) : ?>
+                                        <td><?php echo isset($product->ngaynhap) ? $product->ngaynhap : ""; ?></td>
+                                        <td><?php echo isset($product->hanbaotri) ? $product->hanbaotri : ""; ?></td>
+                                        <td><?php echo  isset($product->solansudung) ? $product->solansudung : ""; ?></td>
+                                        <td><?php if (isset($rows->trangthaivattu) && $rows->trangthaivattu == 0) : ?>
                                                 Tự do
                                             <?php endif; ?>
-                                            <?php if (isset($rows->trangthai) && $rows->trangthai == 1) : ?>
+                                            <?php if (isset($rows->trangthaivattu) && $rows->trangthaivattu == 1) : ?>
                                                 Đang được sử dụng
                                             <?php endif; ?>
-                                            <?php if (isset($rows->trangthai) && $rows->trangthai == 2) : ?>
+                                            <?php if (isset($rows->trangthaivattu) && $rows->trangthaivattu == 2) : ?>
                                                 Đang bảo trì
                                             <?php endif; ?>
-                                            <?php if (isset($rows->trangthai) && $rows->trangthai == 3) : ?>
-                                                Hỏng
+                                            <?php if (isset($rows->trangthaivattu) && $rows->trangthaivattu == 3) : ?>
+                                                Lỗi/Hỏng
                                             <?php endif; ?>
-                                            <?php if (isset($rows->trangthai) && $rows->trangthai == 4) : ?>
+                                            <?php if (isset($rows->trangthaivattu) && $rows->trangthaivattu == 4) : ?>
                                                 Đã hoàn tất quá trình sử dụng
                                             <?php endif; ?>
                                         </td>
                                         <td><?php
                                             //co the goi ham tu class model o day
-                                            $category = $this->getCategory($product->madm);
+                                            $category = $this->getCategory(isset($product->madm) ? $product->madm : "1");
                                             echo isset($category->tendm) ? $category->tendm : "";
                                             ?></td>
-                                        <td><?php echo $product->soluong; ?></td>
+                                        <td><?php echo isset($product->soluong) ? $product->soluong : ""; ?></td>
                                         <td>
                                             <?php
                                             //co the goi ham tu class model o day
@@ -138,17 +138,17 @@ $pb = $query_d->fetch();
                                         </td>
                                         <?php if (isset($rq->trangthai) && $rq->trangthai == 1) : ?>
                                             <td class="d-flex flex-column">
-                                                <?php if (isset($rows->trangthai) && $rows->trangthai == 0) : ?>
+                                                <?php if (isset($rows->trangthaivattu) && $rows->trangthaivattu == 0) : ?>
                                                     <a class="btn btn-info btn-sm" href="index.php?controller=department&action=using&masp=<?php echo $rows->masp; ?>&request_id=<?php echo $rows->request_id; ?>">
                                                         Đang sử dụng
                                                     </a>
                                                 <?php endif; ?>
-                                                <?php if (isset($rows->trangthai) && $rows->trangthai == 1) : ?>
-                                                    <a class="btn btn-success btn-sm" href="index.php?controller=department&action=finished_using&masp=<?php echo $rows->masp; ?>&soluong=<?php echo $rows->soluong; ?>&request_id=<?php echo $rows->request_id; ?>" onclick="return window.confirm('Xác nhận đã sử dụng sản phẩm này?');">
+                                                <?php if (isset($rows->trangthaivattu) && $rows->trangthaivattu == 1) : ?>
+                                                    <a class="btn btn-success btn-sm" href="index.php?controller=department&action=finished_using&masp=<?php echo $rows->masp; ?>&request_id=<?php echo $rows->request_id; ?>" onclick="return window.confirm('Xác nhận đã sử dụng sản phẩm này?');">
                                                         Hoàn tất
                                                     </a>
                                                 <?php endif; ?>
-                                                <?php if (isset($rows->trangthai) && $rows->trangthai != 4) : ?>
+                                                <?php if (isset($rows->trangthaivattu) && $rows->trangthaivattu != 4) : ?>
                                                 <a class="btn btn-danger btn-sm" href="index.php?controller=department&action=broken&masp=<?php echo $rows->masp; ?>&request_id=<?php echo $rows->request_id; ?>" onclick="return window.confirm('Xác nhận sản phẩm này lỗi hoặc hỏng?');">
                                                     Báo lỗi/hỏng
                                                 </a>

@@ -14,9 +14,9 @@ trait DepartmentModel
 		$db = Connection::getInstance();
 		//thuc hien truy van
 		$query = $db->query("SELECT * FROM requestdetails 
-        INNER JOIN requests ON requests.request_id = requestdetails.request_id
-        WHERE requests.matk = $matk
-        limit $from,$recordPerPage");
+    INNER JOIN requests ON requests.request_id = requestdetails.request_id
+    WHERE requests.matk = $matk order by requestdetails.request_id desc
+    limit $from,$recordPerPage");
 		//tra ve nhieu ban ghi
 		return $query->fetchAll();
 	}
@@ -95,12 +95,12 @@ trait DepartmentModel
 		$loaisp = $prod_info["loaisp"];
 		//thuc hien truy van
 		if($loaisp == 1){
-            $query_r = $conn->query("update requestdetails set trangthai = 1 where masp=$masp and request_id = $request_id");
+            $query_r = $conn->query("update requestdetails set trangthaivattu = 1 where masp=$masp and request_id = $request_id");
         }elseif ($loaisp == 2) {
-			$query_r = $conn->query("update requestdetails set trangthai = 1 where masp=$masp and request_id = $request_id");
+			$query_r = $conn->query("update requestdetails set trangthaivattu = 1 where masp=$masp and request_id = $request_id");
 		} else {
 			//loai sp 3 thi can cap nhat ca bang products
-			$query_r = $conn->query("update requestdetails set trangthai = 1 where masp=$masp and request_id = $request_id");
+			$query_r = $conn->query("update requestdetails set trangthaivattu = 1 where masp=$masp and request_id = $request_id");
             $query = $conn->query("update products set trangthai = 1, time_start = now() where masp=$masp ");
 		}
 		
@@ -110,33 +110,51 @@ trait DepartmentModel
 	{
 		$masp = isset($_GET["masp"]) && $_GET["masp"] > 0 ? $_GET["masp"] : 0;
         $request_id = isset($_GET["request_id"]) && $_GET["request_id"] > 0 ? $_GET["request_id"] : 0;
-		$soluongyeucau = isset($_GET["soluong"]) && $_GET["soluong"] > 0 ? $_GET["soluong"] : 0;
+		
 		//lay bien ket noi csdl
 		$conn = Connection::getInstance();
 		// Lấy thông tin sản phẩm
-		$query_prod = $conn->prepare("SELECT loaisp, ngaynhap FROM products WHERE masp = :var_masp");
+		$query_prod = $conn->prepare("SELECT * FROM products WHERE masp = :var_masp");
 		$query_prod->execute(["var_masp" => $masp]);
 		$prod_info = $query_prod->fetch(PDO::FETCH_ASSOC);
+		if (!$prod_info) {
+			return;
+		}
 		$loaisp = $prod_info["loaisp"];
+		//lay so luong yeu cau
+		$query_rq = $conn->prepare("SELECT * FROM requestdetails WHERE masp = :var_masp and request_id = :var_request_id");
+		$query_rq->execute(["var_masp" => $masp, "var_request_id" => $request_id]);
+		$rq_info = $query_rq->fetch(PDO::FETCH_ASSOC);
+		if (!$rq_info) {
+			return;
+		}
+		$soluongyeucau = $rq_info["soluong"];
 		//thuc hien truy van
-		//Với loại sản phẩm 1 và 2 thì người ta không quan tâm tần suất sử dụng mà chỉ quan tâm số lần sử dụng
+		// Sử dụng prepared statements để tránh bị tấn công SQL injection
 		if ($loaisp == 1) {
-			//loai san pham = 1 dung xong bo; soluongco = soluongco - soluongyeucau
-			$query = $conn->query("update products set soluong = soluong - $soluongyeucau, solansudung = solansudung + 1 where masp=$masp");
-            $query_r = $conn->query("update requestdetails set trangthai = 4 where masp=$masp and request_id = $request_id");
+			$query_1 = $conn->prepare("UPDATE products SET soluong = (soluong - :soluongyeucau), solansudung = solansudung + 1 WHERE masp=:masp");
+			$query_r = $conn->prepare("UPDATE requestdetails SET trangthaivattu = 4 WHERE masp=:masp AND request_id = :request_id");
+			$params = ['soluongyeucau' => $soluongyeucau, 'masp' => $masp, 'request_id' => $request_id];
+			$query_1->execute($params);
+			$query_r->execute($params);
 		} else if ($loaisp == 2) {
-			// dung xong tra lai nen so luong co khong doi
-			$query = $conn->query("update products set solansudung = solansudung + 1 where masp=$masp");
-            $query_r = $conn->query("update requestdetails set trangthai = 4 where masp=$masp and request_id = $request_id");
+			$query_2 = $conn->prepare("UPDATE products SET solansudung = (solansudung + 1) WHERE masp=:masp");
+			$query_r = $conn->prepare("UPDATE requestdetails SET trangthaivattu = 4 WHERE masp=:masp AND request_id = :request_id");
+			$params = ['masp' => $masp, 'request_id' => $request_id];
+			$query_2->execute($params);
+			$query_r->execute($params);
 		} else {
-			//loai sp 3 thi khong tang giam so luong
-			$query = $conn->query("UPDATE products 
+			$query_3 = $conn->prepare("UPDATE products 
 			SET tongthoigiansudung = tongthoigiansudung + TIMESTAMPDIFF(SECOND, time_start, NOW()),
-				tansuatsudung = (tongthoigiansudung / 3600) / DATEDIFF(NOW(), ngaynhap),
-				time_start = '',
-				trangthai = '0',
-				solansudung = solansudung + 1
-			WHERE masp = $masp");
+			tansuatsudung = (tongthoigiansudung / 3600) / DATEDIFF(NOW(), ngaynhap), 
+			time_start = '', 
+			trangthai = 0, 
+			solansudung = solansudung + 1 
+			WHERE masp = :masp");
+			$query_r = $conn->prepare("UPDATE requestdetails SET trangthaivattu = 0 WHERE masp=:masp AND request_id = :request_id");
+			$params = ['masp' => $masp, 'request_id' => $request_id];
+			$query_3->execute($params);
+			$query_r->execute($params);
 		}
 	}
 	//xác nhận đã hỏng hoặc lỗi
@@ -147,7 +165,7 @@ trait DepartmentModel
 		//lay bien ket noi csdl
 		$conn = Connection::getInstance();
 		//thuc hien truy van
-		$query = $conn->query("update requestdetails set trangthai = 3 where masp=$masp and request_id = $request_id");
+		$query = $conn->query("update requestdetails set trangthaivattu = 3 where masp=$masp and request_id = $request_id");
 	}
 }
 ?>

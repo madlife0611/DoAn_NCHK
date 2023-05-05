@@ -20,8 +20,9 @@ class DepartmentController extends Controller
     //using
     public function using()
     {
-        $mapb = isset($_GET["mapb"]) ? $_GET["mapb"] : 0;
+        //$mapb = isset($_GET["mapb"]) ? $_GET["mapb"] : 0;
         $masp = isset($_GET["masp"]) ? $_GET["masp"] : 0;
+        $request_id = isset($_GET["request_id"]) ? $_GET["request_id"] : 0;
         //goi ham modelDelete
         $this->modelUsing();
         //quay tro lai trang products
@@ -30,8 +31,9 @@ class DepartmentController extends Controller
     //broken
     public function broken()
     {
-        $mapb = isset($_GET["mapb"]) ? $_GET["mapb"] : 0;
+        // $mapb = isset($_GET["mapb"]) ? $_GET["mapb"] : 0;
         $masp = isset($_GET["masp"]) ? $_GET["masp"] : 0;
+        $request_id = isset($_GET["request_id"]) ? $_GET["request_id"] : 0;
         //goi ham modelDelete
         $this->modelBroken();
         //quay tro lai trang products
@@ -40,9 +42,10 @@ class DepartmentController extends Controller
     //finished using
     public function finished_using()
     {
-        $mapb = isset($_GET["mapb"]) ? $_GET["mapb"] : 0;
+        //$mapb = isset($_GET["mapb"]) ? $_GET["mapb"] : 0;
         $masp = isset($_GET["masp"]) ? $_GET["masp"] : 0;
-        $soluongyeucau = isset($_GET["soluong"]) ? $_GET["soluong"] : 0;
+        $request_id = isset($_GET["request_id"]) ? $_GET["request_id"] : 0;
+        //$soluongyeucau = isset($_GET["soluong"]) ? $_GET["soluong"] : 0;
         //goi ham modelDelete
         $this->modelFinishedUsing();
         //quay tro lai trang products

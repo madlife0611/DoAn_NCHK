@@ -21,7 +21,26 @@ $this->fileLayout = "Layout.php";
 
 <!-- Main content -->
 <section class="content">
-
+    <!-- Default box -->
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Nhập file exel</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form method="post" enctype="multipart/form-data">
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="file">Chọn tệp Excel:</label>
+                    <input type="file" name="file" id="file" accept=".xls,.xlsx">
+                </div>
+            </div>
+            <div class="card-footer">
+                <input type="submit" value="Nhập tệp">
+            </div>
+        </form>
+    </div>
+    <!-- /.card -->
     <!-- Default box -->
     <div class="card card-primary">
         <div class="card-header">

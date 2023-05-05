@@ -19,6 +19,24 @@ trait HomeModel
 		$stmt->execute();
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
+	//hàm lấy dữ liệu cho stacked bar chart
+	public function getChartDataForSuppliers()
+	{
+		//lay bien ket noi csdl
+		$db = Connection::getInstance();
+		//thuc hien truy van
+		$query = "SELECT suppliers.tenncc, SUM(products.soluong) AS tong_soluong, 
+		SUM(CASE WHEN products.trangthai = 0 THEN products.soluong ELSE 0 END) AS soluong_trangthai_0,
+		SUM(CASE WHEN products.trangthai = 1 THEN products.soluong ELSE 0 END) AS soluong_trangthai_1,
+		SUM(CASE WHEN products.trangthai = 2 THEN products.soluong ELSE 0 END) AS soluong_trangthai_2,
+		SUM(CASE WHEN products.trangthai = 3 THEN products.soluong ELSE 0 END) AS soluong_trangthai_3
+		FROM suppliers
+		INNER JOIN products ON suppliers.mancc = products.mancc
+		GROUP BY suppliers.tenncc";
+		$stmt = $db->prepare($query);
+		$stmt->execute();
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
 	//hàm lấy dữ liệu cho Donut chart
 	public function getChartDataForDonutChart()
 	{

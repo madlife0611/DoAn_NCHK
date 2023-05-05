@@ -118,7 +118,7 @@ trait RequestModel
 		//---
 		//duyet cac ban ghi trong session array de insert vao requestdetails
 		foreach ($_SESSION["request"] as $product) {
-			$query = $conn->prepare("insert into requestdetails set request_id=:request_id, masp=:masp, gianhap=:gianhap, soluong=:soluong");
+			$query = $conn->prepare("insert into requestdetails set request_id=:request_id, masp=:masp, gianhap=:gianhap, soluong=:soluong, trangthaivattu = 0");
 			$query->execute(array("request_id" => $request_id, "masp" => $product["masp"], "gianhap" => $product["gianhap"], "soluong" => $product["number"]));
 		}
 		//xoa gio hang

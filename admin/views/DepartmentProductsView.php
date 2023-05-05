@@ -66,12 +66,12 @@ $this->fileLayout = "Layout.php";
                                         <td>
                                             <?php echo $rows->masp; ?>
                                         </td>
-                                        <td><img src="../assets/image/upload/products/<?php echo $prod->anhsp; ?>" alt="product-img" class="img-product"></td>
+                                        <td><img src="../assets/image/upload/products/<?php echo isset($prod->anhsp) ? $prod->anhsp : ""; ?>" alt="product-img" class="img-product"></td>
                                         <td>
-                                            <?php echo $prod->tensp; ?>
+                                            <?php echo isset($prod->tensp) ? $prod->tensp : ""; ?>
                                         </td>
                                         <td>
-                                            <?php echo $prod->mota; ?>
+                                            <?php echo isset($prod->mota) ? $prod->mota : ""; ?>
                                         </td>
                                         <td>
                                             <?php if (isset($prod->loaisp) && $prod->loaisp == 1) : ?>
@@ -88,23 +88,26 @@ $this->fileLayout = "Layout.php";
                                             <?php echo $rows->soluong; ?>
                                         </td>
                                         <td>
-                                            <?php echo date("Y-m-d", strtotime($prod->ngaynhap)); ?>
+                                            <?php echo isset($prod->ngaynhap) ? date("Y-m-d", strtotime($prod->ngaynhap)) : ""; ?>
                                         </td>
                                         <td>
-                                            <?php echo $prod->hanbaotri; ?>
+                                            <?php echo isset($prod->hanbaotri) ? $prod->hanbaotri : ""; ?>
                                         </td>
                                         <td>
-                                            <?php if (isset($rows->trangthai) && $rows->trangthai == 0) : ?>
+                                            <?php if (isset($rows->trangthaivattu) && $rows->trangthaivattu == 0) : ?>
                                                 Tự do
                                             <?php endif; ?>
-                                            <?php if (isset($rows->trangthai) && $rows->trangthai == 1) : ?>
+                                            <?php if (isset($rows->trangthaivattu) && $rows->trangthaivattu == 1) : ?>
                                                 Đang được sử dụng
                                             <?php endif; ?>
-                                            <?php if (isset($rows->trangthai) && $rows->trangthai == 2) : ?>
+                                            <?php if (isset($rows->trangthaivattu) && $rows->trangthaivattu == 2) : ?>
                                                 Đang bảo trì
                                             <?php endif; ?>
-                                            <?php if (isset($rows->trangthai) && $rows->trangthai == 3) : ?>
-                                                Hỏng
+                                            <?php if (isset($rows->trangthaivattu) && $rows->trangthaivattu == 3) : ?>
+                                                Lỗi/Hỏng
+                                            <?php endif; ?>
+                                            <?php if (isset($rows->trangthaivattu) && $rows->trangthaivattu == 4) : ?>
+                                                Đã hoàn tất sử dụng
                                             <?php endif; ?>
                                         </td>
                                         <td class="text-right">

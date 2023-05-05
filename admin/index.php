@@ -6,6 +6,7 @@ if (!isset($_SESSION['email_admin'])) {
    header('Location: ../index.php');
    exit;
 }
+
 //load file Connection.php
 include "../application/Connection.php";
 //load file Controller.php

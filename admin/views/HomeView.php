@@ -237,6 +237,149 @@ $this->fileLayout = "Layout.php";
             options: options
           });
         </script>
+        <!-- Custom tabs (Charts with tabs)-->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <i class="fas fa-chart-pie mr-1"></i>
+              Thống kê vật tư theo nhà cung cấp
+            </h3>
+          </div><!-- /.card-header -->
+          <div class="card-body">
+            <div class="tab-content p-0">
+              <!-- Stackes bar chart - products -->
+              <div class="chart tab-pane active" style="position: relative; height: 300px;">
+                <canvas id="myChart_Suppliers" style="min-height: 250px; height: 300px; width:100%; max-height: 600px;"></canvas>
+              </div>
+            </div>
+          </div><!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+        <?php
+        $chart = $this->getChartDataForSuppliers();
+        $data = array();
+        foreach ($chart as $row) {
+          $data[] = array(
+            'label' => $row['tenncc'],
+            'data' => array(
+              $row['tong_soluong'],
+              $row['soluong_trangthai_0'],
+              $row['soluong_trangthai_1'],
+              $row['soluong_trangthai_2'],
+              $row['soluong_trangthai_3']
+            )
+          );
+        }
+
+        $json_data = json_encode($data);
+        ?>
+        <script>
+          var data = <?php echo $json_data; ?>;
+
+          var options = {
+            title: {
+              display: true,
+              text: 'Thống kê sản phẩm theo nhà cung cấp'
+            },
+            scales: {
+              xAxes: [{
+                stacked: true
+              }],
+              yAxes: [{
+                stacked: true,
+                ticks: {
+                  beginAtZero: true
+                }
+              }]
+            }
+          };
+
+          var ctx = document.getElementById('myChart_Suppliers').getContext('2d');
+          var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: ['Tổng số lượng sản phẩm', 'Tự do', 'Đang sử dụng', 'Đang bảo trì', 'Lỗi/Hỏng'],
+              datasets: data
+            },
+            options: options
+          });
+        </script>
+        <script>
+          var data = <?php echo $json_data; ?>;
+
+          var suppliers = [];
+          var tong_soluong = [];
+          var trangthai_0 = [];
+          var trangthai_1 = [];
+          var trangthai_2 = [];
+          var trangthai_3 = [];
+
+          for (var i in data) {
+            suppliers.push(data[i].tenncc);
+            tong_soluong.push(data[i].tong_soluong);
+            trangthai_0.push(data[i].soluong_trangthai_0);
+            trangthai_1.push(data[i].soluong_trangthai_1);
+            trangthai_2.push(data[i].soluong_trangthai_2);
+            trangthai_3.push(data[i].soluong_trangthai_3);
+          }
+          var chartdata = {
+            labels: suppliers,
+            datasets: [{
+                label: 'Tự do',
+                data: soluong_trangthai_0,
+                backgroundColor: '#f44336',
+                borderWidth: 1
+              },
+              {
+                label: 'Đang sử dụng',
+                data: soluong_trangthai_1,
+                backgroundColor: '#2196f3',
+                borderWidth: 1
+              },
+              {
+                label: 'Đang bảo trì',
+                data: soluong_trangthai_2,
+                backgroundColor: '#4caf50',
+                borderWidth: 1
+              },
+              {
+                label: 'Lỗi/Hỏng',
+                data: soluong_trangthai_3,
+                backgroundColor: '#ffeb3b',
+                borderWidth: 1
+              },
+              {
+                label: 'Tổng số lượng',
+                data: tong_soluong,
+                backgroundColor: '#9e9e9e',
+                borderWidth: 1
+              }
+            ]
+          };
+
+          var options = {
+            responsive: true,
+            scales: {
+              xAxes: [{
+                stacked: true
+              }],
+              yAxes: [{
+                stacked: true,
+                ticks: {
+                  beginAtZero: true
+                }
+              }]
+            }
+          };
+
+          var ctx = document.getElementById('myChart_Suppliers').getContext('2d');
+
+          var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: chartdata,
+            options: options
+          });
+        </script>
       </section>
       <!-- /.Left col -->
       <!-- right col (We are only adding the ID to make the widgets sortable)-->

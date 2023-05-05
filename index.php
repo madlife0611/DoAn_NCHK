@@ -69,7 +69,8 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
 <body class="hold-transition login-page">
   <div class="login-box">
     <div class="login-logo">
-      <a href="assets/lte/index2.html"><b>Admin</b>LTE</a>
+      <img src="assets/image/logo-612x612.jpg" style="width: 100px;">
+      <a href="index.php"><b>BKAT</b></a>
     </div>
     <!-- /.login-logo -->
     <div class="card">

@@ -172,17 +172,20 @@ $rq = $query->fetch();
                                     <td><?php echo $product->ngaynhap; ?></td>
                                     <td><?php echo $product->hanbaotri; ?></td>
                                     <td><?php echo $product->solansudung; ?></td>
-                                    <td><?php if (isset($product->trangthai) && $product->trangthai == 0) : ?>
+                                    <td><?php if (isset($rows->trangthaivattu) && $rows->trangthaivattu == 0) : ?>
                                             Tự do
                                         <?php endif; ?>
-                                        <?php if (isset($product->trangthai) && $product->trangthai == 1) : ?>
+                                        <?php if (isset($rows->trangthaivattu) && $rows->trangthaivattu == 1) : ?>
                                             Đang được sử dụng
                                         <?php endif; ?>
-                                        <?php if (isset($product->trangthai) && $product->trangthai == 2) : ?>
+                                        <?php if (isset($rows->trangthaivattu) && $rows->trangthaivattu == 2) : ?>
                                             Đang bảo trì
                                         <?php endif; ?>
-                                        <?php if (isset($product->trangthai) && $product->trangthai == 3) : ?>
-                                            Hỏng
+                                        <?php if (isset($rows->trangthaivattu) && $rows->trangthaivattu == 3) : ?>
+                                            Lỗi/Hỏng
+                                        <?php endif; ?>
+                                        <?php if (isset($rows->trangthaivattu) && $rows->trangthaivattu == 4) : ?>
+                                            Hoàn tất quá trình sử dụng
                                         <?php endif; ?>
                                     </td>
                                     <td><?php

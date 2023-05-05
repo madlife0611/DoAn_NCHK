@@ -335,4 +335,31 @@ trait ProductsModel
 		//thuc thi truy van, co truyen tham so vao cau lenh sql
 		$query->execute(["var_masp" => $masp]);
 	}
+	public function modelCreateExcel(){
+		// Đường dẫn đến tệp Excel
+		$file_path = $_FILES['file']['tmp_name'];
+
+		// Mở tệp Excel
+		$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file_path);
+
+		// Lấy danh sách Sheet
+		$sheets = $spreadsheet->getAllSheets();
+
+		$db = Connection::getInstance();
+		foreach ($sheets as $sheet) {
+			// Lấy danh sách hàng trong sheet
+			$rows = $sheet->toArray();
+		
+			// Bỏ qua hàng đầu tiên chứa tiêu đề
+			array_shift($rows);
+		
+			// Lặp lại từng hàng để lưu dữ liệu vào cơ sở dữ liệu
+			foreach ($rows as $row) {
+				// Thực hiện truy vấn SQL để thêm sản phẩm
+				$sql = "INSERT INTO products (tensp, anhsp, mota, soluong, gianhap, ngaynhap, ngaybaotri, trangthai, loaisp, mancc, madm) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				$stmt= $db->prepare($sql);
+				$stmt->execute([$row[0], $row[1], $row[2], $row[3], $row[4], $row[5], $row[6], $row[7], $row[8], $row[9], $row[10]]);
+			}
+		}
+	}
 }

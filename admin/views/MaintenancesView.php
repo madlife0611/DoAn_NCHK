@@ -26,14 +26,14 @@ $this->fileLayout = "Layout.php";
                                     <tr>
                                         <td><?php echo $product["masp"]; ?></td>
                                         <td>
-                                            <img src="../assets/image/upload/products/<?php echo $product["anhsp"]; ?>" style="max-width: 100px;">
+                                            <img src="../assets/image/upload/products/<?php echo isset($product["anhsp"]) ? $product["anhsp"] : ""; ?>" style="max-width: 100px;">
                                         </td>
-                                        <td><?php echo $product["tensp"]; ?></td>
-                                        <td><?php echo number_format($product["gianhap"]); ?>đ</td>
-                                        <td><?php echo $product["soluong"]; ?></td>
-                                        <td><?php echo $product["hanbaotri"]; ?></td>
+                                        <td><?php echo isset($product["tensp"]) ? $product["tensp"] : ""; ?></td>
+                                        <td><?php echo isset($product["gianhap"]) ? number_format($product["gianhap"]) : ""; ?>đ</td>
+                                        <td><?php echo isset($product["soluong"]) ? $product["soluong"] : ""; ?></td>
+                                        <td><?php echo isset($product["hanbaotri"]) ? $product["hanbaotri"] : ""; ?></td>
                                         <td>
-                                            <a href="index.php?controller=maintenances&action=delete&masp=<?php echo $product["masp"]; ?>" data-id="2479395"><i class="fa fa-trash"></i></a>
+                                            <a href="index.php?controller=maintenances&action=delete&masp=<?php echo isset($product["masp"]) ? $product["masp"] : ""; ?>" data-id="2479395"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
