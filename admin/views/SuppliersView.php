@@ -6,8 +6,7 @@ $this->fileLayout = "Layout.php";
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <button type="button" class="btn btn-default"><a href="index.php?controller=suppliers&action=create">Thêm nhà cung cấp mới <i
-                            class="fas fa-plus"></i></a></button>
+                <button type="button" class="btn btn-default"><a href="index.php?controller=suppliers&action=create">Thêm nhà cung cấp mới <i class="fas fa-plus"></i></a></button>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -26,9 +25,9 @@ $this->fileLayout = "Layout.php";
     <div class="card card-solid">
         <div class="card-body pb-0">
             <div class="row">
-                <?php foreach ($data as $rows): ?>
+                <?php foreach ($data as $rows) : ?>
                     <!-- col -->
-                    <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+                    <div class="col-12 col-sm-6 col-md-6 d-flex align-items-stretch flex-column">
                         <div class="card bg-light d-flex flex-fill">
                             <div class="card-header text-muted border-bottom-0">
                                 Mã nhà cung cấp:
@@ -41,8 +40,7 @@ $this->fileLayout = "Layout.php";
                                                 <?php echo $rows->tenncc; ?>
                                             </b></h2>
                                         <ul class="ml-4 mb-0 fa-ul text-muted">
-                                            <li class="small"><span class="fa-li"><i
-                                                        class="fas fa-lg fa-building"></i></span> Địa chỉ:
+                                            <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Địa chỉ:
                                                 <?php echo $rows->diachi; ?>
                                             </li>
                                             <li class="small"><span class="fa-li"><i class="fas fa-at"></i></span> Email:
@@ -56,14 +54,15 @@ $this->fileLayout = "Layout.php";
                                     </div>
                                     <div class="col-5 text-center">
                                         <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">Tổng số lượng vật tư đã cung cấp: <span
-                                                    class="text-danger float-right">111</span></li>
+                                            <li class="list-group-item">Tổng số vật tư còn lại: <span class="text-danger float-right"><?php echo $this->modelTotalProducts($rows->mancc); ?></span></li>
+                                            <li class="list-group-item">Số vật tư tới hạn bảo trì trong 2 tuần tới: <span class="text-danger float-right"><?php echo $this->modelTotalMaintenanceProductsOn14Days($rows->mancc); ?></span></li>
+                                            <li class="list-group-item">Số bảo trì đang thực hiện: <span class="text-danger float-right"><?php echo $this->modelTotalMaintenance($rows->mancc); ?></span></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer">
-                           
+
                                 <a class="btn btn-primary btn-sm" href="index.php?controller=suppliers&action=view&mancc=<?php echo $rows->mancc; ?>">
                                     <i class="fas fa-eye">
                                     </i>
@@ -79,7 +78,7 @@ $this->fileLayout = "Layout.php";
                                     </i>
                                     Delete
                                 </a>
-                            
+
                             </div>
                         </div>
                     </div>
@@ -91,9 +90,8 @@ $this->fileLayout = "Layout.php";
         <div class="card-footer">
             <nav aria-label="Contacts Page Navigation">
                 <ul class="pagination justify-content-center m-0">
-                    <?php for ($i = 1; $i <= $numPage; $i++): ?>
-                        <li class="page-item"><a class="page-link"
-                                href="index.php?controller=suppliers&p=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                    <?php for ($i = 1; $i <= $numPage; $i++) : ?>
+                        <li class="page-item"><a class="page-link" href="index.php?controller=suppliers&p=<?php echo $i; ?>"><?php echo $i; ?></a></li>
                     <?php endfor; ?>
                 </ul>
             </nav>

@@ -6,8 +6,7 @@ $this->fileLayout = "Layout.php";
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <button type="button" class="btn btn-default"><a href="index.php?controller=departments&action=create">Thêm phòng ban mới <i
-                            class="fas fa-plus"></i></a></button>
+                <button type="button" class="btn btn-default"><a href="index.php?controller=departments&action=create">Thêm phòng ban mới <i class="fas fa-plus"></i></a></button>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -26,7 +25,7 @@ $this->fileLayout = "Layout.php";
     <div class="card card-solid">
         <div class="card-body pb-0">
             <div class="row">
-                <?php foreach ($data as $rows): ?>
+                <?php foreach ($data as $rows) : ?>
                     <!-- col -->
                     <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
                         <div class="card">
@@ -36,12 +35,9 @@ $this->fileLayout = "Layout.php";
                                 </h5>
                             </div>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Tổng số lượng vật tư đang sử dụng: <span
-                                        class="text-danger float-right">111</span></li>
-                                <li class="list-group-item">Tổng tài khoản nhân viên: <span
-                                        class="text-danger float-right">111</span></li>
-                                <li class="list-group-item">Số lượng request: <span
-                                        class="text-danger float-right">111</span></li>
+                                <li class="list-group-item">Số lượng vật tư đang sở hữu: <span class="text-danger float-right"><?php echo $this->modelTotalProducts($rows->mapb); ?></span></li>
+                                <li class="list-group-item">Số lượng trang thiết bị y tế: <span class="text-danger float-right"><?php echo $this->modelTotalProductsType3($rows->mapb); ?></span></li>
+                                <li class="list-group-item">Số yêu cầu trong tuần qua: <span class="text-danger float-right"><?php echo $this->modelTotalRequestsOn7Days($rows->mapb); ?></span></li>
                             </ul>
                             <div class="card-body">
                                 <a class="btn btn-primary btn-sm" href="index.php?controller=departments&action=view&mapb=<?php echo $rows->mapb; ?>">
@@ -70,9 +66,8 @@ $this->fileLayout = "Layout.php";
         <div class="card-footer">
             <nav aria-label="Contacts Page Navigation">
                 <ul class="pagination justify-content-center m-0">
-                    <?php for ($i = 1; $i <= $numPage; $i++): ?>
-                        <li class="page-item"><a class="page-link"
-                                href="index.php?controller=departments&p=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                    <?php for ($i = 1; $i <= $numPage; $i++) : ?>
+                        <li class="page-item"><a class="page-link" href="index.php?controller=departments&p=<?php echo $i; ?>"><?php echo $i; ?></a></li>
                     <?php endfor; ?>
                 </ul>
             </nav>

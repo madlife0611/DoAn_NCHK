@@ -47,6 +47,8 @@ $this->fileLayout = "Layout.php";
                                     <th>Mô tả</th>
                                     <th>Loại vật tư</th>
                                     <th>Số lượng</th>
+                                    <th>Số lần sử dụng</th>
+                                    <th>Tần suất sử dụng</th>
                                     <th>Ngày nhập</th>
                                     <th>Ngày bảo trì</th>
                                     <th>Trạng thái</th>
@@ -85,8 +87,10 @@ $this->fileLayout = "Layout.php";
                                             <?php endif; ?>
                                         </td>
                                         <td>
-                                            <?php echo $rows->soluong; ?>
+                                            <?php echo $rows->soluongyc; ?>
                                         </td>
+                                        <td><?php echo  isset($prod->solansudung) ? $prod->solansudung : ""; ?></td>
+                                        <td><?php echo  isset($prod->tansuatsudung) ? round($prod->tansuatsudung,1) : ""; ?> giờ/ngày</td>
                                         <td>
                                             <?php echo isset($prod->ngaynhap) ? date("Y-m-d", strtotime($prod->ngaynhap)) : ""; ?>
                                         </td>

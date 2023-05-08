@@ -32,8 +32,6 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <!-- Add icons to the links using the .nav-icon class
-             with font-awesome or any other icon font library -->
         <li class="nav-item menu-open">
           <a href="index.php" class="nav-link active">
             <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -108,6 +106,22 @@
         </li>
       </ul>
     </nav>
+    <script>
+      // Lấy tất cả các thẻ <a> trong thanh navbar
+      const navLinks = document.querySelectorAll('.nav-link');
+
+      // Duyệt qua các thẻ <a> và đặt lắng nghe sự kiện click
+      navLinks.forEach((link) => {
+        link.addEventListener('click', function() {
+          // Loại bỏ class 'active' từ tất cả các thẻ <a>
+          navLinks.forEach((link) => {
+            link.classList.remove('active');
+          });
+          // Truyền class 'active' cho thẻ được chọn
+          this.classList.add('active');
+        });
+      });
+    </script>
     <!-- /.sidebar-menu -->
   </div>
   <!-- /.sidebar -->

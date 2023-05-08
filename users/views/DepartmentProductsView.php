@@ -4,11 +4,10 @@ $this->fileLayout = "Layout.php";
 <?php
 $matk = $_SESSION["matk"];
 $conn = Connection::getInstance();
-$query_r = $conn->query("select * from requests where matk = $matk");
-$rq = $query_r->fetch();
 $query_d = $conn->query("select * from departments where mapb = (select mapb from accounts where matk = $matk)");
 $pb = $query_d->fetch();
 ?>
+
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container">
@@ -71,13 +70,14 @@ $pb = $query_d->fetch();
                                     <th scope="col">Ngày nhập</th>
                                     <th scope="col">Hạn bảo trì</th>
                                     <th scope="col">Số lần sử dụng</th>
+                                    <th scope="col">Tần suất sử dụng</th>
                                     <th scope="col">Trạng thái</th>
                                     <th scope="col">Danh mục</th>
                                     <th scope="col">Số lượng có</th>
                                     <th scope="col">Số lượng yêu cầu</th>
-                                    <?php if (isset($rq->trangthai) && $rq->trangthai == 1) : ?>
+
                                         <th></th>
-                                    <?php endif; ?>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -108,6 +108,7 @@ $pb = $query_d->fetch();
                                         <td><?php echo isset($product->ngaynhap) ? $product->ngaynhap : ""; ?></td>
                                         <td><?php echo isset($product->hanbaotri) ? $product->hanbaotri : ""; ?></td>
                                         <td><?php echo  isset($product->solansudung) ? $product->solansudung : ""; ?></td>
+                                        <td><?php echo  isset($product->tansuatsudung) ? round($product->tansuatsudung,1) : ""; ?> giờ/ngày</td>
                                         <td><?php if (isset($rows->trangthaivattu) && $rows->trangthaivattu == 0) : ?>
                                                 Tự do
                                             <?php endif; ?>
@@ -136,7 +137,7 @@ $pb = $query_d->fetch();
                                             echo isset($rows->soluongyc) ? $rows->soluongyc : "";
                                             ?>
                                         </td>
-                                        <?php if (isset($rq->trangthai) && $rq->trangthai == 1) : ?>
+
                                             <td class="d-flex flex-column">
                                                 <?php if (isset($rows->trangthaivattu) && $rows->trangthaivattu == 0) : ?>
                                                     <a class="btn btn-info btn-sm" href="index.php?controller=department&action=using&masp=<?php echo $rows->masp; ?>&request_id=<?php echo $rows->request_id; ?>">
@@ -154,7 +155,7 @@ $pb = $query_d->fetch();
                                                 </a>
                                                 <?php endif; ?>
                                             </td>
-                                        <?php endif; ?>
+
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>

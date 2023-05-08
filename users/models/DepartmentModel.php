@@ -15,7 +15,7 @@ trait DepartmentModel
 		//thuc hien truy van
 		$query = $db->query("SELECT * FROM requestdetails 
     INNER JOIN requests ON requests.request_id = requestdetails.request_id
-    WHERE requests.matk = $matk order by requestdetails.request_id desc
+    WHERE requests.matk = $matk and requests.trangthai = 1 and requestdetails.trangthaivattu != 4 order by requestdetails.request_id desc
     limit $from,$recordPerPage");
 		//tra ve nhieu ban ghi
 		return $query->fetchAll();
@@ -150,8 +150,22 @@ trait DepartmentModel
         $request_id = isset($_GET["request_id"]) && $_GET["request_id"] > 0 ? $_GET["request_id"] : 0;
 		//lay bien ket noi csdl
 		$conn = Connection::getInstance();
+		$query_prod = $conn->prepare("SELECT loaisp, ngaynhap FROM products WHERE masp = :var_masp");
+		$query_prod->execute(["var_masp" => $masp]);
+		$prod_info = $query_prod->fetch(PDO::FETCH_ASSOC);
+		$loaisp = $prod_info["loaisp"];
 		//thuc hien truy van
-		$query = $conn->query("update requestdetails set trangthaivattu = 3 where masp=$masp and request_id = $request_id");
+		//khi bao loi hong thi vat tu loai 1 , 2 chi thay doi trang thai trong requestdetails
+		if ($loaisp == 1) {
+			$query = $conn->query("update requestdetails set trangthaivattu = 3 where masp=$masp and request_id = $request_id");
+
+		} else if ($loaisp == 2) {
+			$query = $conn->query("update requestdetails set trangthaivattu = 3 where masp=$masp and request_id = $request_id");
+
+		} else {
+			$query = $conn->query("update requestdetails set trangthaivattu = 3 where masp=$masp and request_id = $request_id");
+			$query_p = $conn->query("update products set trangthai = 3 where masp=$masp");
+		}
 	}
 }
 ?>

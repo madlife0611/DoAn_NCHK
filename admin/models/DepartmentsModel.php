@@ -26,6 +26,45 @@ trait DepartmentsModel
 		//tra ve so luong ban ghi
 		return $query->rowCount();
 	}
+	//tinh tong vat tu trong phong ban
+	public function modelTotalProducts($mapb)
+	{
+		//lay bien ket noi csdl
+		$db = Connection::getInstance();
+		//thuc hien truy van
+		$query = $db->query("select sum(requestdetails.soluongyc) from requestdetails 
+		inner join requests on requestdetails.request_id = requests.request_id
+		where requestdetails.trangthaivattu != 4 and requests.mapb = $mapb
+		");
+		//tra ve so luong ban ghi
+		return $query->fetchColumn();
+	}
+	//tinh tong vat tu loai 3trong phong ban
+	public function modelTotalProductsType3($mapb)
+	{
+		//lay bien ket noi csdl
+		$db = Connection::getInstance();
+		//thuc hien truy van
+		$query = $db->query("select * from requestdetails 
+		inner join products on requestdetails.masp = products.masp
+		inner join requests on requestdetails.request_id = requests.request_id
+		where products.loaisp = 3 and requests.mapb = $mapb
+		");
+		//tra ve so luong ban ghi
+		return $query->rowCount();
+	}
+	//tinh tong vat tu loai 3trong phong ban
+	public function modelTotalRequestsOn7Days($mapb)
+	{
+		//lay bien ket noi csdl
+		$db = Connection::getInstance();
+		//thuc hien truy van
+		$query = $db->query("select * from requests 
+		where mapb = $mapb and datediff(now(), ngaylap)<7
+		");
+		//tra ve so luong ban ghi
+		return $query->rowCount();
+	}
 	//lay mot ban ghi tuong ung voi mapb truyen vao
 	public function modelGetRecord()
 	{
@@ -52,7 +91,7 @@ trait DepartmentsModel
 		//lay bien ket noi csdl
 		$db = Connection::getInstance();
 		//thuc hien truy van
-		$query = $db->query("select * from requestdetails where request_id in (select request_id from requests where mapb = $mapb) limit $from,$recordPerPage");
+		$query = $db->query("select * from requestdetails where request_id in (select request_id from requests where mapb = $mapb) order by trangthaivattu asc limit $from,$recordPerPage");
 		//tra ve nhieu ban ghi
 		return $query->fetchAll();
 	}

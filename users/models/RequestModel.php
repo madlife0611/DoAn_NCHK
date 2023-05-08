@@ -129,6 +129,7 @@ trait RequestModel
 		//insert ban ghi vao requests, lay request_id vua moi insert
 		$query_acc = $conn->query("select mapb from accounts where matk = $matk");
 		$mapb = $query_acc->fetchColumn();
+	
 		//lay tong gia cua gio hang
 		$tongtien = $this->requestTotal();
 		$query = $conn->prepare("insert into requests set matk=:matk, ngaylap=now(),tongtien=:tongtien,mapb=:mapb");
@@ -138,8 +139,8 @@ trait RequestModel
 		//---
 		//duyet cac ban ghi trong session array de insert vao requestdetails
 		foreach ($_SESSION["request"] as $product) {
-			$query = $conn->prepare("insert into requestdetails set request_id=:request_id, masp=:masp, gianhap=:gianhap, soluong=:soluong, trangthaivattu = 0");
-			$query->execute(array("request_id" => $request_id, "masp" => $product["masp"], "gianhap" => $product["gianhap"], "soluong" => $product["number"]));
+			$query = $conn->prepare("insert into requestdetails set request_id=:request_id, masp=:masp, gianhap=:gianhap, soluongyc=:soluongyc, trangthaivattu = 0");
+			$query->execute(array("request_id" => $request_id, "masp" => $product["masp"], "gianhap" => $product["gianhap"], "soluongyc" => $product["number"]));
 		}
 		//xoa gio hang
 		unset($_SESSION["request"]);
