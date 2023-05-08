@@ -13,8 +13,8 @@ $this->fileLayout = "Layout.php";
 									<th class="anh" scope="col">Ảnh</th>
 									<th class="tensp" scope="col">Tên vật tư</th>
 									<th class="gianhap" scope="col">Giá nhập</th>
-									<th class="quantity" scope="col">Số lượng</th>
-									<th class="price" scope="col">Thành tiền</th>
+									<th class="" scope="col">Số lượng có</th>
+									<th class="quantity" scope="col">Số lượng yêu cầu</th>
 									<th scope="col">Xóa</th>
 								</tr>
 							</thead>
@@ -28,8 +28,9 @@ $this->fileLayout = "Layout.php";
 										</td>
 										<td><?php echo $product["tensp"]; ?></td>
 										<td><?php echo number_format($product["gianhap"]); ?>đ</td>
+										<td><?php echo $product["soluong"]; ?></td>
 										<td><input type="number" id="qty" min="1" class="input-control" value="<?php echo $product["number"]; ?>" name="product_<?php echo $product["masp"]; ?>" required="Không thể để trống"></td>
-										<td><?php echo number_format($product["gianhap"] * $product["number"]); ?>₫</td>
+
 										<td>
 											<a href="index.php?controller=request&action=delete&masp=<?php echo $product["masp"]; ?>" data-id="2479395"><i class="fa fa-trash"></i></a>
 										</td>
@@ -49,6 +50,11 @@ $this->fileLayout = "Layout.php";
 					</form>
 				</div>
 			</div>
+			<script type="text/javascript">
+				function displayMessage(message) {
+					alert(message);
+				}
+			</script>
 			<div class="col-3">
 				<div class="card">
 					<div class="card-body">

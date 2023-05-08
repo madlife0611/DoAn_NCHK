@@ -133,7 +133,7 @@ $pb = $query_d->fetch();
                                         <td>
                                             <?php
                                             //co the goi ham tu class model o day
-                                            echo isset($rows->soluong) ? $rows->soluong : "";
+                                            echo isset($rows->soluongyc) ? $rows->soluongyc : "";
                                             ?>
                                         </td>
                                         <?php if (isset($rq->trangthai) && $rq->trangthai == 1) : ?>
@@ -144,7 +144,7 @@ $pb = $query_d->fetch();
                                                     </a>
                                                 <?php endif; ?>
                                                 <?php if (isset($rows->trangthaivattu) && $rows->trangthaivattu == 1) : ?>
-                                                    <a class="btn btn-success btn-sm" href="index.php?controller=department&action=finished_using&masp=<?php echo $rows->masp; ?>&request_id=<?php echo $rows->request_id; ?>" onclick="return window.confirm('Xác nhận đã sử dụng sản phẩm này?');">
+                                                    <a class="btn btn-success btn-sm" href="index.php?controller=department&action=finishedusing&masp=<?php echo $rows->masp; ?>&request_id=<?php echo $rows->request_id; ?>" onclick="return window.confirm('Xác nhận đã sử dụng sản phẩm này?');">
                                                         Hoàn tất
                                                     </a>
                                                 <?php endif; ?>

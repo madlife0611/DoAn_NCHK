@@ -18,7 +18,7 @@ trait RequestModel
 				'masp' => $masp,
 				'tensp' => $product->tensp,
 				'mota' => $product->mota,
-				'soluongco' => $product->soluongco,
+				'soluong' => $product->soluong,
 				'anhsp' => $product->anhsp,
 				'number' => 1,
 				'gianhap' => $product->gianhap
@@ -27,26 +27,36 @@ trait RequestModel
 	}
 	public function requestAddWithNumber($masp, $soluong)
 	{
+		$conn = Connection::getInstance();
+		$query = $conn->prepare("select * from products where masp=:masp");
+		$query->execute(array("masp" => $masp));
+		$query->setFetchMode(PDO::FETCH_OBJ);
+		$product = $query->fetch();
+		//---
 		if (isset($_SESSION['request'][$masp])) {
 			//nếu đã có sp trong giỏ hàng thì số lượng lên 1
-			$_SESSION['request'][$masp]['number'] += $soluong;
+			if (($soluong + $_SESSION['request'][$masp]['number']) > $product->soluong) {
+				//Hiển thị thông báo
+				echo '<script type="text/javascript">alert("Số lượng yêu cầu đang lớn hơn số lượng có. Vui lòng nhập lại.")</script>';
+			} else {
+				$_SESSION['request'][$masp]['number'] += $soluong;
+			}
 		} else {
-			$conn = Connection::getInstance();
-			$query = $conn->prepare("select * from products where masp=:masp");
-			$query->execute(array("masp" => $masp));
-			$query->setFetchMode(PDO::FETCH_OBJ);
-			$product = $query->fetch();
-			//---
 
-			$_SESSION['request'][$masp] = array(
-				'masp' => $masp,
-				'tensp' => $product->tensp,
-				'mota' => $product->mota,
-				'soluongco' => $product->soluongco,
-				'anhsp' => $product->anhsp,
-				'number' => $soluong,
-				'gianhap' => $product->gianhap
-			);
+			if ($soluong > $product->soluong) {
+				//Hiển thị thông báo
+				echo '<script type="text/javascript">alert("Số lượng yêu cầu đang lớn hơn số lượng có. Vui lòng nhập lại.")</script>';
+			} else {
+				$_SESSION['request'][$masp] = array(
+					'masp' => $masp,
+					'tensp' => $product->tensp,
+					'mota' => $product->mota,
+					'soluong' => $product->soluong,
+					'anhsp' => $product->anhsp,
+					'number' => $soluong,
+					'gianhap' => $product->gianhap
+				);
+			}
 		}
 	}
 	/**
@@ -56,11 +66,21 @@ trait RequestModel
 	 */
 	public function requestUpdate($masp, $number)
 	{
+		$conn = Connection::getInstance();
+		$query = $conn->prepare("select * from products where masp=:masp");
+		$query->execute(array("masp" => $masp));
+		$query->setFetchMode(PDO::FETCH_OBJ);
+		$product = $query->fetch();
 		if ($number == 0) {
 			//xóa sp ra khỏi giỏ hàng
 			unset($_SESSION['request'][$masp]);
 		} else {
-			$_SESSION['request'][$masp]['number'] = $number;
+			if ($number > $product->soluong) {
+				//Hiển thị thông báo
+				echo '<script>alert("Số lượng yêu cầu đang lớn hơn số lượng có. Vui lòng nhập lại.")</script>';
+			} else {
+				$_SESSION['request'][$masp]['number'] = $number;
+			}
 		}
 	}
 	/**

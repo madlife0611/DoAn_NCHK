@@ -114,47 +114,33 @@ trait DepartmentModel
 		//lay bien ket noi csdl
 		$conn = Connection::getInstance();
 		// Lấy thông tin sản phẩm
-		$query_prod = $conn->prepare("SELECT * FROM products WHERE masp = :var_masp");
+		$query_prod = $conn->prepare("SELECT loaisp, ngaynhap FROM products WHERE masp = :var_masp");
 		$query_prod->execute(["var_masp" => $masp]);
 		$prod_info = $query_prod->fetch(PDO::FETCH_ASSOC);
-		if (!$prod_info) {
-			return;
-		}
 		$loaisp = $prod_info["loaisp"];
 		//lay so luong yeu cau
-		$query_rq = $conn->prepare("SELECT * FROM requestdetails WHERE masp = :var_masp and request_id = :var_request_id");
+		$query_rq = $conn->prepare("SELECT soluongyc FROM requestdetails WHERE masp = :var_masp and request_id = :var_request_id");
 		$query_rq->execute(["var_masp" => $masp, "var_request_id" => $request_id]);
 		$rq_info = $query_rq->fetch(PDO::FETCH_ASSOC);
-		if (!$rq_info) {
-			return;
-		}
-		$soluongyeucau = $rq_info["soluong"];
+		$soluongyeucau = $rq_info["soluongyc"];
 		//thuc hien truy van
-		// Sử dụng prepared statements để tránh bị tấn công SQL injection
 		if ($loaisp == 1) {
-			$query_1 = $conn->prepare("UPDATE products SET soluong = (soluong - :soluongyeucau), solansudung = solansudung + 1 WHERE masp=:masp");
-			$query_r = $conn->prepare("UPDATE requestdetails SET trangthaivattu = 4 WHERE masp=:masp AND request_id = :request_id");
-			$params = ['soluongyeucau' => $soluongyeucau, 'masp' => $masp, 'request_id' => $request_id];
-			$query_1->execute($params);
-			$query_r->execute($params);
+			$query_1 = $conn->query("UPDATE products SET soluong = soluong - $soluongyeucau, solansudung = solansudung + 1 WHERE masp = $masp");
+			$query_r = $conn->query("UPDATE requestdetails SET trangthaivattu = 4 WHERE masp=$masp AND request_id = $request_id");
+
 		} else if ($loaisp == 2) {
-			$query_2 = $conn->prepare("UPDATE products SET solansudung = (solansudung + 1) WHERE masp=:masp");
-			$query_r = $conn->prepare("UPDATE requestdetails SET trangthaivattu = 4 WHERE masp=:masp AND request_id = :request_id");
-			$params = ['masp' => $masp, 'request_id' => $request_id];
-			$query_2->execute($params);
-			$query_r->execute($params);
+			$query_2 = $conn->query("UPDATE products SET solansudung = solansudung + 1 WHERE masp=$masp");
+			$query_r = $conn->query("UPDATE requestdetails SET trangthaivattu = 4 WHERE masp=$masp AND request_id = $request_id");
+
 		} else {
-			$query_3 = $conn->prepare("UPDATE products 
+			$query_3 = $conn->query("UPDATE products 
 			SET tongthoigiansudung = tongthoigiansudung + TIMESTAMPDIFF(SECOND, time_start, NOW()),
 			tansuatsudung = (tongthoigiansudung / 3600) / DATEDIFF(NOW(), ngaynhap), 
 			time_start = '', 
 			trangthai = 0, 
 			solansudung = solansudung + 1 
-			WHERE masp = :masp");
-			$query_r = $conn->prepare("UPDATE requestdetails SET trangthaivattu = 0 WHERE masp=:masp AND request_id = :request_id");
-			$params = ['masp' => $masp, 'request_id' => $request_id];
-			$query_3->execute($params);
-			$query_r->execute($params);
+			WHERE masp = $masp");
+			$query_r = $conn->query("UPDATE requestdetails SET trangthaivattu = 0 WHERE masp=$masp AND request_id = $request_id");
 		}
 	}
 	//xác nhận đã hỏng hoặc lỗi

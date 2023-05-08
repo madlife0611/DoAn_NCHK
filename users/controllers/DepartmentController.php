@@ -40,7 +40,7 @@ class DepartmentController extends Controller
         header("location:index.php?controller=department");
     }
     //finished using
-    public function finished_using()
+    public function finishedusing()
     {
         //$mapb = isset($_GET["mapb"]) ? $_GET["mapb"] : 0;
         $masp = isset($_GET["masp"]) ? $_GET["masp"] : 0;

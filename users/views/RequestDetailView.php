@@ -203,7 +203,7 @@ $rq = $query->fetch();
                                         <?php
                                         //co the goi ham tu class model o day
                                         $requestdetail = $this->modelGetRequestsDetail($rows->request_id, $product->masp);
-                                        echo isset($requestdetail->soluong) ? $requestdetail->soluong : "";
+                                        echo isset($requestdetail->soluongyc) ? $requestdetail->soluongyc : "";
                                         ?>
                                     </td>
                                 </tr>

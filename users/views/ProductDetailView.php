@@ -6,7 +6,7 @@ $this->fileLayout = "Layout.php";
     <div class="container">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <button type="button" class="btn btn-default"><a href="index.php?controller=products">Trở lại <i class="fas fa-backward"></i></a></button>
+                <button type="button" class="btn btn-default"><a href="index.php?controller=products&action=category&madm=<?php echo $record->madm; ?>">Trở lại <i class="fas fa-backward"></i></a></button>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -82,10 +82,10 @@ $this->fileLayout = "Layout.php";
                             Dùng xong bỏ
                         <?php endif; ?>
                         <?php if (isset($record->loaisp) && $record->loaisp == 2) : ?>
-                            Dùng xong trả lại
+                            Dùng xong trả lại kho
                         <?php endif; ?>
                         <?php if (isset($record->loaisp) && $record->loaisp == 3) : ?>
-                            Tái sử dụng nhiều lần
+                            Trang thiết bị
                         <?php endif; ?>
                     </p>
 
