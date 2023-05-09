@@ -453,8 +453,76 @@ $this->fileLayout = "Layout.php";
             }
           });
         </script>
+        <!--  thong ke taichinh -->
+<div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <i class="fas fa-chart-pie mr-1"></i>
+              Thống kê vật tư theo trạng thái
+            </h3>
+          </div><!-- /.card-header -->
+          <div class="card-body">
+            <div class="tab-content p-0">
+              <!-- Stackes bar chart - products -->
+              <div class="chart tab-pane active" style="position: relative; height: 300px;">
+                <canvas id="report-donut-chart" style="min-height: 250px; height: 300px; width:100%; max-height: 600px;"></canvas>
+              </div>
+            </div>
+          </div><!-- /.card-body -->
+        </div>
+        <?php $report_donut = $this->getChartDataForReportChart();
+        ?>
+        <script>
+          // Lấy dữ liệu từ hàm getChartDataForDonutChart()
+          var data = <?php echo json_encode($report_donut); ?>;
 
+          // Tạo mảng các màu cho các phần tử trong biểu đồ donut
+          var colors = [
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56',
+            '#4BC0C0',
+            '#9966FF',
+            '#AC64AD',
+            '#D6BCC0'
+          ];
 
+          // Tạo đối tượng biểu đồ donut
+          var ctx = document.getElementById('report-donut-chart').getContext('2d');
+          var chart = new Chart(ctx, {
+            // Loại biểu đồ
+            type: 'doughnut',
+
+            // Dữ liệu cho biểu đồ
+            data: {
+              labels: ['Tổng giá trị vật tư', 'Tổng tiền vật tư thâm hụt', 'Tổng chi phí bảo trì', 'Tổng tiền vật tư lỗi/Hỏng'],
+              datasets: [{
+                data: [
+                  data[0]['tongtien_soluong'],
+                  data[0]['tongtien_requests_type1'],
+                  data[0]['tongchiphi_baotri'],
+                  data[0]['tongtien_loihong']
+                ],
+                backgroundColor: colors,
+                borderWidth: 0
+              }]
+            },
+
+            // Tùy chọn cho biểu đồ
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              legend: {
+                display: true,
+                position: 'bottom'
+              },
+              title: {
+                display: true,
+                text: 'Biểu đồ Donut'
+              }
+            }
+          });
+        </script>
 
       </section>
       <!-- right col -->
