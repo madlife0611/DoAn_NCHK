@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 08, 2023 lúc 10:03 PM
+-- Thời gian đã tạo: Th5 22, 2023 lúc 04:33 PM
 -- Phiên bản máy phục vụ: 10.4.27-MariaDB
 -- Phiên bản PHP: 7.4.33
 
@@ -47,7 +47,9 @@ INSERT INTO `accounts` (`matk`, `hoten`, `email`, `sdt`, `diachi`, `mapb`, `phot
 (2, 'Nguyễn Văn A', 'nva@gmail.com', '0123456789', 'Xuân Trường, Nam Định', 1, 'user2.jpg', '202cb962ac59075b964b07152d234b70', 0),
 (3, 'Phạm Đức Minh', 'admin@gmail.com', '0123456789', 'Xuân Trường, Nam Định', 3, 'user1.jpg', '202cb962ac59075b964b07152d234b70', 1),
 (7, 'Pham Minh', 'test1121@gmail.com', '09999999999', 'hà nội', 2, 'user4.jpg', 'e10adc3949ba59abbe56e057f20f883e', 1),
-(10, 'test', 'test@gmail.com', '12312412', 'test', 2, '1682012277_user5-128x128.jpg', '202cb962ac59075b964b07152d234b70', 0);
+(10, 'test', 'test@gmail.com', '12312412', 'test', 2, '1682012277_user5-128x128.jpg', '202cb962ac59075b964b07152d234b70', 0),
+(11, 'Nguyễn Văn B', 'nvb@gmail.com', '0987654321', 'Vĩnh Phúc', 4, 'user7.jpg', '202cb962ac59075b964b07152d234b70', 0),
+(12, 'Nguyễn Văn C', 'nvc@gmail.com', '0987654321', 'Nam Định', 5, 'user6.jpg', '202cb962ac59075b964b07152d234b70', 0);
 
 -- --------------------------------------------------------
 
@@ -194,7 +196,17 @@ INSERT INTO `changelog` (`macl`, `tenbang`, `thoigian`, `dulieucu`, `dulieumoi`,
 (94, 'departments', '2023-05-09 01:10:11', '[]', '{\"tenpb\":\"Kho vật tư\"}', '3', 'create'),
 (95, 'accounts', '2023-05-09 01:10:23', '{\"matk\":\"3\",\"hoten\":\"Phạm Đức Minh\",\"email\":\"admin@gmail.com\",\"sdt\":\"0123456789\",\"diachi\":\"Xuân Trường, Nam Định\",\"mapb\":\"1\",\"photo\":\"user1.jpg\",\"password\":\"202cb962ac59075b964b07152d234b70\",\"isAdmin\":\"1\"}', '{\"matk\":\"3\",\"hoten\":\"Phạm Đức Minh\",\"email\":\"admin@gmail.com\",\"sdt\":\"0123456789\",\"diachi\":\"Xuân Trường, Nam Định\",\"mapb\":\"3\",\"photo\":\"\",\"password\":\"202cb962ac59075b964b07152d234b70\",\"isAdmin\":1}', '3', 'update'),
 (96, 'products', '2023-05-09 01:15:04', '{\"masp\":\"61\",\"tensp\":\"test 112122\",\"anhsp\":\"IMG_4579.JPG\",\"mota\":\"Cái này để test thôi\",\"soluong\":\"1\",\"gianhap\":\"2147483647\",\"ngaynhap\":\"2023-04-23\",\"hanbaotri\":\"2023-05-20\",\"tansuatsudung\":\"0\",\"solansudung\":\"0\",\"trangthai\":\"0\",\"time_start\":\"\",\"tongthoigiansudung\":\"0\",\"loaisp\":\"2\",\"madm\":\"10\",\"mancc\":\"2\"}', '[]', '3', 'delete'),
-(97, 'products', '2023-05-09 01:15:40', '{\"masp\":\"56\",\"tensp\":\"Máy chụp cát lớp\",\"anhsp\":\"m6.JPG\",\"mota\":\"USA\",\"soluong\":\"1\",\"gianhap\":\"100000000\",\"ngaynhap\":\"2022-12-08\",\"hanbaotri\":\"2024-06-30\",\"tansuatsudung\":\"0\",\"solansudung\":\"0\",\"trangthai\":\"0\",\"time_start\":\"\",\"tongthoigiansudung\":\"0\",\"loaisp\":\"3\",\"madm\":\"10\",\"mancc\":\"2\"}', '{\"masp\":\"56\",\"tensp\":\"Máy chụp cát lớp\",\"anhsp\":\"1.png\",\"mota\":\"USA\",\"soluong\":\"1\",\"gianhap\":\"100000000\",\"ngaynhap\":\"2022-12-08\",\"hanbaotri\":\"2024-06-30\",\"tansuatsudung\":null,\"solansudung\":null,\"trangthai\":\"3\",\"loaisp\":\"3\",\"madm\":\"10\",\"mancc\":\"2\"}', '3', 'update');
+(97, 'products', '2023-05-09 01:15:40', '{\"masp\":\"56\",\"tensp\":\"Máy chụp cát lớp\",\"anhsp\":\"m6.JPG\",\"mota\":\"USA\",\"soluong\":\"1\",\"gianhap\":\"100000000\",\"ngaynhap\":\"2022-12-08\",\"hanbaotri\":\"2024-06-30\",\"tansuatsudung\":\"0\",\"solansudung\":\"0\",\"trangthai\":\"0\",\"time_start\":\"\",\"tongthoigiansudung\":\"0\",\"loaisp\":\"3\",\"madm\":\"10\",\"mancc\":\"2\"}', '{\"masp\":\"56\",\"tensp\":\"Máy chụp cát lớp\",\"anhsp\":\"1.png\",\"mota\":\"USA\",\"soluong\":\"1\",\"gianhap\":\"100000000\",\"ngaynhap\":\"2022-12-08\",\"hanbaotri\":\"2024-06-30\",\"tansuatsudung\":null,\"solansudung\":null,\"trangthai\":\"3\",\"loaisp\":\"3\",\"madm\":\"10\",\"mancc\":\"2\"}', '3', 'update'),
+(98, 'departments', '2023-05-13 10:41:41', '[]', '{\"tenpb\":\"Phòng \"}', '3', 'create'),
+(99, 'departments', '2023-05-13 10:41:47', '{\"mapb\":\"4\",\"tenpb\":\"Phòng \"}', '{\"mapb\":\"4\",\"tenpb\":\"Phòng 102\"}', '3', 'update'),
+(100, 'departments', '2023-05-13 10:41:59', '[]', '{\"tenpb\":\"Phòng 103\"}', '3', 'create'),
+(101, 'departments', '2023-05-13 10:42:15', '[]', '{\"tenpb\":\"Phòng 202\"}', '3', 'create'),
+(102, 'departments', '2023-05-13 10:42:25', '[]', '{\"tenpb\":\"Phòng 203\"}', '3', 'create'),
+(103, 'accounts', '2023-05-13 10:44:06', '[]', '{\"hoten\":\"Nguyễn Văn B\",\"email\":\"nvb@gmail.com\",\"sdt\":\"0987654321\",\"diachi\":\"Vĩnh Phúc\",\"mapb\":\"4\",\"photo\":\"user7.jpg\",\"password\":\"202cb962ac59075b964b07152d234b70\",\"isAdmin\":0}', '3', 'create'),
+(104, 'categories', '2023-05-13 10:47:54', '[]', '{\"mota\":\"Cái này để test thôi\",\"tendm\":\"Nhóm 113\"}', '3', 'create'),
+(105, 'categories', '2023-05-13 10:48:06', '{\"madm\":\"14\",\"tendm\":\"Nhóm 113\",\"mota\":\"Cái này để test thôi\"}', '[]', '3', 'delete'),
+(106, 'products', '2023-05-13 15:36:13', '[]', '{\"tensp\":\"test\",\"anhsp\":\"IMG_4578.JPG\",\"mota\":\"Test update\",\"soluong\":\"1\",\"gianhap\":\"12000\",\"ngaynhap\":\"2023-05-13\",\"hanbaotri\":\"2023-05-21\",\"solansudung\":0,\"tansuatsudung\":0,\"trangthai\":\"0\",\"loaisp\":\"3\",\"madm\":\"1\",\"mancc\":\"1\"}', '3', 'create'),
+(107, 'products', '2023-05-13 16:27:38', '[]', '{\"tensp\":\"test 112122\",\"anhsp\":\"IMG_4577.JPG\",\"mota\":\"Cái này để test thôi\",\"soluong\":\"1\",\"gianhap\":\"1000\",\"ngaynhap\":\"2023-05-13\",\"hanbaotri\":\"2023-05-28\",\"solansudung\":0,\"tansuatsudung\":0,\"trangthai\":\"0\",\"loaisp\":\"3\",\"madm\":\"10\",\"mancc\":\"3\"}', '3', 'create');
 
 -- --------------------------------------------------------
 
@@ -214,7 +226,11 @@ CREATE TABLE `departments` (
 INSERT INTO `departments` (`mapb`, `tenpb`) VALUES
 (1, 'Phòng 201'),
 (2, 'Phòng 101'),
-(3, 'Kho vật tư');
+(3, 'Kho vật tư'),
+(4, 'Phòng 102'),
+(5, 'Phòng 103'),
+(6, 'Phòng 202'),
+(7, 'Phòng 203');
 
 -- --------------------------------------------------------
 
@@ -237,7 +253,11 @@ CREATE TABLE `maintenances` (
 
 INSERT INTO `maintenances` (`mabt`, `ngaybaotri`, `tongchiphi`, `trangthai`, `matk`, `mancc`) VALUES
 (1, '2023-05-09', 62111, 1, 3, 1),
-(2, '2023-05-09', 60000, 1, 3, 2);
+(2, '2023-05-09', 60000, 1, 3, 2),
+(3, '2023-05-09', 122222, 0, 3, 1),
+(4, '2023-05-13', 20000, 1, 3, 2),
+(5, '2023-05-13', 0, 0, 3, 1),
+(6, '2023-05-18', 20000, 1, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -250,21 +270,31 @@ CREATE TABLE `maintenance_details` (
   `mabt` int(11) NOT NULL,
   `masp` int(11) NOT NULL,
   `hanbaotrimoi` varchar(10) NOT NULL,
-  `chiphi` int(11) NOT NULL
+  `chiphi` int(11) NOT NULL,
+  `hinhthuc` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `maintenance_details`
 --
 
-INSERT INTO `maintenance_details` (`mabt_detail`, `mabt`, `masp`, `hanbaotrimoi`, `chiphi`) VALUES
-(1, 1, 53, '2023-12-12', 20000),
-(2, 1, 45, '2023-12-30', 21000),
-(3, 1, 42, '2024-11-11', 20000),
-(4, 1, 33, '2023-11-11', 1111),
-(5, 2, 56, '2023-12-31', 20000),
-(6, 2, 55, '2023-05-31', 20000),
-(7, 2, 54, '2023-10-31', 20000);
+INSERT INTO `maintenance_details` (`mabt_detail`, `mabt`, `masp`, `hanbaotrimoi`, `chiphi`, `hinhthuc`) VALUES
+(1, 1, 53, '2023-12-12', 20000, 0),
+(2, 1, 45, '2023-12-30', 21000, 0),
+(3, 1, 42, '2024-11-11', 20000, 0),
+(4, 1, 33, '2023-11-11', 1111, 0),
+(5, 2, 56, '2023-12-31', 20000, 0),
+(6, 2, 55, '2023-05-31', 20000, 0),
+(7, 2, 54, '2023-10-31', 20000, 0),
+(8, 3, 53, '', 0, 0),
+(9, 3, 45, '', 0, 1),
+(10, 3, 42, '', 122222, 1),
+(11, 3, 33, '', 0, 0),
+(12, 4, 55, '', 0, 0),
+(13, 4, 54, '2023-05-28', 20000, 0),
+(14, 4, 51, '', 0, 0),
+(15, 5, 53, '', 0, 0),
+(16, 6, 53, '2023-12-11', 20000, 1);
 
 -- --------------------------------------------------------
 
@@ -313,17 +343,17 @@ INSERT INTO `products` (`masp`, `tensp`, `anhsp`, `mota`, `soluong`, `gianhap`, 
 (20, 'Băng UGO tanna', 'n22.PNG', '1,25cm x 4m', 100, 3000, '2022-01-11', '2023-07-31', 0, 0, 0, '', 0, 1, 2, 1),
 (21, 'Gạc UrgoTul', 'n23.PNG', '10cm x 10cm', 100, 1000, '2022-11-21', '2023-07-31', 0, 0, 0, '', 0, 1, 2, 2),
 (22, 'Gạc vết thương', 'n24.PNG', 'Miếng to', 100, 1000, '2018-11-21', '2023-07-31', 0, 0, 0, '', 0, 1, 2, 1),
-(23, 'Gạc miếng loại to', 'n25.PNG', '1kg', 100, 20000, '2019-01-02', '2023-07-31', 0, 0, 0, '', 0, 1, 2, 4),
-(24, 'Gạc cuộn', 'n26.PNG', '5m x 10cm', 100, 5000, '2022-11-21', '2023-07-31', 0, 0, 0, '', 0, 1, 2, 3),
+(23, 'Gạc miếng loại to', 'n25.PNG', '1kg', 89, 20000, '2019-01-02', '2023-07-31', 0, 1, 0, '', 0, 1, 2, 4),
+(24, 'Gạc cuộn', 'n26.PNG', '5m x 10cm', 89, 5000, '2022-11-21', '2023-07-31', 0, 1, 0, '', 0, 1, 2, 3),
 (25, 'Găng tay y tế', 'n28.PNG', 'Cao su non', 100, 1000, '2022-11-21', '2023-07-31', 0, 0, 0, '', 0, 1, 2, 2),
 (26, 'Sát trùng Povidine', 's1.PNG', '20ml', 100, 2000, '2022-11-21', '2023-07-31', 0, 0, 0, '', 0, 1, 1, 2),
 (27, 'Lọ xịt Nacurgo', 's2.PNG', 'Sát khuẩn, tái tạo ra', 100, 10000, '2022-11-21', '2023-07-31', 0, 0, 0, '', 0, 1, 1, 2),
-(28, 'Sát trùng Dettol', 's3.PNG', 'Sát trùng diệt khuẩn', 100, 5000, '2022-11-21', '2023-07-31', 0, 0, 0, '', 0, 1, 1, 1),
+(28, 'Sát trùng Dettol', 's3.PNG', 'Sát trùng diệt khuẩn', 99, 5000, '2022-11-21', '2023-07-31', 0, 1, 0, '', 0, 1, 1, 1),
 (29, 'Cồn sát trùng', 's4.PNG', '100ml', 100, 2000, '2022-11-21', '2023-07-31', 0, 0, 0, '', 0, 1, 1, 2),
 (30, 'Kim tiêm', 't1.png', 'Loại nhỏ 2cc', 100, 500, '2022-11-21', '2023-07-31', 0, 0, 0, '', 0, 1, 3, 2),
 (31, 'Bộ đồ y tế', 'v1.PNG', 'Đầy đủ quần áo, găng tay, khẩu trang', 100, 25000, '2022-11-21', '2023-07-31', 0, 1, 0, '', 0, 1, 3, 2),
 (32, 'Ống thông', 'v2.PNG', '1m', 100, 2000, '2022-11-21', '2023-07-31', 0, 1, 0, '', 0, 1, 3, 2),
-(33, 'Bộ dây truyền dịch', 'v3.PNG', '1 bộ', 100, 3000, '2022-11-21', '2023-11-11', 0, 0, 0, '', 0, 1, 3, 1),
+(33, 'Bộ dây truyền dịch', 'v3.PNG', '1 bộ', 100, 3000, '2022-11-21', '2023-11-11', 0, 0, 2, '', 0, 1, 3, 1),
 (34, 'Dây nịt', 'v4.PNG', 'Loại nhỏ', 100, 1000, '2022-11-21', '2023-07-31', 0, 0, 0, '', 0, 1, 3, 2),
 (35, 'Ống nghe', 'v5.PNG', 'Made in Japan', 100, 50000, '2022-11-21', '2023-07-31', 0, 0, 0, '', 0, 1, 3, 2),
 (36, 'Máy đo nhiệt', 'v6.PNG', 'Sử dụng pin', 100, 30000, '2022-11-21', '2023-07-31', 1.64368, 2, 0, '', 1000015, 3, 3, 3),
@@ -332,21 +362,23 @@ INSERT INTO `products` (`masp`, `tensp`, `anhsp`, `mota`, `soluong`, `gianhap`, 
 (39, 'Ống thông', 'v7.PNG', 'Kim loại', 90, 10000, '2022-11-21', '2023-07-31', 0, 10, 0, '', 0, 1, 3, 4),
 (40, 'ỐNG DẪN NƯỚC TIỂU SONDE', '44.JPG', '2 nhánh', 25, 12000, '2022-12-08', '2023-07-31', 0, 1, 0, '', 0, 2, 4, 2),
 (41, 'Ống Nghe Y Tế Spirit', '41.JPG', '2 mặt', 25, 35000, '2022-12-08', '2023-07-31', 0, 1, 0, '', 0, 2, 4, 4),
-(42, 'Ống lưu trữ lạnh tế bào', '42.JPG', '5ml', 27, 1000, '2022-12-08', '2024-11-11', 0, 2, 0, '', 0, 2, 4, 1),
+(42, 'Ống lưu trữ lạnh tế bào', '42.JPG', '5ml', 27, 1000, '2022-12-08', '0000-00-00', 0, 2, 0, '', 0, 2, 4, 1),
 (43, 'Dao phẫu thuật', '51.JPG', 'kèm cán', 25, 10000, '2022-12-08', '2023-11-30', 0, 0, 0, '', 0, 2, 5, 3),
 (44, 'Chỉ khâu y tế', '5.JPG', '10m', 25, 3000, '2022-12-08', '2023-07-31', 0, 0, 0, '', 0, 2, 5, 2),
-(45, 'Kim châm cứu', 'k1.JPG', '10 kim 1 gói', 25, 5000, '2022-12-08', '2023-12-30', 0, 0, 0, '', 0, 2, 5, 1),
+(45, 'Kim châm cứu', 'k1.JPG', '10 kim 1 gói', 25, 5000, '2022-12-08', '0000-00-00', 0, 0, 0, '', 0, 2, 5, 1),
 (46, 'Kẹp y tế', 'k2.JPG', '16cm', 25, 20000, '2022-12-08', '2023-07-31', 0, 100, 0, '', 0, 2, 5, 4),
 (47, 'Kéo cắt chỉ', 'k5.JPG', 'Loại nhỏ', 25, 10000, '2022-12-08', '2023-07-31', 0, 100, 0, '', 0, 2, 5, 3),
 (48, 'Kéo y tế', 'k4.JPG', 'Loại vừa', 25, 25000, '2022-12-08', '2023-07-31', 0, 200, 0, '', 0, 2, 5, 0),
 (49, 'Cốc y tế', '61.JPG', 'Inox 50ml', 25, 10000, '2022-12-08', '2023-07-31', 0, 0, 0, '', 0, 2, 6, 2),
 (50, 'Khay y tế', '62.JPG', 'inox 30x40cm', 25, 30000, '2022-12-08', '2023-07-31', 0, 0, 0, '', 0, 2, 6, 3),
-(51, 'Hộp đựng dụng cụ', '63.JPG', '30x40cm', 25, 20000, '2022-12-08', '2023-07-31', 0, 0, 0, '', 0, 2, 6, 2),
+(51, 'Hộp đựng dụng cụ', '63.JPG', '30x40cm', 25, 20000, '2022-12-08', '2023-07-31', 0, 0, 2, '', 0, 2, 6, 2),
 (52, 'Máy nội soi tai mũi họng', 'm1.JPG', 'Japan', 1, 20000000, '2022-12-08', '2024-09-30', 1.82749, 0, 0, '', 1000000, 3, 10, 4),
-(53, 'Máy siêu âm', 'm3.JPG', 'USA', 1, 35000000, '2022-12-08', '2023-12-12', 1.82749, 0, 0, '', 1000000, 3, 10, 1),
-(54, 'Máy siêu âm S2', 'm4.JPG', 'Japan', 1, 30000000, '2022-12-08', '2023-10-31', 1.8275, 8, 0, '', 1000010, 3, 10, 2),
-(55, 'Máy chụp X quang', 'm5.JPG', 'USA', 1, 40000000, '2022-12-08', '2023-05-31', 1.82751, 1, 0, '', 1000012, 3, 10, 2),
-(56, 'Máy chụp cát lớp', '1.png', 'USA', 1, 100000000, '2022-12-08', '2023-12-31', 1.82749, 0, 0, '', 1000000, 3, 10, 2);
+(53, 'Máy siêu âm', 'm3.JPG', 'USA', 1, 35000000, '2022-12-08', '2023-12-11', 1.82749, 0, 0, '2023-05-13 14:47:36', 1000000, 3, 10, 1),
+(54, 'Máy siêu âm S2', 'm4.JPG', 'Japan', 1, 30000000, '2022-12-08', '2023-05-28', 1.72539, 9, 0, '', 1000034, 3, 10, 2),
+(55, 'Máy chụp X quang', 'm5.JPG', 'USA', 1, 40000000, '2022-12-08', '2023-05-31', 2.39524, 4, 3, '', 1345165, 3, 10, 2),
+(56, 'Máy chụp cát lớp', '1.png', 'USA', 1, 100000000, '2022-12-08', '2023-12-31', 1.82749, 0, 0, '', 1000000, 3, 10, 2),
+(62, 'test', 'IMG_4578.JPG', 'Test update', 1, 12000, '2023-05-13', '2023-05-21', 0, 0, 0, '', 0, 3, 1, 1),
+(63, 'test 112122', 'IMG_4577.JPG', 'Cái này để test thôi', 1, 1000, '2023-05-13', '2023-05-28', 0, 0, 0, '', 0, 3, 10, 3);
 
 -- --------------------------------------------------------
 
@@ -374,11 +406,26 @@ INSERT INTO `requestdetails` (`request_detail_id`, `request_id`, `masp`, `soluon
 (4, 4, 38, 3, 500, 4),
 (5, 4, 36, 12, 30000, 0),
 (6, 5, 55, 1, 40000000, 0),
-(7, 5, 54, 1, 30000000, 3),
+(7, 5, 54, 1, 30000000, 0),
 (8, 7, 42, 4, 1000, 4),
 (9, 7, 41, 5, 35000, 4),
 (10, 8, 15, 1, 2500, 0),
-(11, 9, 56, 1, 100000000, 0);
+(11, 9, 56, 1, 100000000, 0),
+(12, 10, 25, 16, 1000, 1),
+(13, 10, 24, 11, 5000, 4),
+(14, 10, 23, 11, 20000, 4),
+(15, 11, 29, 4, 2000, 0),
+(16, 11, 28, 4, 5000, 4),
+(17, 12, 55, 1, 40000000, 0),
+(18, 13, 29, 3, 2000, 0),
+(19, 13, 28, 3, 5000, 1),
+(20, 13, 27, 5, 10000, 1),
+(21, 14, 52, 1, 20000000, 0),
+(22, 15, 52, 1, 20000000, 0),
+(23, 16, 55, 1, 40000000, 3),
+(24, 17, 53, 1, 35000000, 1),
+(25, 18, 29, 100, 2000, 0),
+(26, 18, 28, 1, 5000, 4);
 
 -- --------------------------------------------------------
 
@@ -407,7 +454,16 @@ INSERT INTO `requests` (`request_id`, `ngaylap`, `tongtien`, `trangthai`, `ngayx
 (6, '2023-05-09 01:36:22', 14000, 2, '', 2, 0, 1),
 (7, '2023-05-09 01:37:58', 179000, 1, '2023-05-09 01:38:06', 2, 3, 1),
 (8, '2023-05-09 01:44:31', 2500, 0, '', 2, 0, 1),
-(9, '2023-05-09 02:20:54', 100000000, 2, '2023-05-09 02:21:05', 2, 3, 1);
+(9, '2023-05-09 02:20:54', 100000000, 2, '2023-05-09 02:21:05', 2, 3, 1),
+(10, '2023-05-09 11:13:44', 291000, 1, '2023-05-09 11:13:56', 2, 3, 1),
+(11, '2023-05-13 11:09:20', 28000, 1, '2023-05-13 11:09:26', 11, 3, 4),
+(12, '2023-05-13 11:10:52', 40000000, 1, '2023-05-13 11:10:59', 11, 3, 4),
+(13, '2023-05-13 13:23:50', 71000, 1, '2023-05-13 13:24:10', 12, 3, 5),
+(14, '2023-05-13 13:24:43', 20000000, 2, '', 12, 0, 5),
+(15, '2023-05-13 13:32:18', 20000000, 0, '', 12, 0, 5),
+(16, '2023-05-13 13:34:37', 40000000, 1, '2023-05-13 13:36:00', 12, 3, 5),
+(17, '2023-05-13 14:44:07', 35000000, 1, '2023-05-13 14:44:15', 2, 3, 1),
+(18, '2023-05-13 16:24:31', 205000, 1, '2023-05-13 16:24:48', 12, 3, 5);
 
 -- --------------------------------------------------------
 
@@ -506,55 +562,55 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT cho bảng `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `matk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `matk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT cho bảng `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `madm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `madm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT cho bảng `changelog`
 --
 ALTER TABLE `changelog`
-  MODIFY `macl` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `macl` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT cho bảng `departments`
 --
 ALTER TABLE `departments`
-  MODIFY `mapb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `mapb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `maintenances`
 --
 ALTER TABLE `maintenances`
-  MODIFY `mabt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `mabt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `maintenance_details`
 --
 ALTER TABLE `maintenance_details`
-  MODIFY `mabt_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `mabt_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT cho bảng `products`
 --
 ALTER TABLE `products`
-  MODIFY `masp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `masp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT cho bảng `requestdetails`
 --
 ALTER TABLE `requestdetails`
-  MODIFY `request_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `request_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT cho bảng `requests`
 --
 ALTER TABLE `requests`
-  MODIFY `request_id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `request_id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT cho bảng `suppliers`
