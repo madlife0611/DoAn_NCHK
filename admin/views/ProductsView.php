@@ -64,7 +64,7 @@ $this->fileLayout = "Layout.php";
             </div>
             <div class="form-inline float-right">
               <div class="input-group">
-                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search" id="key">
+                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search" id="key_search">
                 <div class="input-group-append">
                   <button class="btn btn-default" id="btnSearchForAdmin">
                     <i class="fas fa-fw fa-search"></i>
@@ -188,20 +188,20 @@ $this->fileLayout = "Layout.php";
   $(document).ready(function() {
     //bat su kien click cua id=btnSearch
     $("#btnSearchForAdmin").click(function() {
-      var key = $("#key").val();
+      var key_search = $("#key_search").val();
       //di chuyen den url tim kiem
-      location.href = "index.php?controller=search&action=name&key=" + key;
+      location.href = "index.php?controller=search&action=name&key_search="+key_search;
     });
     //---
     $(".input-control").keyup(function() {
-      var strKey = $("#key").val();
+      var strKey = $("#key_search").val();
       if (strKey.trim() == "")
         $(".sidebar-search-results").attr("style", "display:none");
       else {
         $(".sidebar-search-results").attr("style", "display:block");
         //---
         //su dung ajax de lay du lieu
-        $.get("index.php?controller=search&action=ajaxSearch&key=" + strKey, function(data) {
+        $.get("index.php?controller=search&action=ajaxSearch&key_search=" + strKey, function(data) {
           //clear cac the li ben trong the ul
           $(".sidebar-search-results ul").empty();
           //them du lieu vua lay duoc bang ajax vao the ul

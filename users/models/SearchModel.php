@@ -43,14 +43,6 @@
 			//tra ve tat ca cac ban ghi lay duoc tu cau truy van
 			return $query->fetch();
 		}
-		//lay 1 ban ghi companies
-		public function getCompany($macty){
-			//lay bien ket noi csdl
-			$db = Connection::getInstance();
-			//thuc hien truy van
-			$query = $db->query("select * from companies where macty = $macty");
-			//tra ve tat ca cac ban ghi lay duoc tu cau truy van
-			return $query->fetch();
-		}
+
 	}
  ?>

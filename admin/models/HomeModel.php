@@ -66,7 +66,7 @@ SUM(CASE WHEN products.trangthai = 0 THEN products.soluong ELSE 0 END) AS soluon
 		$db = Connection::getInstance();
 		//thuc hien truy van
 		$query = "SELECT SUM(products.soluong*products.gianhap) AS tongtien_soluong, 
-		SUM(CASE WHEN products.loaisp = 1 AND requestdetails.trangthaivattu = 4 THEN requestdetails.soluongyc * requestdetails.gianhap ELSE 0 END) AS tongtien_requests_type1,
+		SUM(CASE WHEN requestdetails.trangthaivattu = 4 THEN requestdetails.soluongyc * requestdetails.gianhap ELSE 0 END) AS tongtien_requests_type1,
 		SUM(CASE WHEN maintenances.trangthai = 1 THEN maintenances.tongchiphi ELSE 0 END) AS tongchiphi_baotri,
 		SUM(CASE WHEN requestdetails.trangthaivattu = 3 THEN requestdetails.soluongyc * requestdetails.gianhap ELSE 0 END) AS tongtien_loihong
 		FROM products
@@ -84,7 +84,7 @@ SUM(CASE WHEN products.trangthai = 0 THEN products.soluong ELSE 0 END) AS soluon
 		//lay bien ket noi csdl
 		$conn = Connection::getInstance();
 		//thuc hien truy van
-		$query = $conn->query("select * from requests where trangthai = 1");
+		$query = $conn->query("select * from requests where trangthai = 0");
 		//tra ve so luong ban ghi
 		return $query->rowCount();
 	}

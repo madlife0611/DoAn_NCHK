@@ -96,19 +96,49 @@ $this->fileLayout = "Layout.php";
                     <!-- form start -->
                     <form method="post" action="<?php echo $action; ?>">
                         <div class="card-body">
+                            <div class="form-group clearfix">
+                                <label>Hình thức xử lý: </label>
+                                <div class="icheck-primary d-inline">
+                                    <input type="radio" id="radioPrimary1" name="hinhthuc" value="0" <?php echo isset($record->hinhthuc) == 0 ? "checked" : ""; ?>>
+                                    <label for="radioPrimary1">
+                                        Bảo trì/Bảo dưỡng
+                                    </label>
+                                </div>
+                                <div class="icheck-primary d-inline">
+                                    <input type="radio" id="radioPrimary2" name="hinhthuc" value="1" <?php echo isset($record->hinhthuc) == 1 ? "checked" : ""; ?>>
+                                    <label for="radioPrimary2">
+                                        Bảo hành
+                                    </label>
+                                </div>
+                            </div>
                             <div class="form-group">
-                                <label for="hanbaotrimoi">Hạn bảo trì mới</label>
-                                <input type="date" class="form-control" id="hanbaotrimoi" name="hanbaotrimoi">
+                                <label for="hanbaotrimoi">Hạn bảo hành mới</label>
+                                <input type="date" class="form-control" id="hanbaotrimoi" name="hanbaotrimoi" required>
                             </div>
                             <div class="form-group">
                                 <label for="chiphi">Chi phí bảo trì</label>
-                                <input type="text" class="form-control" id="chiphi" name="chiphi">
+                                <input type="text" class="form-control" id="chiphi" name="chiphi" required>
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
                     </form>
+                    <script>
+    // Bắt sự kiện khi chọn Bảo hành
+    document.getElementById("radioPrimary2").onclick = function() {
+        // Tắt trường Hạn bảo trì mới và Chi phí bảo trì
+        document.getElementById("hanbaotrimoi").disabled = false;
+        document.getElementById("chiphi").disabled = true;
+    };
+
+    // Bắt sự kiện khi chọn Bảo trì/Bảo dưỡng
+    document.getElementById("radioPrimary1").onclick = function() {
+        // Bỏ tắt trường Hạn bảo trì mới và Chi phí bảo trì
+        document.getElementById("hanbaotrimoi").disabled = true;
+        document.getElementById("chiphi").disabled = false;
+    };
+</script>
                 </div>
                 <!-- /.card -->
             </div>

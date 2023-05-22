@@ -130,7 +130,7 @@ $this->fileLayout = "Layout.php";
                         <nav aria-label="Contacts Page Navigation">
                             <ul class="pagination justify-content-center m-0">
                                 <?php for ($i = 1; $i <= $numPage; $i++) : ?>
-                                    <li class="page-item"><a class="page-link" href="index.php?controller=categories&action=view&madm=<?php echo $madm; ?>&p=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                                    <li class="page-item"><a class="page-link" href="index.php?controller=departments&action=view&mapb=<?php echo $mapb; ?>&p=<?php echo $i; ?>"><?php echo $i; ?></a></li>
                                 <?php endfor; ?>
                             </ul>
                         </nav>

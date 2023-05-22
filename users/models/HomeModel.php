@@ -8,11 +8,13 @@
 		//thuc hien truy van
 		$query = "SELECT categories.tendm, SUM(products.soluong) AS tong_soluong, 
 		SUM(CASE WHEN products.trangthai = 0 THEN products.soluong ELSE 0 END) AS soluong_trangthai_0,
-		SUM(CASE WHEN products.trangthai = 1 THEN products.soluong ELSE 0 END) AS soluong_trangthai_1,
+		SUM(CASE WHEN requestdetails.trangthaivattu = 1 THEN requestdetails.soluongyc ELSE 0 END) AS soluong_trangthai_1,
 		SUM(CASE WHEN products.trangthai = 2 THEN products.soluong ELSE 0 END) AS soluong_trangthai_2,
-		SUM(CASE WHEN products.trangthai = 3 THEN products.soluong ELSE 0 END) AS soluong_trangthai_3
+		SUM(CASE WHEN requestdetails.trangthaivattu = 3 THEN requestdetails.soluongyc ELSE 0 END) AS soluong_trangthai_3
 		FROM categories
 		INNER JOIN products ON categories.madm = products.madm
+		INNER JOIN requestdetails ON requestdetails.masp = products.masp
+		INNER JOIN requests ON requests.request_id = requestdetails.request_id
 		GROUP BY categories.tendm";
 		$stmt = $db->prepare($query);
 		$stmt->execute();
@@ -25,11 +27,13 @@
 		$db = Connection::getInstance();
 		//thuc hien truy van
 		$query = "SELECT SUM(products.soluong) AS tong_soluong, 
-		SUM(CASE WHEN products.trangthai = 0 THEN products.soluong ELSE 0 END) AS soluong_trangthai_0,
-		SUM(CASE WHEN products.trangthai = 1 THEN products.soluong ELSE 0 END) AS soluong_trangthai_1,
+SUM(CASE WHEN products.trangthai = 0 THEN products.soluong ELSE 0 END) AS soluong_trangthai_0,
+		SUM(CASE WHEN requestdetails.trangthaivattu = 1 THEN requestdetails.soluongyc ELSE 0 END) AS soluong_trangthai_1,
 		SUM(CASE WHEN products.trangthai = 2 THEN products.soluong ELSE 0 END) AS soluong_trangthai_2,
-		SUM(CASE WHEN products.trangthai = 3 THEN products.soluong ELSE 0 END) AS soluong_trangthai_3
-		FROM products";
+		SUM(CASE WHEN requestdetails.trangthaivattu = 3 THEN requestdetails.soluongyc ELSE 0 END) AS soluong_trangthai_3
+		FROM products
+		INNER JOIN requestdetails ON requestdetails.masp = products.masp
+		INNER JOIN requests ON requests.request_id = requestdetails.request_id";
 		$stmt = $db->prepare($query);
 		$stmt->execute();
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -41,7 +45,7 @@
 		//lay bien ket noi csdl
 		$conn = Connection::getInstance();
 		//thuc hien truy van
-		$query = $conn->query("select * from requests where trangthai = 1 and matk = $matk");
+		$query = $conn->query("select * from requests where trangthai = 0 and matk = $matk");
 		//tra ve so luong ban ghi
 		return $query->rowCount();
 	}
@@ -52,7 +56,7 @@
 		//lay bien ket noi csdl
 		$conn = Connection::getInstance();
 		//thuc hien truy van
-		$stmt = $conn->prepare("SELECT SUM(soluong) FROM requestdetails WHERE request_id IN (SELECT request_id FROM requests WHERE matk = ?)");
+		$stmt = $conn->prepare("SELECT SUM(soluongyc) FROM requestdetails WHERE request_id IN (SELECT request_id FROM requests WHERE matk = ?)");
 		$stmt->bindValue(1, $matk, PDO::PARAM_INT);
 		$stmt->execute();
 		return $stmt->fetchColumn();
@@ -64,7 +68,7 @@
 		//lay bien ket noi csdl
 		$conn = Connection::getInstance();
 		//thuc hien truy van
-		$stmt = $conn->prepare("SELECT SUM(soluong) FROM requestdetails WHERE masp IN (
+		$stmt = $conn->prepare("SELECT SUM(soluongyc) FROM requestdetails WHERE masp IN (
   SELECT masp 
   FROM products 
   WHERE loaisp = 3) AND request_id IN (SELECT request_id FROM requests WHERE matk = ?) ") ;

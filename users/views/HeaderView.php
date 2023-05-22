@@ -164,20 +164,20 @@
   $(document).ready(function() {
     //bat su kien click cua id=btnSearch
     $("#btnSearch").click(function() {
-      var key = $("#key").val();
+      var key_search = $("#key_search").val();
       //di chuyen den url tim kiem
-      location.href = "index.php?controller=search&action=name&key=" + key;
+      location.href = "index.php?controller=search&action=name&key="+key_search;
     });
     //---
     $(".form-control-navbar").keyup(function() {
-      var strKey = $("#key").val();
+      var strKey = $("#key_search").val();
       if (strKey.trim() == "")
         $(".smart-search").attr("style", "display:none");
       else {
         $(".smart-search").attr("style", "display:block");
         //---
         //su dung ajax de lay du lieu
-        $.get("index.php?controller=search&action=ajaxSearch&key=" + strKey, function(data) {
+        $.get("index.php?controller=search&action=ajaxSearch&key_search=" + strKey, function(data) {
           //clear cac the li ben trong the ul
           $(".smart-search ul").empty();
           //them du lieu vua lay duoc bang ajax vao the ul

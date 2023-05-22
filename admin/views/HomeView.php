@@ -458,7 +458,7 @@ $this->fileLayout = "Layout.php";
           <div class="card-header">
             <h3 class="card-title">
               <i class="fas fa-chart-pie mr-1"></i>
-              Thống kê vật tư theo trạng thái
+              Thống kê tài chính
             </h3>
           </div><!-- /.card-header -->
           <div class="card-body">

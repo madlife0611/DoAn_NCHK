@@ -13,7 +13,7 @@
 			echo $strResult;
 		}
 		public function name(){
-			$key = isset($_GET["key"]) ? $_GET["key"] : "";
+			$key_search = isset($_GET["key_search"]) ? $_GET["key_search"] : "";
 			//quy dinh so ban ghi tren mot trang
 			$recordPerPage = 20;
 			//tinh so trang
@@ -21,7 +21,7 @@
 			//lay du lieu tu model
 			$data = $this->modelRead($recordPerPage);
 			//goi view, truyen du lieu ra view
-			$this->loadView("SearchView.php",["data"=>$data,"numPage"=>$numPage,"key"=>$key]);
+			$this->loadView("SearchView.php",["data"=>$data,"numPage"=>$numPage,"key_search"=>$key_search]);
 		}
 	}
  ?>

@@ -75,24 +75,24 @@ $supplier = $this->getSupplier($bt->mancc);
 
 
                 <div class="col-sm-4 invoice-col">
-                        Đơn vị bảo trì
-                        <address>
-                            <strong><?php
-                                    echo isset($supplier->tenncc) ? $supplier->tenncc : "";
-                                    ?></strong><br>
-                            Email:
-                            <?php
-                            echo isset($supplier->email) ? $supplier->email : "";
-                            ?><br>
-                            Địa chỉ:
-                            <?php
-                            echo isset($supplier->diachi) ? $supplier->diachi : "";
-                            ?><br>
-                            SĐT:
-                            <?php
-                            echo isset($supplier->sdt) ? $supplier->sdt : "";
-                            ?>
-                        </address>
+                    Đơn vị bảo trì
+                    <address>
+                        <strong><?php
+                                echo isset($supplier->tenncc) ? $supplier->tenncc : "";
+                                ?></strong><br>
+                        Email:
+                        <?php
+                        echo isset($supplier->email) ? $supplier->email : "";
+                        ?><br>
+                        Địa chỉ:
+                        <?php
+                        echo isset($supplier->diachi) ? $supplier->diachi : "";
+                        ?><br>
+                        SĐT:
+                        <?php
+                        echo isset($supplier->sdt) ? $supplier->sdt : "";
+                        ?>
+                    </address>
 
                 </div>
                 <!-- /.col -->
@@ -132,10 +132,9 @@ $supplier = $this->getSupplier($bt->mancc);
                                 <th scope="col">Số lần sử dụng</th>
                                 <th scope="col">Trạng thái</th>
                                 <th scope="col">Số lượng</th>
-                                <?php if ($bt->trangthai == 1) : ?>
-                                    <th>Hạn bảo trì mới</th>
-                                    <th>Chi phí bảo trì</th>
-                                <?php endif; ?>
+                                <th>Hạn bảo trì mới</th>
+                                <th>Chi phí bảo trì</th>
+                                <th>Hình thức</th>
                                 <?php if ($bt->trangthai == 0) : ?>
                                     <th></th>
                                 <?php endif; ?>
@@ -172,21 +171,28 @@ $supplier = $this->getSupplier($bt->mancc);
                                         <?php endif; ?>
                                     </td>
                                     <td><?php echo $product->soluong; ?></td>
-                                    <?php if ($bt->trangthai == 1) : ?>
-                                        <?php
-                                        $maintenacedetail = $this->modelGetMaintenancesDetail($rows->mabt, $product->masp);
-                                        ?>
-                                        <td>
+
+                                    <?php
+                                    $maintenacedetail = $this->modelGetMaintenancesDetail($rows->mabt, $product->masp);
+                                    ?>
+                                    <td>
                                         <?php
                                         echo isset($maintenacedetail->hanbaotrimoi) ? $maintenacedetail->hanbaotrimoi : "";
                                         ?>
-                                        </td>
-                                        <td>
+                                    </td>
+                                    <td>
                                         <?php
                                         echo isset($maintenacedetail->chiphi) ? number_format($maintenacedetail->chiphi) : "";
                                         ?>đ
-                                        </td>
-                                    <?php endif; ?>
+                                    </td>
+                                    <td>
+                                    <?php if (isset($maintenacedetail->hinhthuc) && $maintenacedetail->hinhthuc == 0) : ?>
+                                            Bảo trì/Bảo dưỡng
+                                        <?php endif; ?>
+                                        <?php if (isset($maintenacedetail->hinhthuc) && $maintenacedetail->hinhthuc == 1) : ?>
+                                            Bảo hành
+                                        <?php endif; ?>
+                                    </td>       
                                     <?php if ($bt->trangthai == 0) : ?>
                                         <td class="d-flex flex-column">
                                             <?php if (isset($product->trangthai) && $product->trangthai == 2) : ?>
@@ -210,7 +216,7 @@ $supplier = $this->getSupplier($bt->mancc);
             <div class="row no-print">
                 <div class="col-12">
                     <?php if ($bt->trangthai == 0) : ?>
-                        <a href="index.php?controller=maintenances&action=finish_maintenance&mabt=<?php echo $mabt;?>" class="btn btn-success" onclick="return window.confirm('Bạn có chắc chắn hoàn thành bảo trì này?');"><i class="fas fa-check"></i>Hoàn thành bảo trì</a>
+                        <a href="index.php?controller=maintenances&action=finish_maintenance&mabt=<?php echo $mabt; ?>" class="btn btn-success" onclick="return window.confirm('Bạn có chắc chắn hoàn thành bảo trì này?');"><i class="fas fa-check"></i>Hoàn thành bảo trì</a>
                     <?php endif; ?>
                     <?php if ($bt->trangthai == 1) : ?>
                         <a href="index.php?controller=maintenances&action=print_MaintenanceDetail&mabt=<?php echo $mabt; ?>" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> In hóa đơn bảo trì</a>

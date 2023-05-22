@@ -1,0 +1,9 @@
+Đăng nhập vào admin:
+email: admin@gmail.com
+pass:  123
+Đăng nhập vào user:
+email: nva@gmail.com
+pass:  123
+
+Thư mục databases chứa sql dự án. Import lên phpmyadmin với tên là: mvc_qlvattu  -- Bảng mã đối chiếu utf8_general_ci
+

@@ -24,6 +24,7 @@ trait MaintenancesModel
 				'ngaynhap' => $product->ngaynhap,
 				'hanbaotri' => $product->hanbaotri,
 				'gianhap' => $product->gianhap,
+				'loaisp' => $product->loaisp,
 				'mancc' => $product->mancc
 			);
 		}
@@ -204,13 +205,15 @@ trait MaintenancesModel
 		$mabt = isset($_GET["mabt"]) && $_GET["mabt"] > 0 ? $_GET["mabt"] : 0;
 		$hanbaotrimoi = $_POST["hanbaotrimoi"];
 		$chiphi = $_POST["chiphi"];
+		$hinhthuc = isset($_POST["hinhthuc"]) ? 1 : 0;
 		//lay bien ket noi csdl
 		$conn = Connection::getInstance();
 
-		$query = $conn->prepare("update maintenance_details set hanbaotrimoi = :hanbaotrimoi, chiphi = :chiphi where masp=$masp and mabt=$mabt");
+		$query = $conn->prepare("update maintenance_details set hanbaotrimoi = :hanbaotrimoi, chiphi = :chiphi, hinhthuc = :hinhthuc where masp=$masp and mabt=$mabt");
 		$query->execute([
 			"hanbaotrimoi" => $hanbaotrimoi,
-			"chiphi" => $chiphi
+			"chiphi" => $chiphi,
+			"hinhthuc" => $hinhthuc
 		]);
 		// update trạng thái, hạn bảo trì mới cho sản phẩm
 		$query_prod = $conn->prepare("update products set trangthai = 0, hanbaotri = :hanbaotrimoi where masp=$masp");

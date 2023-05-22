@@ -22,10 +22,10 @@
       <div class="navbar-search-block">
         <form class="form-inline">
           <div class="input-group input-group-sm">
-            <input class="form-control form-control-navbar position-relative" autocomplete="off" type="search" placeholder="Tìm kiếm vật tư" id="key" aria-label="Search">
+            <input class="form-control form-control-navbar position-relative" autocomplete="off" type="search" placeholder="Tìm kiếm vật tư" id="key_search" aria-label="Search">
             <div class="input-group-append">
               <button class="btn btn-navbar" type="submit">
-                <i class="fas fa-search" id="btnSearch"></i>
+                <i class="fas fa-search" id="btnSearchAdmin"></i>
               </button>
             </div>
           </div>
@@ -39,6 +39,35 @@
         </form>
       </div>
     </li>
+    <script type="text/javascript">
+  $(document).ready(function() {
+    //bat su kien click cua id=btnSearch
+    $("#btnSearchAdmin").click(function() {
+      var key = $("#key_search").val();
+      //di chuyen den url tim kiem
+      location.href = "index.php?controller=search&action=name&key_search="+key_search;
+    });
+    //---
+    $(".form-control-navbar").keyup(function() {
+      var strKey = $("#key_search").val();
+      if (strKey.trim() == "")
+        $(".smart-search").attr("style", "display:none");
+      else {
+        $(".smart-search").attr("style", "display:block");
+        //---
+        //su dung ajax de lay du lieu
+        $.get("index.php?controller=search&action=ajaxSearch&key_search="+strKey, function(data) {
+          //clear cac the li ben trong the ul
+          $(".smart-search ul").empty();
+          //them du lieu vua lay duoc bang ajax vao the ul
+          $(".smart-search ul").append(data);
+        });
+        //---
+      }
+    });
+    //---
+  });
+</script>
     <?php
       $ProductNumberMaintenance = 0;
       if (isset($_SESSION['maintenance'])) foreach ($_SESSION['maintenance'] as $product)
@@ -116,32 +145,3 @@
     color: black;
   }
 </style>
-<script type="text/javascript">
-  $(document).ready(function() {
-    //bat su kien click cua id=btnSearch
-    $("#btnSearch").click(function() {
-      var key = $("#key").val();
-      //di chuyen den url tim kiem
-      location.href = "index.php?controller=search&action=name&key=" + key;
-    });
-    //---
-    $(".form-control-navbar").keyup(function() {
-      var strKey = $("#key").val();
-      if (strKey.trim() == "")
-        $(".smart-search").attr("style", "display:none");
-      else {
-        $(".smart-search").attr("style", "display:block");
-        //---
-        //su dung ajax de lay du lieu
-        $.get("index.php?controller=search&action=ajaxSearch&key=" + strKey, function(data) {
-          //clear cac the li ben trong the ul
-          $(".smart-search ul").empty();
-          //them du lieu vua lay duoc bang ajax vao the ul
-          $(".smart-search ul").append(data);
-        });
-        //---
-      }
-    });
-    //---
-  });
-</script>

@@ -124,13 +124,13 @@ $this->fileLayout = "Layout.php";
                     <div class="icheck-primary d-inline">
                         <input type="radio" id="radio2" name="loaisp" value="2" <?php echo isset($record->loaisp) == 2 ? "checked" : ""; ?>>
                         <label for="radio2">
-                            Dùng xong trả lại
+                            Dùng xong trả lại kho
                         </label>
                     </div>
                     <div class="icheck-primary d-inline">
                         <input type="radio" id="radio3" name="loaisp" value="3" <?php echo isset($record->loaisp) == 3 ? "checked" : ""; ?>>
                         <label for="radio3">
-                            Tái sử dụng nhiều lần
+                            Trang thiết bị y tế
                         </label>
                     </div>
                 </div>
